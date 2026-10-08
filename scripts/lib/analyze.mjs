@@ -132,6 +132,27 @@ export async function measurePage(page) {
       };
     });
 
+    // WebGL canvases are where shaders live.
+    const webgl = [...document.querySelectorAll("canvas")]
+      .filter((c) => {
+        const r = c.getBoundingClientRect();
+        if (r.width < 150 || r.height < 100) return false;
+        try {
+          return !!(c.getContext("webgl2") || c.getContext("webgl"));
+        } catch {
+          return false;
+        }
+      })
+      .map((c) => {
+        const r = c.getBoundingClientRect();
+        return {
+          x: Math.round(r.left),
+          y: Math.round(r.top + scrollY),
+          w: Math.round(r.width),
+          h: Math.round(r.height),
+        };
+      });
+
     const meta = (n) =>
       document
         .querySelector(`meta[name="${n}"], meta[property="${n}"]`)
@@ -152,6 +173,7 @@ export async function measurePage(page) {
       headings,
       media,
       animations,
+      webgl,
     };
   });
 

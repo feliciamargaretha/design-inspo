@@ -314,6 +314,15 @@ export function report(capture, { id, url, files }) {
     );
   }
   p();
+  if (capture.webgl?.length) {
+    p(`### WebGL canvases (likely shaders)`);
+    p();
+    for (const c of capture.webgl)
+      p(
+        `- ${c.w}×${c.h} at x ${c.x}, y ${c.y}: check for a shader (imagery: \`shader\`, motion: \`shader-animation\`)`,
+      );
+    p();
+  }
   p(`### Browser animation list`);
   p();
   for (const a of capture.animations.slice(0, 20)) {

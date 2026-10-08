@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Check, ChevronDown } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 export interface FilterGroup {
   key: string;
@@ -41,9 +47,11 @@ function writeUrl(selection: Selection) {
 }
 
 /**
- * Filter chips for a static grid. Items are server-rendered with
- * `data-f-<key>="value value"` attributes; within a group any selected value
- * matches (OR), across groups all must match (AND).
+ * One-line filter bar for a static grid: a dropdown checklist per filter.
+ * Items are server-rendered with `data-f-<key>="value value"` attributes;
+ * within a filter any checked value matches (OR), across filters all must
+ * match (AND). The selection is kept in the URL so filtered views can be
+ * shared.
  */
 export default function FilterBar({ groups, target, noun = "entries" }: Props) {
   const [selection, setSelection] = useState<Selection>({});
@@ -72,59 +80,94 @@ export default function FilterBar({ groups, target, noun = "entries" }: Props) {
     if (Object.keys(selection).length) writeUrl(selection);
   }, [selection, target]);
 
+  const toggle = (key: string, value: string) =>
+    setSelection((s) => {
+      const current = s[key] ?? [];
+      return {
+        ...s,
+        [key]: current.includes(value)
+          ? current.filter((v) => v !== value)
+          : [...current, value],
+      };
+    });
+
   const active = Object.values(selection).some((v) => v.length);
 
   return (
-    <div className="mb-8 space-y-4">
-      {groups.map((group) => (
-        <div
-          key={group.key}
-          className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4"
+    <div className="mb-8 flex flex-wrap items-center gap-2">
+      {groups.map((group) => {
+        const picked = selection[group.key] ?? [];
+        const summary =
+          picked.length === 1
+            ? `${group.label}: ${group.options.find((o) => o.value === picked[0])?.label ?? picked[0]}`
+            : picked.length > 1
+              ? `${group.label} · ${picked.length}`
+              : group.label;
+        return (
+          <Popover key={group.key}>
+            <PopoverTrigger
+              className={cn(
+                "inline-flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-sm transition-colors focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                picked.length
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border bg-background hover:bg-secondary",
+              )}
+            >
+              {summary}
+              <ChevronDown className="size-3.5 opacity-60" aria-hidden />
+            </PopoverTrigger>
+            <PopoverContent align="start" className="w-64 p-1.5">
+              <ul role="listbox" aria-multiselectable aria-label={group.label}>
+                {group.options.map((o) => {
+                  const on = picked.includes(o.value);
+                  return (
+                    <li key={o.value}>
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={on}
+                        onClick={() => toggle(group.key, o.value)}
+                        className="flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm hover:bg-secondary"
+                      >
+                        <span
+                          className={cn(
+                            "flex size-4 shrink-0 items-center justify-center rounded border",
+                            on
+                              ? "border-foreground bg-foreground text-background"
+                              : "border-border",
+                          )}
+                        >
+                          {on && <Check className="size-3" aria-hidden />}
+                        </span>
+                        <span className="flex-1">{o.label}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {o.count}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </PopoverContent>
+          </Popover>
+        );
+      })}
+      {active && (
+        <button
+          type="button"
+          onClick={() =>
+            setSelection(Object.fromEntries(groups.map((g) => [g.key, []])))
+          }
+          className="px-2 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
         >
-          <span className="w-32 shrink-0 pt-1.5 text-sm font-medium text-muted-foreground">
-            {group.label}
-          </span>
-          <ToggleGroup
-            type="multiple"
-            variant="outline"
-            size="sm"
-            value={selection[group.key] ?? []}
-            onValueChange={(values) =>
-              setSelection((s) => ({ ...s, [group.key]: values }))
-            }
-            className="flex flex-wrap justify-start gap-1.5 shadow-none"
-          >
-            {group.options.map((o) => (
-              <ToggleGroupItem
-                key={o.value}
-                value={o.value}
-                className="rounded-full! border px-3 data-[state=on]:border-foreground data-[state=on]:bg-foreground data-[state=on]:text-background"
-              >
-                {o.label}
-                <span className="ml-1 text-xs opacity-60">{o.count}</span>
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </div>
-      ))}
-      <div className="flex items-center gap-3 text-sm text-muted-foreground">
-        {shown !== null && (
-          <span>
-            {shown} {noun}
-          </span>
-        )}
-        {active && (
-          <button
-            type="button"
-            onClick={() =>
-              setSelection(Object.fromEntries(groups.map((g) => [g.key, []])))
-            }
-            className="underline underline-offset-4 hover:text-foreground"
-          >
-            Clear filters
-          </button>
-        )}
-      </div>
+          Clear
+        </button>
+      )}
+      {shown !== null && (
+        <span className="ml-auto text-sm text-muted-foreground">
+          {shown} {noun}
+        </span>
+      )}
     </div>
   );
 }

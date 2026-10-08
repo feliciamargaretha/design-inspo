@@ -19,8 +19,18 @@ const COOKIE_BUTTONS = [
   "OK",
 ];
 
+/**
+ * Software WebGL, so sites that only draw their shaders on capable hardware
+ * (e.g. Stripe's hero wave) render them in screenshots and recordings too.
+ */
 export async function launch() {
-  return chromium.launch();
+  return chromium.launch({
+    args: [
+      "--enable-unsafe-swiftshader",
+      "--use-angle=swiftshader",
+      "--ignore-gpu-blocklist",
+    ],
+  });
 }
 
 /**

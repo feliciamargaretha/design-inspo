@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import FilterBar from "@/components/FilterBar";
 import ExampleCard from "@/components/ExampleCard.astro";
 import { allExamples, getEntries } from "@/lib/content";
-import { filterGroup } from "@/lib/filters";
+import { feelGroup, filterGroup } from "@/lib/filters";
 import { GLOSSARY } from "@/data/glossary";
 import {
   IMAGERY_STYLES,
@@ -35,6 +35,7 @@ const groups = [
     name,
   ),
   filterGroup("texture", "Texture", TEXTURES, examples, pick(TEXTURES), name),
+  feelGroup(examples, (ex) => ex.entry.data.tags),
 ].filter((g) => g.options.length > 0);
 ---
 
@@ -50,6 +51,7 @@ const groups = [
         <ExampleCard
           example={ex}
           filters={{
+            feel: ex.entry.data.tags,
             style: pick(IMAGERY_STYLES)(ex),
             treatment: pick(IMAGERY_TREATMENTS)(ex),
             texture: pick(TEXTURES)(ex),

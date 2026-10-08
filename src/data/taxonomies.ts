@@ -145,6 +145,7 @@ export const IMAGERY_STYLES = [
   "hand-drawn",
   "character-mascot",
   "abstract-shapes",
+  "shader",
   "line-icons",
   "logo-wall",
   "mixed-media-collage",
@@ -191,6 +192,7 @@ export const MOTION_TYPES = [
   "micro-interaction",
   "page-transition",
   "skeleton-loading",
+  "shader-animation",
   "background-video",
 ] as const;
 

@@ -9,7 +9,7 @@ import {
   googleFontsHref,
   mediaUrl,
 } from "@/lib/content";
-import { filterGroup } from "@/lib/filters";
+import { feelGroup, filterGroup } from "@/lib/filters";
 import { url } from "@/lib/url";
 import { TYPE_STYLE_TERMS } from "@/data/glossary";
 import { TYPE_STYLES, label } from "@/data/taxonomies";
@@ -28,6 +28,7 @@ const groups = [
   filterGroup("license", "License", ["free", "paid"], fonts, (f) => [
     f.data.free ? "free" : "paid",
   ]),
+  feelGroup(fonts, (f) => f.data.tags),
 ].filter((g) => g.options.length > 0);
 ---
 
@@ -64,6 +65,7 @@ const groups = [
               data-item
               data-f-style={font.data.style}
               data-f-license={font.data.free ? "free" : "paid"}
+              data-f-feel={font.data.tags.join(" ")}
             >
               <a
                 href={url(`/typography/library/${font.id}/`)}

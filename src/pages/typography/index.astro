@@ -6,7 +6,7 @@ import FontWeights from "@/components/FontWeights.astro";
 import FilterBar from "@/components/FilterBar";
 import Terms from "@/components/Terms";
 import { getEntries, mediaUrl } from "@/lib/content";
-import { filterGroup } from "@/lib/filters";
+import { feelGroup, filterGroup } from "@/lib/filters";
 import { term } from "@/lib/terms";
 import { entryUrl } from "@/lib/url";
 import { TYPE_STYLE_TERMS } from "@/data/glossary";
@@ -26,6 +26,7 @@ const groups = [
     (v) => TYPE_STYLE_TERMS[v as keyof typeof TYPE_STYLE_TERMS].name,
   ),
   filterGroup("role", "Used for", TYPE_ROLES, fonts, (f) => f.font.roles),
+  feelGroup(fonts, (f) => f.entry.data.tags),
 ];
 ---
 
@@ -43,6 +44,7 @@ const groups = [
           data-item
           data-f-style={font.style}
           data-f-role={font.roles.join(" ")}
+          data-f-feel={entry.data.tags.join(" ")}
         >
           <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
             <h2 class="font-semibold">{font.family}</h2>

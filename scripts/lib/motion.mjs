@@ -218,7 +218,11 @@ async function writeClip(frames, durations, file, width) {
     .toFile(file);
 }
 
-/** Records a time-based region for `seconds` at `fps`. */
+/**
+ * Records a time-based region for `seconds`. Uses the browser's screencast,
+ * which streams frames as they're painted: much faster than one screenshot
+ * per frame, which matters for software-rendered WebGL.
+ */
 export async function recordTime(
   page,
   region,
@@ -236,20 +240,55 @@ export async function recordTime(
   );
   await page.waitForTimeout(500);
   const clip = await clipFor(page, box);
-  const frames = [];
-  const start = Date.now();
-  while (Date.now() - start < seconds * 1000) {
-    frames.push(await page.screenshot({ clip }));
-    await page.waitForTimeout(1000 / fps);
+
+  const cdp = await page.context().newCDPSession(page);
+  const raw = [];
+  cdp.on("Page.screencastFrame", async ({ data, sessionId, metadata }) => {
+    raw.push({ data: Buffer.from(data, "base64"), t: metadata.timestamp });
+    await cdp.send("Page.screencastFrameAck", { sessionId }).catch(() => {});
+  });
+  await cdp.send("Page.startScreencast", {
+    format: "jpeg",
+    quality: 85,
+    maxWidth: VIEWPORT.width,
+    maxHeight: VIEWPORT.height,
+  });
+  await page.waitForTimeout(seconds * 1000);
+  await cdp.send("Page.stopScreencast");
+  await cdp.detach();
+
+  // Resample to a steady frame rate, then crop to the region.
+  const step = 1 / fps;
+  const picked = [];
+  if (raw.length) {
+    const t0 = raw[0].t;
+    for (let t = 0; t <= raw.at(-1).t - t0 + 1e-6; t += step) {
+      const frame = raw.findLast((f) => f.t - t0 <= t + 1e-6) ?? raw[0];
+      picked.push(frame.data);
+    }
   }
-  const step = Math.round((seconds * 1000) / frames.length);
+  if (picked.length < 2) picked.push(await page.screenshot());
+  const frames = await Promise.all(
+    picked.map((buf) =>
+      sharp(buf)
+        .resize(VIEWPORT.width, VIEWPORT.height)
+        .extract({
+          left: clip.x,
+          top: clip.y,
+          width: clip.width,
+          height: clip.height,
+        })
+        .png()
+        .toBuffer(),
+    ),
+  );
   await writeClip(
     frames,
-    frames.map(() => step),
+    frames.map(() => Math.round(1000 / fps)),
     file,
     Math.min(1200, clip.width),
   );
-  return { frames: frames.length };
+  return { frames: frames.length, painted: raw.length };
 }
 
 /**
@@ -286,11 +325,55 @@ export async function recordReveal(
   return { frames: frames.length };
 }
 
+/** WebGL canvases: shaders animate inside them, invisible to DOM comparison. */
+export async function detectShaders(page) {
+  const boxes = await page.evaluate(() =>
+    [...document.querySelectorAll("canvas")]
+      .filter((c) => {
+        const r = c.getBoundingClientRect();
+        if (r.width < 150 || r.height < 100) return false;
+        try {
+          return !!(c.getContext("webgl2") || c.getContext("webgl"));
+        } catch {
+          return false;
+        }
+      })
+      .map((c) => {
+        const r = c.getBoundingClientRect();
+        return {
+          x: r.left,
+          y: r.top + scrollY,
+          width: r.width,
+          height: r.height,
+        };
+      }),
+  );
+  const unique = boxes.filter(
+    (b, i) =>
+      boxes.findIndex(
+        (o) =>
+          Math.abs(o.x - b.x) < 4 &&
+          Math.abs(o.y - b.y) < 4 &&
+          Math.abs(o.width - b.width) < 4,
+      ) === i,
+  );
+  return unique.map((box) => ({
+    kind: "shader",
+    box: {
+      x: Math.max(0, box.x),
+      y: box.y,
+      width: Math.min(VIEWPORT.width - Math.max(0, box.x), box.width),
+      height: Math.min(box.height, VIEWPORT.height - 20),
+    },
+  }));
+}
+
 /** Full motion pass: detect everything, then record each region. */
 export async function captureMotion(browser, url, dir, { max = 4 } = {}) {
   const page = await open(browser, url);
   const height = await scrollThrough(page);
   const time = (await detectTimeMotion(page, height)).slice(0, max);
+  const shaders = (await detectShaders(page)).slice(0, 2);
   await page.context().close();
 
   const fresh = await open(browser, url);
@@ -300,7 +383,7 @@ export async function captureMotion(browser, url, dir, { max = 4 } = {}) {
   const results = [];
   const watcher = await open(browser, url);
   await scrollThrough(watcher);
-  for (const [n, region] of time.entries()) {
+  for (const [n, region] of [...time, ...shaders].entries()) {
     const file = `${dir}/motion-${region.kind}-${n + 1}.webp`;
     await recordTime(watcher, region, file);
     results.push({ ...region, file });
