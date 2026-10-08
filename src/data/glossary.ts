@@ -91,8 +91,8 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
       "Graphics drawn live by the graphics card from code rather than loaded as an image: liquid gradients, noise and grain, glowing blobs, distortions. Usually animated.",
   },
   "line-icons": {
-    name: "Line icons",
-    aka: ["outline icons", "stroke icons"],
+    name: "Outline icons",
+    aka: ["Line icons", "stroke icons"],
     definition:
       "Small symbols drawn with an even stroke and no fill, used to label features at a glance.",
   },
