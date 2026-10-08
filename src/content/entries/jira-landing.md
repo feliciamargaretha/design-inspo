@@ -67,24 +67,20 @@ typography:
           lineHeight: 67
           weight: 500
           tracking: -1.28
-          sample: Turn ideas into forward motion
         - label: Heading 2
           size: 48
           lineHeight: 56
           weight: 500
           tracking: -0.96
-          sample: Keep your entire team in the know
         - label: Heading 3
           size: 32
           lineHeight: 40
           weight: 500
-          sample: More than project management
         - label: Quote
           size: 24
           lineHeight: 33
           weight: 400
           tracking: -0.24
-          sample: Agents in Jira raise the floor for what every team can do.
     - family: Charlie Text
       style: geometric-sans
       roles: [body, ui]
@@ -100,24 +96,21 @@ typography:
           lineHeight: 31
           weight: 400
           tracking: -0.2
-          sample: Jira gives teams and agents the context, coordination, and control to move from intent to impact.
         - label: Body
           size: 16
           lineHeight: 25
           weight: 400
           tracking: -0.16
-          sample: Capture conversations from Slack and Microsoft Teams and turn them into actionable tasks.
         - label: Eyebrow
           size: 16
           lineHeight: 19
           weight: 500
           tracking: 1.28
-          sample: WORKS WITH
+          uppercase: true
         - label: Button
           size: 16
           lineHeight: 24
           weight: 500
-          sample: Get it free
     - family: Atlassian Mono
       style: monospace
       roles: [code]
@@ -130,7 +123,6 @@ typography:
           size: 48
           lineHeight: 56
           weight: 500
-          sample: "> in your IDE"
   what: >-
     Atlassian's custom brand typeface in two optical cuts: Charlie Display at
     large sizes (medium weight, tight letter-spacing) for headlines, Charlie

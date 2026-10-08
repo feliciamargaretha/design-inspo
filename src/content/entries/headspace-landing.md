@@ -66,42 +66,35 @@ typography:
           lineHeight: 72
           weight: 700
           tracking: -2.16
-          sample: Get your headspace
         - label: Heading 2
           size: 64
           lineHeight: 64
           weight: 700
           tracking: -1.92
-          sample: Members are enjoying happier lives
         - label: Heading 3
           size: 40
           lineHeight: 46
           weight: 700
           tracking: -1.2
-          sample: Always-there support
         - label: Card title
           size: 32
           lineHeight: 38
           weight: 700
           tracking: -0.96
-          sample: Mental health app with expert-led meditations
         - label: Body large
           size: 24
           lineHeight: 31
           weight: 400
-          sample: What is Headspace?
         - label: Body
           size: 18
           lineHeight: 26
           weight: 400
           tracking: -0.18
-          sample: Support your team today with mindfulness, coaching, therapy, and psychiatry.
         - label: Button
           size: 18
           lineHeight: 22
           weight: 700
           tracking: -0.54
-          sample: Try for free
   what: >-
     One typeface throughout: a custom version of Apercu with round, friendly
     details. Headlines are bold, large (40 to 72px) and tightly tracked; body

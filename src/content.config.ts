@@ -143,7 +143,7 @@ const entries = defineCollection({
                   weights: z
                     .array(z.object({ value: z.number(), name: z.string() }))
                     .min(1),
-                  /** How the page uses the font, largest first. Sizes in px. */
+                  /** How the page uses the font, largest first. Sizes in px. The specimen shows the font's name in each style. */
                   scale: z
                     .array(
                       z.object({
@@ -152,7 +152,8 @@ const entries = defineCollection({
                         lineHeight: z.number(),
                         weight: z.number(),
                         tracking: z.number().optional(),
-                        sample: z.string(),
+                        /** Set when the page sets this style in capitals. */
+                        uppercase: z.boolean().default(false),
                       }),
                     )
                     .default([]),

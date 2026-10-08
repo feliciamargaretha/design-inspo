@@ -54,7 +54,7 @@ function specimenHtml(font) {
         <div style="width:150px;flex:none;font-size:13px;line-height:1.5;color:${MUTED}">
           ${esc(s.label)}<br>${s.size}/${s.lineHeight} · ${s.weight}${s.tracking ? ` · ${s.tracking}px` : ""}
         </div>
-        <div style="min-width:0;font-size:${s.size}px;line-height:${s.lineHeight}px;font-weight:${s.weight};letter-spacing:${s.tracking ?? 0}px">${esc(s.sample)}</div>
+        <div style="min-width:0;font-size:${s.size}px;line-height:${s.lineHeight}px;font-weight:${s.weight};letter-spacing:${s.tracking ?? 0}px;text-transform:${s.uppercase ? "uppercase" : "none"}">${esc(font.family)}</div>
       </div>`,
     )
     .join("");
