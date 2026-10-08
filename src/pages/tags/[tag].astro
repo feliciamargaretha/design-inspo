@@ -1,0 +1,58 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EntryCard from "@/components/EntryCard.astro";
+import { getEntries, type EntryWithProduct } from "@/lib/content";
+import { tagUrl } from "@/lib/url";
+import { PERSONALITY_TAGS, label } from "@/data/taxonomies";
+
+export async function getStaticPaths() {
+  const entries = await getEntries();
+  return PERSONALITY_TAGS.filter((tag) =>
+    entries.some((e) => e.data.tags.includes(tag)),
+  ).map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      entries,
+      matching: entries.filter((e) => e.data.tags.includes(tag)),
+    },
+  }));
+}
+
+interface Props {
+  tag: string;
+  entries: EntryWithProduct[];
+  matching: EntryWithProduct[];
+}
+const { tag, entries, matching } = Astro.props;
+const used = PERSONALITY_TAGS.filter((t) =>
+  entries.some((e) => e.data.tags.includes(t)),
+);
+---
+
+<BaseLayout title={label(tag)}>
+  <PageHeader
+    eyebrow="Personality"
+    title={label(tag)}
+    description={`${matching.length} ${matching.length === 1 ? "entry" : "entries"} with a ${tag} personality.`}
+  />
+  <ul class="mb-10 flex flex-wrap gap-1.5" aria-label="Other personalities">
+    {used.map((t) => (
+      <li>
+        <a
+          href={tagUrl(t)}
+          aria-current={t === tag ? "page" : undefined}
+          class="inline-block rounded-full border border-border px-3 py-1 text-sm transition-colors hover:bg-secondary aria-[current=page]:border-foreground aria-[current=page]:bg-foreground aria-[current=page]:text-background"
+        >
+          {label(t)}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+    {matching.map((entry) => (
+      <EntryCard entry={entry} />
+    ))}
+  </ul>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+// Card for an entry in a grid. `filters` become data attributes the
+// FilterBar island reads (space-separated values per filter key).
+import type { EntryWithProduct } from "@/lib/content";
+import { mediaUrl } from "@/lib/content";
+import { label } from "@/data/taxonomies";
+import { entryUrl } from "@/lib/url";
+
+interface Props {
+  entry: EntryWithProduct;
+  filters?: Record<string, readonly string[]>;
+}
+
+const { entry, filters = {} } = Astro.props;
+const data = Object.fromEntries(
+  Object.entries(filters).map(([k, v]) => [`data-f-${k}`, v.join(" ")]),
+);
+---
+
+<li data-item {...data}>
+  <a
+    href={entryUrl(entry.id)}
+    class="group block rounded-xl focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+  >
+    <div class="aspect-[8/5] overflow-hidden rounded-xl border border-border bg-secondary">
+      <img
+        src={mediaUrl(entry.id, entry.data.cover)}
+        alt=""
+        width="960"
+        height="600"
+        loading="lazy"
+        decoding="async"
+        class="size-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+      />
+    </div>
+    <div class="mt-3 flex items-baseline justify-between gap-3">
+      <h3 class="font-medium">{entry.productData.data.name}</h3>
+      <span class="shrink-0 text-xs text-muted-foreground">
+        {label(entry.data.type)}
+      </span>
+    </div>
+    <p class="mt-0.5 text-sm text-muted-foreground">
+      {label(entry.productData.data.category)} ·{" "}
+      {entry.data.tags.slice(0, 3).map(label).join(", ")}
+    </p>
+  </a>
+</li>

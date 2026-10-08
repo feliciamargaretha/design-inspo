@@ -50,3 +50,28 @@ export async function getEntries(): Promise<EntryWithProduct[]> {
     (a, b) => b.data.capturedAt.getTime() - a.data.capturedAt.getTime(),
   );
 }
+
+export interface ExampleRef {
+  entry: EntryWithProduct;
+  section: "imagery" | "motion";
+  src: string;
+  alt: string;
+  caption?: string;
+  terms: string[];
+}
+
+/** Every imagery and motion example across entries, with its entry. */
+export function allExamples(entries: EntryWithProduct[]): ExampleRef[] {
+  return entries.flatMap((entry) => [
+    ...entry.data.imagery.examples.map((ex) => ({
+      entry,
+      section: "imagery" as const,
+      ...ex,
+    })),
+    ...(entry.data.motion?.examples ?? []).map((ex) => ({
+      entry,
+      section: "motion" as const,
+      ...ex,
+    })),
+  ]);
+}

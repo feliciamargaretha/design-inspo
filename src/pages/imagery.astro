@@ -1,0 +1,64 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import FilterBar from "@/components/FilterBar";
+import ExampleCard from "@/components/ExampleCard.astro";
+import { allExamples, getEntries } from "@/lib/content";
+import { filterGroup } from "@/lib/filters";
+import { GLOSSARY } from "@/data/glossary";
+import {
+  IMAGERY_STYLES,
+  IMAGERY_TREATMENTS,
+  TEXTURES,
+} from "@/data/taxonomies";
+
+const entries = await getEntries();
+const examples = allExamples(entries).filter((e) => e.section === "imagery");
+const name = (v: string) => GLOSSARY[v]!.name;
+const pick = (list: readonly string[]) => (ex: (typeof examples)[number]) =>
+  ex.terms.filter((t) => list.includes(t));
+const groups = [
+  filterGroup(
+    "style",
+    "Style",
+    IMAGERY_STYLES,
+    examples,
+    pick(IMAGERY_STYLES),
+    name,
+  ),
+  filterGroup(
+    "treatment",
+    "Treatment",
+    IMAGERY_TREATMENTS,
+    examples,
+    pick(IMAGERY_TREATMENTS),
+    name,
+  ),
+  filterGroup("texture", "Texture", TEXTURES, examples, pick(TEXTURES), name),
+].filter((g) => g.options.length > 0);
+---
+
+<BaseLayout title="Imagery">
+  <PageHeader
+    title="Imagery"
+    description="Visual styles, image treatments and textures, each example labeled with its proper name. Tap a name to learn what it means."
+  />
+  <FilterBar client:load groups={groups} target="grid" noun="examples" />
+  <div id="grid">
+    <ul class="columns-1 gap-6 space-y-8 sm:columns-2 lg:columns-3">
+      {examples.map((ex) => (
+        <ExampleCard
+          example={ex}
+          filters={{
+            style: pick(IMAGERY_STYLES)(ex),
+            treatment: pick(IMAGERY_TREATMENTS)(ex),
+            texture: pick(TEXTURES)(ex),
+          }}
+        />
+      ))}
+    </ul>
+    <p data-empty hidden class="py-16 text-center text-muted-foreground">
+      Nothing matches these filters.
+    </p>
+  </div>
+</BaseLayout>

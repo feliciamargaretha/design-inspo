@@ -1,0 +1,235 @@
+---
+// Detail page for one entry: hero media, then a breakdown per topic.
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Breakdown from "@/components/Breakdown.astro";
+import Examples from "@/components/Examples.astro";
+import Palette from "@/components/Palette.astro";
+import ColorWheel from "@/components/ColorWheel.astro";
+import HarmonyGuide from "@/components/HarmonyGuide.astro";
+import { mediaUrl, type EntryWithProduct } from "@/lib/content";
+import { isNeutral } from "@/lib/color";
+import { term, terms } from "@/lib/terms";
+import { tagUrl, url } from "@/lib/url";
+import { label } from "@/data/taxonomies";
+
+interface Props {
+  entry: EntryWithProduct;
+}
+const { entry } = Astro.props;
+const { data } = entry;
+const product = entry.productData.data;
+const { Content } = await render(entry);
+const { colors, typography, imagery, motion } = data;
+
+const sections = [
+  { id: "colors", title: "Colors" },
+  { id: "typography", title: "Typography" },
+  { id: "imagery", title: "Imagery" },
+  ...(motion ? [{ id: "motion", title: "Motion" }] : []),
+];
+const hero = data.media[0]!;
+const typeName = {
+  landing: "Landing page",
+  ios: "iOS app",
+  desktop: "Desktop app",
+}[data.type];
+---
+
+<BaseLayout
+  title={`${product.name} ${typeName}`}
+  description={`${product.name} ${typeName.toLowerCase()}: color, typography, imagery and motion breakdown.`}
+>
+  <a
+    href={url(`/inspiration/${data.type}/`)}
+    class="text-sm text-muted-foreground hover:text-foreground"
+  >
+    ← {typeName}s
+  </a>
+
+  <header class="mt-4 mb-8 flex flex-wrap items-end justify-between gap-6">
+    <div class="max-w-2xl">
+      <p class="text-sm text-muted-foreground">
+        {typeName} · {label(product.category)}
+      </p>
+      <h1 class="mt-1 text-4xl font-semibold tracking-tight sm:text-5xl">
+        {product.name}
+      </h1>
+      <div class="mt-4 text-lg leading-relaxed text-pretty text-muted-foreground">
+        <Content />
+      </div>
+      <ul class="mt-5 flex flex-wrap gap-1.5" aria-label="Personality">
+        {data.tags.map((tag) => (
+          <li>
+            <a
+              href={tagUrl(tag)}
+              class="inline-block rounded-full bg-secondary px-3 py-1 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+            >
+              {label(tag)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <a
+      href={data.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex h-10 items-center rounded-md bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+    >
+      Visit the live site ↗
+    </a>
+  </header>
+
+  <figure>
+    <div
+      class="max-h-[80vh] overflow-y-auto rounded-xl border border-border bg-secondary"
+      tabindex="0"
+      aria-label="Full-page screenshot (scrollable)"
+    >
+      <img src={mediaUrl(entry.id, hero.src)} alt={hero.alt} class="w-full" />
+    </div>
+    <figcaption class="mt-2 text-sm text-muted-foreground">
+      Full page, captured{" "}
+      {data.capturedAt.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })}
+      . Scroll inside the frame to see it all.
+    </figcaption>
+  </figure>
+
+  <nav
+    aria-label="Breakdown"
+    class="sticky top-14 z-30 -mx-4 mt-10 mb-2 flex gap-1 overflow-x-auto border-b border-border bg-background/90 px-4 py-2 backdrop-blur sm:mx-0 sm:px-0"
+  >
+    {sections.map((s) => (
+      <a
+        href={`#${s.id}`}
+        class="shrink-0 rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+      >
+        {s.title}
+      </a>
+    ))}
+  </nav>
+
+  <div class="space-y-14 pt-4">
+    <Breakdown
+      id="colors"
+      title="Colors"
+      what={colors.what}
+      why={colors.why}
+      basis={colors.basis}
+      sources={colors.sources}
+      terms={[
+        { label: "Harmony", items: [term(colors.harmony)] },
+        { label: "Strategy", items: [term(colors.strategy)] },
+      ]}
+    >
+      <div class="space-y-10">
+        <Palette colors={colors.palette} />
+        <div class="grid gap-8 rounded-xl border border-border p-5 sm:p-8">
+          <div>
+            <h3 class="font-semibold">On the color wheel</h3>
+            <p class="mt-1 text-sm text-muted-foreground">
+              Each color sits at its hue angle; the shape shows the harmony.
+            </p>
+          </div>
+          <ColorWheel
+            harmony={colors.harmony}
+            harmonyColors={colors.palette.filter((c) =>
+              colors.harmonyColors.includes(c.hex),
+            )}
+            accents={colors.palette.filter(
+              (c) => !colors.harmonyColors.includes(c.hex) && !isNeutral(c.hex),
+            )}
+            neutrals={colors.palette.filter((c) => isNeutral(c.hex))}
+          />
+          <div>
+            <h3 class="mb-3 font-semibold">Compare the harmonies</h3>
+            <HarmonyGuide
+              harmony={colors.harmony}
+              baseHex={colors.harmonyColors[0]!}
+            />
+          </div>
+        </div>
+        {colors.examples.length > 0 && (
+          <Examples entryId={entry.id} items={colors.examples} />
+        )}
+      </div>
+    </Breakdown>
+
+    <Breakdown
+      id="typography"
+      title="Typography"
+      what={typography.what}
+      why={typography.why}
+      basis={typography.basis}
+      sources={typography.sources}
+      terms={[
+        {
+          label: "Classification",
+          items: terms([...new Set(typography.fonts.map((f) => f.style))]),
+        },
+      ]}
+    >
+      <div class="space-y-10">
+        {typography.fonts.map((font) => (
+          <div>
+            <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+              <h3 class="text-lg font-semibold">{font.family}</h3>
+              <p class="text-sm text-muted-foreground">
+                Used for {font.roles.map(label).join(", ").toLowerCase()}
+              </p>
+            </div>
+            {font.specimen && (
+              <div class="overflow-hidden rounded-xl border border-border">
+                <img
+                  src={mediaUrl(entry.id, font.specimen)}
+                  alt={`Type specimen of ${font.family}: character set, weights ${font.weights.map((w) => w.name).join(", ")}, and the page's type scale`}
+                  loading="lazy"
+                  class="w-full"
+                />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </Breakdown>
+
+    <Breakdown
+      id="imagery"
+      title="Imagery"
+      what={imagery.what}
+      why={imagery.why}
+      basis={imagery.basis}
+      sources={imagery.sources}
+      terms={[
+        { label: "Style", items: terms(imagery.styles) },
+        ...(imagery.treatments.length
+          ? [{ label: "Treatment", items: terms(imagery.treatments) }]
+          : []),
+        ...(imagery.textures.length
+          ? [{ label: "Texture", items: terms(imagery.textures) }]
+          : []),
+      ]}
+    >
+      <Examples entryId={entry.id} items={imagery.examples} />
+    </Breakdown>
+
+    {motion && (
+      <Breakdown
+        id="motion"
+        title="Motion"
+        what={motion.what}
+        why={motion.why}
+        basis={motion.basis}
+        sources={motion.sources}
+        terms={[{ label: "Technique", items: terms(motion.types) }]}
+      >
+        <Examples entryId={entry.id} items={motion.examples} />
+      </Breakdown>
+    )}
+  </div>
+</BaseLayout>

@@ -1,5 +1,5 @@
 ---
-// All seven colour harmonies as small wheels, built from the entry's own
+// All seven color harmonies as small wheels, built from the entry's own
 // base hue, with the entry's harmony highlighted, plus the definition.
 import ColorWheel from "@/components/ColorWheel.astro";
 import { COLOR_HARMONY_TERMS } from "@/data/glossary";
@@ -8,7 +8,7 @@ import { HARMONY_OFFSETS, hexToHsl, type Harmony } from "@/lib/color";
 
 interface Props {
   harmony: Harmony;
-  /** The hue every example wheel starts from (defaults to the first harmony colour). */
+  /** The hue every example wheel starts from (defaults to the first harmony color). */
   baseHex: string;
 }
 
@@ -74,8 +74,8 @@ const examples = COLOR_HARMONIES.map((h) => ({
   }
   .item.active {
     opacity: 1;
-    background: #f4f4f5;
-    box-shadow: inset 0 0 0 2px #16161a;
+    background: var(--secondary);
+    box-shadow: inset 0 0 0 2px var(--foreground);
   }
   .name {
     font-size: 12px;

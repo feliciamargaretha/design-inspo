@@ -1,0 +1,41 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import FilterBar from "@/components/FilterBar";
+import ExampleCard from "@/components/ExampleCard.astro";
+import { allExamples, getEntries } from "@/lib/content";
+import { filterGroup } from "@/lib/filters";
+import { MOTION_TERMS } from "@/data/glossary";
+import { MOTION_TYPES } from "@/data/taxonomies";
+
+const entries = await getEntries();
+const examples = allExamples(entries).filter((e) => e.section === "motion");
+const groups = [
+  filterGroup(
+    "technique",
+    "Technique",
+    MOTION_TYPES,
+    examples,
+    (ex) => ex.terms,
+    (v) => MOTION_TERMS[v as keyof typeof MOTION_TERMS].name,
+  ),
+];
+---
+
+<BaseLayout title="Motion">
+  <PageHeader
+    title="Motion"
+    description="Animations recorded from the live pages, named by technique. Techniques combine: one card can scroll-reveal with a slide-in, fade-in and stagger."
+  />
+  <FilterBar client:load groups={groups} target="grid" noun="clips" />
+  <div id="grid">
+    <ul class="columns-1 gap-6 space-y-8 sm:columns-2">
+      {examples.map((ex) => (
+        <ExampleCard example={ex} filters={{ technique: ex.terms }} />
+      ))}
+    </ul>
+    <p data-empty hidden class="py-16 text-center text-muted-foreground">
+      Nothing matches these filters.
+    </p>
+  </div>
+</BaseLayout>

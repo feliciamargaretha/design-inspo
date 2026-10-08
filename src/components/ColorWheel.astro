@@ -1,5 +1,5 @@
 ---
-// A colour wheel with the palette plotted at its real hue angles and the
+// A color wheel with the palette plotted at its real hue angles and the
 // harmony drawn as a shape: an arc (monochromatic / analogous), a line across
 // the wheel (complementary) or a polygon (split-complementary, triadic,
 // tetradic, square). Neutrals have no hue, so they're listed separately.
@@ -18,9 +18,9 @@ interface Point {
 
 interface Props {
   harmony: Harmony;
-  /** Colours that form the harmony (drawn large and connected). */
+  /** Colors that form the harmony (drawn large and connected). */
   harmonyColors: Point[];
-  /** Other chromatic colours (drawn small, not connected). */
+  /** Other chromatic colors (drawn small, not connected). */
   accents?: Point[];
   /** Neutrals listed under the wheel. */
   neutrals?: Point[];
@@ -64,7 +64,7 @@ const wedges = Array.from({ length: 72 }, (_, i) => {
   };
 });
 
-// Monochromatic colours share one hue, so spread them from the centre
+// Monochromatic colors share one hue, so spread them from the center
 // outwards by lightness (darkest innermost) instead of stacking them.
 const mono = harmony === "monochromatic";
 const byLightness = [...harmonyColors].sort(
@@ -105,7 +105,7 @@ if (hues.length > 0) {
       d: `M${p0.x},${p0.y} A${r},${r} 0 ${hi - lo > 180 ? 1 : 0} 1 ${p1.x},${p1.y}`,
     };
   } else if (harmony === "complementary") {
-    // Axis between the anchor colour and the centre of the opposite side.
+    // Axis between the anchor color and the center of the opposite side.
     const anchor = hues[0]!;
     const near = hues.filter((h) => hueDistance(h, anchor) <= 90);
     const far = hues.filter((h) => hueDistance(h, anchor) > 90);
@@ -139,7 +139,7 @@ const small = compact ? size * 0.045 : 6.5;
     role="img"
     aria-label={
       title ??
-      `${harmony} colour harmony: ${plotted.map((p) => `${p.name ?? p.hex} at ${Math.round(p.h)}°`).join(", ")}`
+      `${harmony} color harmony: ${plotted.map((p) => `${p.name ?? p.hex} at ${Math.round(p.h)}°`).join(", ")}`
     }
   >
     {wedges.map((w) => (
@@ -153,7 +153,7 @@ const small = compact ? size * 0.045 : 6.5;
         stroke-width={compact ? 2 : 2.5}
       />
     )}
-    <circle cx={c} cy={c} r={compact ? 2 : 3} class="centre" />
+    <circle cx={c} cy={c} r={compact ? 2 : 3} class="center" />
     {accentDots.map((p) => {
       const { x, y } = at(p.h, dotRadius);
       return <circle cx={x} cy={y} r={small} fill={p.hex} class="dot accent" />;
@@ -207,19 +207,19 @@ const small = compact ? size * 0.045 : 6.5;
     align-items: center;
   }
   .face {
-    fill: var(--wheel-face, #fff);
+    fill: var(--background);
   }
   .shape {
     fill: none;
-    stroke: var(--wheel-ink, #16161a);
+    stroke: var(--foreground);
     stroke-linejoin: round;
     stroke-linecap: round;
   }
   .shape-polygon {
-    fill: color-mix(in srgb, var(--wheel-ink, #16161a) 6%, transparent);
+    fill: color-mix(in srgb, var(--foreground) 6%, transparent);
   }
-  .centre {
-    fill: var(--wheel-ink, #16161a);
+  .center {
+    fill: var(--foreground);
   }
   .dot {
     stroke: #fff;
@@ -269,6 +269,6 @@ const small = compact ? size * 0.045 : 6.5;
     margin-top: 6px;
   }
   .muted {
-    color: #6b6b76;
+    color: var(--muted-foreground);
   }
 </style>

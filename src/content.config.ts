@@ -111,11 +111,11 @@ const entries = defineCollection({
               }),
             )
             .min(1),
-          /** How the main hues relate on the colour wheel. */
+          /** How the main hues relate on the color wheel. */
           harmony: z.enum(COLOR_HARMONIES),
           /** The palette hexes that form the harmony (shown on the wheel). */
           harmonyColors: z.array(hex).min(1),
-          /** How much of each colour is used. */
+          /** How much of each color is used. */
           strategy: z.enum(COLOR_STRATEGIES),
           mode: z.enum(COLOR_MODES),
           temperature: z.enum(COLOR_TEMPERATURES),
@@ -221,7 +221,7 @@ const entries = defineCollection({
           ctx.addIssue({
             code: "custom",
             path: ["colors", "harmonyColors"],
-            message: `${hexValue} is a neutral and has no place on the colour wheel.`,
+            message: `${hexValue} is a neutral and has no place on the color wheel.`,
           });
         }
       }
@@ -246,7 +246,7 @@ const entries = defineCollection({
           claimed: [
             ...imagery.styles,
             ...imagery.treatments,
-            ...imagery.textures.filter((t) => t !== "flat-colour"),
+            ...imagery.textures.filter((t) => t !== "flat-color"),
           ],
           examples: imagery.examples,
         },

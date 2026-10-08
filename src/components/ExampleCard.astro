@@ -1,0 +1,53 @@
+---
+// One imagery or motion example in a topic grid, linking to its entry.
+import Terms from "@/components/Terms";
+import { mediaUrl, type ExampleRef } from "@/lib/content";
+import { terms } from "@/lib/terms";
+import { entryUrl } from "@/lib/url";
+import { label } from "@/data/taxonomies";
+
+interface Props {
+  example: ExampleRef;
+  filters?: Record<string, readonly string[]>;
+}
+const { example, filters = {} } = Astro.props;
+const data = Object.fromEntries(
+  Object.entries(filters).map(([k, v]) => [`data-f-${k}`, v.join(" ")]),
+);
+const anchor = example.section === "imagery" ? "#imagery" : "#motion";
+---
+
+<li data-item {...data} class="break-inside-avoid">
+  <figure>
+    <a
+      href={entryUrl(example.entry.id) + anchor}
+      class="block overflow-hidden rounded-xl border border-border bg-secondary"
+    >
+      <img
+        src={mediaUrl(example.entry.id, example.src)}
+        alt={example.alt}
+        loading="lazy"
+        decoding="async"
+        class="w-full"
+      />
+    </a>
+    <figcaption class="mt-2 text-sm">
+      <a
+        href={entryUrl(example.entry.id) + anchor}
+        class="font-medium hover:underline"
+      >
+        {example.entry.productData.data.name}
+      </a>
+      <span class="text-muted-foreground">
+        · {label(example.entry.data.type)}
+        {example.caption && ` · ${example.caption}`}
+      </span>
+    </figcaption>
+  </figure>
+  <Terms
+    client:visible
+    terms={terms(example.terms)}
+    size="sm"
+    className="mt-2"
+  />
+</li>

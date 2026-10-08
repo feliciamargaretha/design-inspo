@@ -1,0 +1,136 @@
+---
+// One route for both the Inspiration tabs (/inspiration/landing|ios|desktop/)
+// and the entry detail pages (/inspiration/<entry-id>/).
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import EntryCard from "@/components/EntryCard.astro";
+import EntryDetail from "@/components/EntryDetail.astro";
+import FilterBar from "@/components/FilterBar";
+import { getEntries, type EntryWithProduct } from "@/lib/content";
+import { filterGroup } from "@/lib/filters";
+import { url } from "@/lib/url";
+import { CATEGORIES, ENTRY_TYPES, SCREEN_TYPES } from "@/data/taxonomies";
+
+type Tab = (typeof ENTRY_TYPES)[number];
+
+export async function getStaticPaths() {
+  const entries = await getEntries();
+  return [
+    ...ENTRY_TYPES.map((type) => ({
+      params: { slug: type },
+      props: { kind: "tab" as const, type, entries },
+    })),
+    ...entries.map((entry) => ({
+      params: { slug: entry.id },
+      props: { kind: "entry" as const, entry },
+    })),
+  ];
+}
+
+type Props =
+  | { kind: "tab"; type: Tab; entries: EntryWithProduct[] }
+  | { kind: "entry"; entry: EntryWithProduct };
+
+const props = Astro.props as Props;
+
+const TABS: { type: Tab; label: string; blurb: string }[] = [
+  {
+    type: "landing",
+    label: "Landing pages",
+    blurb: "Marketing sites, by industry.",
+  },
+  {
+    type: "ios",
+    label: "iOS",
+    blurb: "App screens, by screen type and category.",
+  },
+  {
+    type: "desktop",
+    label: "Desktop",
+    blurb: "Web and desktop app screens, by screen type and category.",
+  },
+];
+---
+
+{props.kind === "tab" ? (
+  (() => {
+    const items = props.entries.filter((e) => e.data.type === props.type);
+    const groups =
+      props.type === "landing"
+        ? [
+            filterGroup("category", "Industry", CATEGORIES, items, (e) => [
+              e.productData.data.category,
+            ]),
+          ]
+        : [
+            filterGroup(
+              "screen",
+              "Screen",
+              SCREEN_TYPES,
+              items,
+              (e) => e.data.screens,
+            ),
+            filterGroup("category", "Category", CATEGORIES, items, (e) => [
+              e.productData.data.category,
+            ]),
+          ];
+    const tab = TABS.find((t) => t.type === props.type)!;
+    return (
+      <BaseLayout title={`${tab.label} · Inspiration`}>
+        <PageHeader
+          title="Inspiration"
+          description="Each entry is one source (a landing page or an app) broken down into color, typography, imagery and motion."
+        />
+        <nav
+          aria-label="Inspiration type"
+          class="mb-8 inline-flex rounded-lg bg-secondary p-1"
+        >
+          {TABS.map((t) => (
+            <a
+              href={url(`/inspiration/${t.type}/`)}
+              aria-current={t.type === props.type ? "page" : undefined}
+              class="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:bg-background aria-[current=page]:font-medium aria-[current=page]:text-foreground aria-[current=page]:shadow-sm"
+            >
+              {t.label}
+            </a>
+          ))}
+        </nav>
+        {items.length > 0 ? (
+          <>
+            <FilterBar
+              client:load
+              groups={groups.filter((g) => g.options.length > 0)}
+              target="grid"
+            />
+            <div id="grid">
+              <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+                {items.map((entry) => (
+                  <EntryCard
+                    entry={entry}
+                    filters={{
+                      category: [entry.productData.data.category],
+                      screen: entry.data.screens,
+                    }}
+                  />
+                ))}
+              </ul>
+              <p
+                data-empty
+                hidden
+                class="py-16 text-center text-muted-foreground"
+              >
+                Nothing matches these filters.
+              </p>
+            </div>
+          </>
+        ) : (
+          <p class="rounded-xl border border-dashed border-border py-16 text-center text-muted-foreground">
+            No {tab.label} entries yet. {tab.blurb}
+          </p>
+        )}
+      </BaseLayout>
+    );
+  })()
+) : (
+  <EntryDetail entry={props.entry} />
+)}

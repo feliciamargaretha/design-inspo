@@ -1,0 +1,99 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import FilterBar from "@/components/FilterBar";
+import ColorWheel from "@/components/ColorWheel.astro";
+import Terms from "@/components/Terms";
+import { getEntries } from "@/lib/content";
+import { filterGroup } from "@/lib/filters";
+import { isNeutral } from "@/lib/color";
+import { term } from "@/lib/terms";
+import { entryUrl } from "@/lib/url";
+import { COLOR_HARMONY_TERMS, COLOR_STRATEGY_TERMS } from "@/data/glossary";
+import { COLOR_HARMONIES, COLOR_STRATEGIES, label } from "@/data/taxonomies";
+
+const entries = await getEntries();
+const groups = [
+  filterGroup(
+    "harmony",
+    "Harmony",
+    COLOR_HARMONIES,
+    entries,
+    (e) => [e.data.colors.harmony],
+    (v) => COLOR_HARMONY_TERMS[v as keyof typeof COLOR_HARMONY_TERMS].name,
+  ),
+  filterGroup(
+    "strategy",
+    "Strategy",
+    COLOR_STRATEGIES,
+    entries,
+    (e) => [e.data.colors.strategy],
+    (v) => COLOR_STRATEGY_TERMS[v as keyof typeof COLOR_STRATEGY_TERMS].name,
+  ),
+];
+---
+
+<BaseLayout title="Colors">
+  <PageHeader
+    title="Colors"
+    description="Every palette on the color wheel. Harmony is how the hues relate on the wheel; strategy is how much of each color is used."
+  />
+  <FilterBar client:load groups={groups} target="grid" />
+  <div id="grid">
+    <ul class="grid gap-6 lg:grid-cols-2">
+      {entries.map((entry) => {
+        const c = entry.data.colors;
+        return (
+          <li
+            data-item
+            data-f-harmony={c.harmony}
+            data-f-strategy={c.strategy}
+            class="rounded-xl border border-border p-5"
+          >
+            <div class="flex items-baseline justify-between gap-3">
+              <a
+                href={entryUrl(entry.id) + "#colors"}
+                class="font-semibold hover:underline"
+              >
+                {entry.productData.data.name}
+              </a>
+              <span class="text-xs text-muted-foreground">
+                {label(entry.data.type)}
+              </span>
+            </div>
+            <div class="mt-4 flex h-10 overflow-hidden rounded-lg border border-border">
+              {c.palette.map((p) => (
+                <span
+                  class="flex-1"
+                  style={`background:${p.hex}`}
+                  title={`${p.name ?? ""} ${p.hex}`}
+                />
+              ))}
+            </div>
+            <div class="mt-5 flex items-center gap-5">
+              <ColorWheel
+                harmony={c.harmony}
+                harmonyColors={c.palette.filter((p) =>
+                  c.harmonyColors.includes(p.hex),
+                )}
+                accents={c.palette.filter(
+                  (p) => !c.harmonyColors.includes(p.hex) && !isNeutral(p.hex),
+                )}
+                size={128}
+                compact
+              />
+              <Terms
+                client:visible
+                terms={[term(c.harmony), term(c.strategy)]}
+                className="flex-col items-start"
+              />
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+    <p data-empty hidden class="py-16 text-center text-muted-foreground">
+      Nothing matches these filters.
+    </p>
+  </div>
+</BaseLayout>

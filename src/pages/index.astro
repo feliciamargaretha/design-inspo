@@ -1,51 +1,94 @@
 ---
-// Temporary home page: lists entries to prove the data layer works.
-// Replaced by the real home page in phase 3.
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ColorWheel from "@/components/ColorWheel.astro";
-import HarmonyGuide from "@/components/HarmonyGuide.astro";
-import { getEntries, mediaUrl } from "@/lib/content";
-import { isNeutral } from "@/lib/color";
-import { label } from "@/data/taxonomies";
+import EntryCard from "@/components/EntryCard.astro";
+import { getEntries } from "@/lib/content";
+import { GLOSSARY } from "@/data/glossary";
+import { url } from "@/lib/url";
 
 const entries = await getEntries();
+const topics = [
+  {
+    href: "/colors/",
+    title: "Colors",
+    blurb: "Palettes on the color wheel: harmony, strategy and why.",
+  },
+  {
+    href: "/typography/",
+    title: "Typography",
+    blurb: "Type specimens, classifications and type scales.",
+  },
+  {
+    href: "/imagery/",
+    title: "Imagery",
+    blurb: "Visual styles, image treatments and textures, named.",
+  },
+  {
+    href: "/motion/",
+    title: "Motion",
+    blurb: "Animations recorded from live pages, by technique.",
+  },
+];
 ---
 
 <BaseLayout>
-  <h1>design-inspo</h1>
-  <p>{entries.length} entries</p>
-  <ul>
-    {entries.map((entry) => {
-      const { palette, harmony, harmonyColors } = entry.data.colors;
-      return (
+  <section class="max-w-3xl py-6 sm:py-12">
+    <h1 class="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+      Design inspiration, taken apart.
+    </h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-pretty text-muted-foreground">
+      Landing pages and apps broken down into color, typography, imagery and
+      motion: what each one uses, why (from the brand itself where possible),
+      and the proper name for every style.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href={url("/inspiration/landing/")}
+        class="inline-flex h-10 items-center rounded-md bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+      >
+        Browse inspiration
+      </a>
+      <a
+        href={url("/glossary/")}
+        class="inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
+      >
+        Learn the vocabulary · {Object.keys(GLOSSARY).length} terms
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-10">
+    <div class="mb-6 flex items-baseline justify-between">
+      <h2 class="text-xl font-semibold tracking-tight">Latest</h2>
+      <a
+        href={url("/inspiration/landing/")}
+        class="text-sm text-muted-foreground hover:text-foreground"
+      >
+        See all →
+      </a>
+    </div>
+    <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.slice(0, 6).map((entry) => (
+        <EntryCard entry={entry} />
+      ))}
+    </ul>
+  </section>
+
+  <section class="mt-20">
+    <h2 class="mb-6 text-xl font-semibold tracking-tight">Browse by topic</h2>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {topics.map((t) => (
         <li>
-          <img
-            src={mediaUrl(entry.id, entry.data.cover)}
-            alt=""
-            width="240"
-            loading="lazy"
-          />
-          <p>
-            <strong>{entry.productData.data.name}</strong> ·{" "}
-            {label(entry.data.type)} · {label(entry.productData.data.category)}
-          </p>
-          <p>{entry.data.tags.map(label).join(", ")}</p>
-          <section class="colors" id={`colors-${entry.id}`}>
-            <h3>Colour harmony: {label(harmony)}</h3>
-            <ColorWheel
-              harmony={harmony}
-              harmonyColors={palette.filter((c) =>
-                harmonyColors.includes(c.hex),
-              )}
-              accents={palette.filter(
-                (c) => !harmonyColors.includes(c.hex) && !isNeutral(c.hex),
-              )}
-              neutrals={palette.filter((c) => isNeutral(c.hex))}
-            />
-            <HarmonyGuide harmony={harmony} baseHex={harmonyColors[0]!} />
-          </section>
+          <a
+            href={url(t.href)}
+            class="block h-full rounded-xl border border-border p-5 transition-colors hover:bg-secondary"
+          >
+            <h3 class="font-semibold">{t.title}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              {t.blurb}
+            </p>
+          </a>
         </li>
-      );
-    })}
-  </ul>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>

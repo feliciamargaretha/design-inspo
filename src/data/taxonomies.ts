@@ -76,7 +76,7 @@ export const COLOR_ROLES = [
   "secondary",
   "accent",
 ] as const;
-/** How the main hues relate on the colour wheel (defined in glossary.ts). */
+/** How the main hues relate on the color wheel (defined in glossary.ts). */
 export const COLOR_HARMONIES = [
   "monochromatic",
   "analogous",
@@ -86,10 +86,10 @@ export const COLOR_HARMONIES = [
   "tetradic",
   "square",
 ] as const;
-/** How much of each colour is used (defined in glossary.ts). */
+/** How much of each color is used (defined in glossary.ts). */
 export const COLOR_STRATEGIES = [
   "neutral-with-accent",
-  "multicolour",
+  "multicolor",
   "tonal",
 ] as const;
 
@@ -155,7 +155,7 @@ export const IMAGERY_TREATMENTS = [
   "black-and-white",
   "duotone",
   "cutout",
-  "colour-blocking",
+  "color-blocking",
   "layered-cards",
   "multiplayer-cursors",
   "soft-glow",
@@ -164,7 +164,7 @@ export const IMAGERY_TREATMENTS = [
 
 /** Imagery: surface texture and background pattern (defined in glossary.ts). */
 export const TEXTURES = [
-  "flat-colour",
+  "flat-color",
   "grid-pattern",
   "dot-grid",
   "grain",

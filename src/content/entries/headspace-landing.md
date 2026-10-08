@@ -21,7 +21,7 @@ colors:
     - { hex: "#3B197F", name: Deep purple, role: accent }
   harmony: complementary
   harmonyColors: ["#FF7401", "#FFCE00", "#0061EF"]
-  strategy: multicolour
+  strategy: multicolor
   mode: light
   temperature: warm
   what: >-
@@ -29,21 +29,21 @@ colors:
     white page with warm off-white cards and warm charcoal text (never pure
     black). Large blocks of sunshine yellow and bright blue alternate down
     the page, with bright blue also used for buttons; pink, purple and green
-    appear as smaller accents. On the colour wheel the core is a
+    appear as smaller accents. On the color wheel the core is a
     complementary harmony: signature orange (27°) and bright blue (216°) sit
-    172° apart, with yellow (49°) as orange's analogous neighbour; pink,
-    purple and green are extra accents on top. The strategy is multicolour:
+    172° apart, with yellow (49°) as orange's analogous neighbor; pink,
+    purple and green are extra accents on top. The strategy is multicolor:
     many saturated hues used generously. Hex values were measured from the
     live page.
   why: >-
     In its 2024 rebrand, Headspace kept "leading with its signature orange"
     and added a supporting palette to "better represent the range of human
-    emotions", while being more mindful of contrast and accessible colour
-    combinations. The colours are meant to be "bright, uplifting, bold and
+    emotions", while being more mindful of contrast and accessible color
+    combinations. The colors are meant to be "bright, uplifting, bold and
     lively", a deliberate contrast to the "dreary sea of blues and greys" of
     mental healthcare. (Our read: warming up the neutrals makes even the
     quiet parts feel soft rather than clinical, and keeping bright blue for
-    buttons stops the cheerful colours competing with "Try for free".)
+    buttons stops the cheerful colors competing with "Try for free".)
   basis: brand-statement
   sources:
     - title: It's Nice That, Headspace overhauls visual identity (2024)
@@ -123,8 +123,8 @@ imagery:
       mixed-media-collage,
       logo-wall,
     ]
-  treatments: [colour-blocking, layered-cards, soft-glow, decorative-sparkles]
-  textures: [soft-gradient, flat-colour]
+  treatments: [color-blocking, layered-cards, soft-glow, decorative-sparkles]
+  textures: [soft-gradient, flat-color]
   what: >-
     Ebb, a character mascot (a round orange-to-pink blob with closed, smiling
     eyes), appears throughout. Around it, flat vector illustration: round
@@ -132,8 +132,8 @@ imagery:
     clouds. Real lifestyle photos of people sit in a mixed-media collage with
     illustrated clouds and sparkles, next to a partner logo wall. The app is
     shown as product UI inside a device mock-up, with layered cards and a
-    chat bubble with a soft glow. Sections use bold colour blocking; most
-    surfaces are flat colour, with soft gradients on Ebb and the clouds.
+    chat bubble with a soft glow. Sections use bold color blocking; most
+    surfaces are flat color, with soft gradients on Ebb and the clouds.
   why: >-
     Headspace says it "has always led as an illustrative and animated
     brand", which makes it stand out in digital wellness. The orange smiley
@@ -151,10 +151,10 @@ imagery:
   examples:
     - src: imagery-mascot.webp
       alt: Yellow section with Ebb, a round orange-pink character with closed eyes, next to a chat bubble
-      caption: Character mascot (Ebb) on a colour block
-      terms: [character-mascot, colour-blocking]
+      caption: Character mascot (Ebb) on a color block
+      terms: [character-mascot, color-blocking]
     - src: imagery-flat.webp
-      alt: Round flat-colour characters with different expressions and small sparkles around a headline
+      alt: Round flat-color characters with different expressions and small sparkles around a headline
       caption: Flat vector illustration with decorative sparkles
       terms: [flat-illustration, decorative-sparkles]
     - src: imagery-photography.webp
@@ -209,5 +209,5 @@ motion:
 ---
 
 Headspace turns a clinical subject into something that feels like a warm
-hug: sunny colours, round shapes and closed-eyed characters, balanced with
+hug: sunny colors, round shapes and closed-eyed characters, balanced with
 real photos where trust is on the line.

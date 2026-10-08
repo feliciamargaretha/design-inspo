@@ -1,0 +1,38 @@
+---
+// Where a breakdown's "why" comes from, with its sources.
+import type { RATIONALE_BASES } from "@/data/taxonomies";
+
+interface Props {
+  basis: (typeof RATIONALE_BASES)[number];
+  sources: { title: string; url: string }[];
+}
+const { basis, sources } = Astro.props;
+const labels = {
+  "brand-guidelines": "From the brand's guidelines",
+  "brand-statement": "From the brand's own words",
+  interpretation: "Our interpretation",
+} as const;
+---
+
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+  <span
+    class:list={[
+      "rounded-full px-2 py-0.5 font-medium",
+      basis === "interpretation"
+        ? "border border-dashed border-border text-muted-foreground"
+        : "bg-foreground text-background",
+    ]}
+  >
+    {labels[basis]}
+  </span>
+  {sources.map((s) => (
+    <a
+      href={s.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-muted-foreground underline underline-offset-4 hover:text-foreground"
+    >
+      {s.title} ↗
+    </a>
+  ))}
+</div>
