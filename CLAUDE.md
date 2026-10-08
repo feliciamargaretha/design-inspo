@@ -11,9 +11,24 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
 
 - Products live in `src/content/products/`, entries (one per source: landing / ios / desktop) in `src/content/entries/`.
 - Entry file name: `<product>-<type>` (e.g. `jira-landing`, `jira-ios`). Add a suffix if a product has two entries of the same type.
-- Only use categories, screen types, tags and filter labels that exist in `src/data/`. If a new one is genuinely needed, add it there in the same PR and mention it in the PR description.
-- Every breakdown (colors, typography, imagery, motion) has a factual _what_ and an interpretive _why_. The _why_ is an informed assumption about the brand's intent; write it as such, not as fact.
-- Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small.
+- The entry structure is defined in `src/content.config.ts`; use `src/content/entries/jira-landing.md` as the reference example.
+- Only use categories, screen types, tags and filter labels that exist in `src/data/taxonomies.ts`. If a new one is genuinely needed, add it there in the same PR and mention it in the PR description.
+- Every breakdown (colors, typography, imagery, motion) has a factual _what_, a _why_, a `basis` and `examples`.
+- Before writing a _why_, look for the brand's own reasoning, in this order:
+  1. Official brand guidelines or design system → `basis: brand-guidelines`
+  2. The brand or its designers explaining choices elsewhere (press interviews, agency or type-foundry case studies) → `basis: brand-statement`
+  3. Nothing found → `basis: interpretation`
+     Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
+- Name things properly. A goal of this site is learning design vocabulary, so use the most precise term from `src/data/glossary.ts` (e.g. "staggered slide-in", "multiplayer cursors", "dot grid", "geometric sans") in lists, captions and the _what_ text. If a precise term is missing, add it to the taxonomy list and glossary (with a plain-English definition) in the same PR.
+  - Colors: `harmony` (colour-wheel relationship, with the `harmonyColors` that form it; the build checks the hues really match) and `strategy` (how much of each colour is used). Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
+  - Every imagery/motion example lists the `terms` it shows; every term claimed in a section needs at least one example showing it (the build enforces both).
+- Examples:
+  - Colors: the palette (hex codes) is the example.
+  - Typography: a type specimen per font, never a screenshot crop. Fill in `weights` (only cuts the page really loads) and `scale` (measured from the page), set `specimen: specimen-<font>.webp`, then run `npm run specimen -- <entry-id>`. Free fonts can use `webFont` instead to render live.
+  - Imagery: one cropped example per imagery style.
+  - Motion: a short animated `.webp` per kind of movement. Always check for scroll-triggered animations (elements that fade or slide in when scrolled into view), not just ones that play on load; slow the page's animations down while recording fast ones, then play back at real speed.
+- Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
+- Only describe motion you have actually observed on the live page.
 
 ## Links
 

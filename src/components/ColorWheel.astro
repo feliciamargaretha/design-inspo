@@ -1,0 +1,274 @@
+---
+// A colour wheel with the palette plotted at its real hue angles and the
+// harmony drawn as a shape: an arc (monochromatic / analogous), a line across
+// the wheel (complementary) or a polygon (split-complementary, triadic,
+// tetradic, square). Neutrals have no hue, so they're listed separately.
+import {
+  describeHarmony,
+  hexToHsl,
+  hueDistance,
+  isNeutral,
+  type Harmony,
+} from "@/lib/color";
+
+interface Point {
+  hex: string;
+  name?: string;
+}
+
+interface Props {
+  harmony: Harmony;
+  /** Colours that form the harmony (drawn large and connected). */
+  harmonyColors: Point[];
+  /** Other chromatic colours (drawn small, not connected). */
+  accents?: Point[];
+  /** Neutrals listed under the wheel. */
+  neutrals?: Point[];
+  size?: number;
+  /** Compact mode for the harmony guide: no ring labels, no legend. */
+  compact?: boolean;
+  title?: string;
+}
+
+const {
+  harmony,
+  harmonyColors,
+  accents = [],
+  neutrals = [],
+  size = 280,
+  compact = false,
+  title,
+} = Astro.props;
+
+const c = size / 2;
+const outer = c - 2;
+const inner = outer * 0.78;
+const dotRadius = inner * 0.78;
+
+// 0° = red at the top, increasing clockwise.
+const at = (hue: number, r: number) => {
+  const t = (hue * Math.PI) / 180;
+  return { x: c + r * Math.sin(t), y: c - r * Math.cos(t) };
+};
+
+const wedges = Array.from({ length: 72 }, (_, i) => {
+  const a0 = i * 5;
+  const a1 = a0 + 5.4; // slight overlap hides seams
+  const p0 = at(a0, outer);
+  const p1 = at(a1, outer);
+  const p2 = at(a1, inner);
+  const p3 = at(a0, inner);
+  return {
+    d: `M${p0.x},${p0.y} A${outer},${outer} 0 0 1 ${p1.x},${p1.y} L${p2.x},${p2.y} A${inner},${inner} 0 0 0 ${p3.x},${p3.y}Z`,
+    fill: `hsl(${a0 + 2.5} 85% 55%)`,
+  };
+});
+
+// Monochromatic colours share one hue, so spread them from the centre
+// outwards by lightness (darkest innermost) instead of stacking them.
+const mono = harmony === "monochromatic";
+const byLightness = [...harmonyColors].sort(
+  (a, b) => hexToHsl(a.hex).l - hexToHsl(b.hex).l,
+);
+const plotted = harmonyColors.map((p) => {
+  const i = byLightness.indexOf(p);
+  const r =
+    mono && harmonyColors.length > 1
+      ? dotRadius * (0.35 + (0.65 * i) / (harmonyColors.length - 1))
+      : dotRadius;
+  return { ...p, h: hexToHsl(p.hex).h, r };
+});
+const accentDots = accents
+  .filter((p) => !isNeutral(p.hex))
+  .map((p) => ({ ...p, h: hexToHsl(p.hex).h }));
+
+// Shape connecting the harmony.
+let shape: { kind: "arc" | "line" | "polygon"; d: string } | null = null;
+const hues = plotted.map((p) => p.h);
+if (hues.length > 0) {
+  if (mono) {
+    const radii = plotted.map((p) => p.r);
+    const a = at(hues[0]!, Math.min(...radii));
+    const b = at(hues[0]!, Math.max(...radii));
+    shape = { kind: "line", d: `M${a.x},${a.y} L${b.x},${b.y}` };
+  } else if (harmony === "analogous") {
+    // Arc from the first to the last hue, going the short way round.
+    const start = hues[0]!;
+    const offsets = hues.map((h) => ((h - start + 540) % 360) - 180);
+    const lo = start + Math.min(...offsets);
+    const hi = start + Math.max(...offsets);
+    const r = dotRadius;
+    const p0 = at(lo, r);
+    const p1 = at(hi, r);
+    shape = {
+      kind: "arc",
+      d: `M${p0.x},${p0.y} A${r},${r} 0 ${hi - lo > 180 ? 1 : 0} 1 ${p1.x},${p1.y}`,
+    };
+  } else if (harmony === "complementary") {
+    // Axis between the anchor colour and the centre of the opposite side.
+    const anchor = hues[0]!;
+    const near = hues.filter((h) => hueDistance(h, anchor) <= 90);
+    const far = hues.filter((h) => hueDistance(h, anchor) > 90);
+    const mean = (list: number[]) => {
+      const x = list.reduce((s, h) => s + Math.cos((h * Math.PI) / 180), 0);
+      const y = list.reduce((s, h) => s + Math.sin((h * Math.PI) / 180), 0);
+      return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
+    };
+    const a = at(mean(near), dotRadius);
+    const b = at(far.length ? mean(far) : anchor + 180, dotRadius);
+    shape = { kind: "line", d: `M${a.x},${a.y} L${b.x},${b.y}` };
+  } else {
+    const sorted = [...hues].sort((x, y) => x - y);
+    const pts = sorted.map((h) => at(h, dotRadius));
+    shape = {
+      kind: "polygon",
+      d: pts.map((p, i) => `${i ? "L" : "M"}${p.x},${p.y}`).join(" ") + "Z",
+    };
+  }
+}
+
+const big = compact ? size * 0.07 : 11;
+const small = compact ? size * 0.045 : 6.5;
+---
+
+<figure class:list={["wheel", { compact }]}>
+  <svg
+    viewBox={`0 0 ${size} ${size}`}
+    width={size}
+    height={size}
+    role="img"
+    aria-label={
+      title ??
+      `${harmony} colour harmony: ${plotted.map((p) => `${p.name ?? p.hex} at ${Math.round(p.h)}°`).join(", ")}`
+    }
+  >
+    {wedges.map((w) => (
+      <path d={w.d} fill={w.fill} />
+    ))}
+    <circle cx={c} cy={c} r={inner} class="face" />
+    {shape && (
+      <path
+        d={shape.d}
+        class={`shape shape-${shape.kind}`}
+        stroke-width={compact ? 2 : 2.5}
+      />
+    )}
+    <circle cx={c} cy={c} r={compact ? 2 : 3} class="centre" />
+    {accentDots.map((p) => {
+      const { x, y } = at(p.h, dotRadius);
+      return <circle cx={x} cy={y} r={small} fill={p.hex} class="dot accent" />;
+    })}
+    {plotted.map((p) => {
+      const { x, y } = at(p.h, p.r);
+      return <circle cx={x} cy={y} r={big} fill={p.hex} class="dot" />;
+    })}
+  </svg>
+  {!compact && (
+    <figcaption>
+      <p class="explain">{describeHarmony(harmony, harmonyColors)}</p>
+      <ul class="legend">
+        {plotted.map((p) => (
+          <li>
+            <span class="swatch" style={`background:${p.hex}`} />
+            {p.name ?? p.hex} <span class="muted">{Math.round(p.h)}°</span>
+          </li>
+        ))}
+        {accentDots.map((p) => (
+          <li class="muted">
+            <span class="swatch small" style={`background:${p.hex}`} />
+            {p.name ?? p.hex} {Math.round(p.h)}° · accent
+          </li>
+        ))}
+      </ul>
+      {neutrals.length > 0 && (
+        <div class="neutrals">
+          <span class="muted">Neutrals (no hue, not on the wheel)</span>
+          <div class="neutral-row">
+            {neutrals.map((p) => (
+              <span
+                class="swatch"
+                style={`background:${p.hex}`}
+                title={p.name ?? p.hex}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .wheel {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+  }
+  .face {
+    fill: var(--wheel-face, #fff);
+  }
+  .shape {
+    fill: none;
+    stroke: var(--wheel-ink, #16161a);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .shape-polygon {
+    fill: color-mix(in srgb, var(--wheel-ink, #16161a) 6%, transparent);
+  }
+  .centre {
+    fill: var(--wheel-ink, #16161a);
+  }
+  .dot {
+    stroke: #fff;
+    stroke-width: 2.5;
+    filter: drop-shadow(0 1px 1.5px rgb(0 0 0 / 0.35));
+  }
+  .dot.accent {
+    stroke-width: 1.5;
+  }
+  .explain {
+    margin: 0 0 12px;
+    max-width: 44ch;
+    font-size: 14px;
+  }
+  .legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+  }
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .swatch {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+  }
+  .swatch.small {
+    width: 12px;
+    height: 12px;
+    margin: 3px;
+  }
+  .neutrals {
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .neutral-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .muted {
+    color: #6b6b76;
+  }
+</style>
