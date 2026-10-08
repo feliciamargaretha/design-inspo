@@ -1,8 +1,31 @@
 ---
+// Temporary home page: lists entries to prove the data layer works.
+// Replaced by the real home page in phase 3.
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getEntries, mediaUrl } from "@/lib/content";
+import { label } from "@/data/taxonomies";
+
+const entries = await getEntries();
 ---
 
 <BaseLayout>
   <h1>design-inspo</h1>
-  <p>Coming soon: a library of design inspiration.</p>
+  <p>{entries.length} entries</p>
+  <ul>
+    {entries.map((entry) => (
+      <li>
+        <img
+          src={mediaUrl(entry.id, entry.data.cover)}
+          alt=""
+          width="240"
+          loading="lazy"
+        />
+        <p>
+          <strong>{entry.productData.data.name}</strong> ·{" "}
+          {label(entry.data.type)} · {label(entry.productData.data.category)}
+        </p>
+        <p>{entry.data.tags.map(label).join(", ")}</p>
+      </li>
+    ))}
+  </ul>
 </BaseLayout>

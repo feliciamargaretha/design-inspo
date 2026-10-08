@@ -19,8 +19,15 @@ Live site: https://feliciamargaretha.github.io/design-inspo
 
 - **Product** (`src/content/products/`): one file per product, e.g. Jira. Holds the name, website and category.
 - **Entry** (`src/content/entries/`): one file per source, e.g. Jira's landing page _or_ Jira's iOS app. Holds the media, tags and the color / typography / imagery / motion breakdown, each with a _what_ and a _why_.
-- **Taxonomies** (`src/data/`): the single list of allowed categories, screen types, personality tags and filter labels.
+- **Taxonomies** (`src/data/taxonomies.ts`): the single list of allowed categories, screen types, personality tags and filter labels.
 - **Media** (`public/media/<entry>/`): screenshots and recordings.
+
+## Adding an entry
+
+1. Add the product to `src/content/products/<product>.yaml` (if it's new).
+2. Put media in `public/media/<product>-<type>/`: a `cover.webp` and the full screenshot(s) or recording(s).
+3. Copy `src/content/entries/jira-landing.md` to `src/content/entries/<product>-<type>.md` and fill it in.
+4. Run `npm run build`. It fails with a clear message if anything is missing or misspelled.
 
 ## Development
 
