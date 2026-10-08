@@ -1,5 +1,5 @@
 // Design vocabulary: the proper name and a plain-English definition for every
-// style, treatment, texture, motion technique, colour scheme and type
+// style, treatment, texture, motion technique, colour harmony and strategy, and type
 // classification used on the site. The site shows these wherever a term
 // appears, so browsing entries doubles as learning the vocabulary.
 //
@@ -7,7 +7,8 @@
 // TypeScript build fails otherwise.
 
 import type {
-  COLOR_SCHEMES,
+  COLOR_HARMONIES,
+  COLOR_STRATEGIES,
   IMAGERY_STYLES,
   IMAGERY_TREATMENTS,
   MOTION_TYPES,
@@ -291,37 +292,62 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
   },
 };
 
-export const COLOR_SCHEME_TERMS: Glossary<typeof COLOR_SCHEMES> = {
+export const COLOR_HARMONY_TERMS: Glossary<typeof COLOR_HARMONIES> = {
   monochromatic: {
     name: "Monochromatic",
-    definition: "Tints and shades of a single hue.",
+    definition:
+      "Tints, tones and shades of a single hue. Calm, cohesive and easy to get right, but can feel flat without contrast in lightness.",
   },
   analogous: {
     name: "Analogous",
     definition:
-      "Hues that sit next to each other on the colour wheel (e.g. yellow, orange, red); harmonious and calm.",
+      "Hues that sit next to each other on the colour wheel (e.g. yellow, orange, red). Harmonious and natural-feeling, because nothing clashes.",
   },
   complementary: {
     name: "Complementary",
     definition:
-      "Two hues opposite each other on the colour wheel (e.g. blue and orange); high contrast and energetic.",
+      "Hues from opposite sides of the colour wheel (e.g. blue and orange). Maximum contrast: each makes the other look more vivid, so one usually leads and the other is used sparingly.",
+  },
+  "split-complementary": {
+    name: "Split-complementary",
+    definition:
+      "A base hue plus the two hues on either side of its opposite. Nearly as much contrast as complementary, with less tension.",
   },
   triadic: {
     name: "Triadic",
     definition:
-      "Three hues evenly spaced around the colour wheel; vibrant but balanced.",
+      "Three hues evenly spaced around the wheel, 120° apart (e.g. red, yellow, blue). Vibrant and balanced, often playful.",
   },
+  tetradic: {
+    name: "Tetradic (rectangle)",
+    aka: ["double complementary"],
+    definition:
+      "Two complementary pairs, forming a rectangle on the wheel. Rich and varied; works best when one hue dominates and the others are accents.",
+  },
+  square: {
+    name: "Square",
+    definition:
+      "Four hues evenly spaced around the wheel, 90° apart. Bold and diverse, and the hardest to balance.",
+  },
+};
+
+export const COLOR_STRATEGY_TERMS: Glossary<typeof COLOR_STRATEGIES> = {
   "neutral-with-accent": {
     name: "Neutral with a single accent",
     aka: ["accent colour scheme"],
     definition:
-      "Mostly whites, greys and black, with one strong colour reserved for what matters most (usually actions).",
+      "Mostly whites, greys and black, with one strong colour reserved for what matters most (usually actions). Other hues, if any, stay small.",
   },
   multicolour: {
     name: "Multicolour",
     aka: ["polychromatic"],
     definition:
-      "Many saturated hues used together, each often owning a section or category; playful and expressive.",
+      "Many saturated hues used generously, each often owning a section or category; playful and expressive.",
+  },
+  tonal: {
+    name: "Tonal",
+    definition:
+      "Built mainly from lighter and darker versions of one colour family, with neutrals; quiet and sophisticated.",
   },
 };
 
@@ -391,6 +417,7 @@ export const GLOSSARY: Record<string, Term> = {
   ...IMAGERY_TREATMENT_TERMS,
   ...TEXTURE_TERMS,
   ...MOTION_TERMS,
-  ...COLOR_SCHEME_TERMS,
+  ...COLOR_HARMONY_TERMS,
+  ...COLOR_STRATEGY_TERMS,
   ...TYPE_STYLE_TERMS,
 };

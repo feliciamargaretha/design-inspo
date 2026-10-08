@@ -1,0 +1,88 @@
+---
+// All seven colour harmonies as small wheels, built from the entry's own
+// base hue, with the entry's harmony highlighted, plus the definition.
+import ColorWheel from "@/components/ColorWheel.astro";
+import { COLOR_HARMONY_TERMS } from "@/data/glossary";
+import { COLOR_HARMONIES } from "@/data/taxonomies";
+import { HARMONY_OFFSETS, hexToHsl, type Harmony } from "@/lib/color";
+
+interface Props {
+  harmony: Harmony;
+  /** The hue every example wheel starts from (defaults to the first harmony colour). */
+  baseHex: string;
+}
+
+const { harmony, baseHex } = Astro.props;
+const base = hexToHsl(baseHex).h;
+const toHex = (h: number, l = 50) => {
+  // HSL → hex with fixed saturation, for illustrative dots.
+  const s = 0.8;
+  const a = s * Math.min(l / 100, 1 - l / 100);
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const v = l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+    return Math.round(v * 255)
+      .toString(16)
+      .padStart(2, "0");
+  };
+  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
+};
+const examples = COLOR_HARMONIES.map((h) => ({
+  id: h,
+  term: COLOR_HARMONY_TERMS[h],
+  points: HARMONY_OFFSETS[h].map((o, i) => ({
+    hex:
+      h === "monochromatic"
+        ? toHex(base, [30, 50, 72][i])
+        : toHex((base + o + 360) % 360),
+  })),
+}));
+---
+
+<div class="guide">
+  {examples.map((ex) => (
+    <div class:list={["item", { active: ex.id === harmony }]}>
+      <ColorWheel
+        harmony={ex.id}
+        harmonyColors={ex.points}
+        size={92}
+        compact
+        title={`${ex.term.name} example`}
+      />
+      <div class="name">{ex.term.name}</div>
+    </div>
+  ))}
+</div>
+<p class="definition">
+  <strong>{COLOR_HARMONY_TERMS[harmony].name}:</strong>{" "}
+  {COLOR_HARMONY_TERMS[harmony].definition}
+</p>
+
+<style>
+  .guide {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+    gap: 12px;
+  }
+  .item {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    padding: 10px 6px;
+    border-radius: 12px;
+    opacity: 0.55;
+  }
+  .item.active {
+    opacity: 1;
+    background: #f4f4f5;
+    box-shadow: inset 0 0 0 2px #16161a;
+  }
+  .name {
+    font-size: 12px;
+    text-align: center;
+  }
+  .definition {
+    font-size: 14px;
+    max-width: 60ch;
+  }
+</style>

@@ -20,7 +20,7 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   3. Nothing found → `basis: interpretation`
      Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
 - Name things properly. A goal of this site is learning design vocabulary, so use the most precise term from `src/data/glossary.ts` (e.g. "staggered slide-in", "multiplayer cursors", "dot grid", "geometric sans") in lists, captions and the _what_ text. If a precise term is missing, add it to the taxonomy list and glossary (with a plain-English definition) in the same PR.
-  - Colors: `scheme`. Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
+  - Colors: `harmony` (colour-wheel relationship, with the `harmonyColors` that form it; the build checks the hues really match) and `strategy` (how much of each colour is used). Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
   - Every imagery/motion example lists the `terms` it shows; every term claimed in a section needs at least one example showing it (the build enforces both).
 - Examples:
   - Colors: the palette (hex codes) is the example.

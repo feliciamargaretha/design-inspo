@@ -19,7 +19,9 @@ colors:
     - { hex: "#FFCE00", name: Sunshine yellow, role: secondary }
     - { hex: "#FFA1CC", name: Bubblegum pink, role: accent }
     - { hex: "#3B197F", name: Deep purple, role: accent }
-  scheme: multicolour
+  harmony: complementary
+  harmonyColors: ["#FF7401", "#FFCE00", "#0061EF"]
+  strategy: multicolour
   mode: light
   temperature: warm
   what: >-
@@ -27,7 +29,12 @@ colors:
     white page with warm off-white cards and warm charcoal text (never pure
     black). Large blocks of sunshine yellow and bright blue alternate down
     the page, with bright blue also used for buttons; pink, purple and green
-    appear as smaller accents. Hex values were measured from the live page.
+    appear as smaller accents. On the colour wheel the core is a
+    complementary harmony: signature orange (27°) and bright blue (216°) sit
+    172° apart, with yellow (49°) as orange's analogous neighbour; pink,
+    purple and green are extra accents on top. The strategy is multicolour:
+    many saturated hues used generously. Hex values were measured from the
+    live page.
   why: >-
     In its 2024 rebrand, Headspace kept "leading with its signature orange"
     and added a supporting palette to "better represent the range of human

@@ -2,7 +2,10 @@
 // Temporary home page: lists entries to prove the data layer works.
 // Replaced by the real home page in phase 3.
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ColorWheel from "@/components/ColorWheel.astro";
+import HarmonyGuide from "@/components/HarmonyGuide.astro";
 import { getEntries, mediaUrl } from "@/lib/content";
+import { isNeutral } from "@/lib/color";
 import { label } from "@/data/taxonomies";
 
 const entries = await getEntries();
@@ -12,20 +15,37 @@ const entries = await getEntries();
   <h1>design-inspo</h1>
   <p>{entries.length} entries</p>
   <ul>
-    {entries.map((entry) => (
-      <li>
-        <img
-          src={mediaUrl(entry.id, entry.data.cover)}
-          alt=""
-          width="240"
-          loading="lazy"
-        />
-        <p>
-          <strong>{entry.productData.data.name}</strong> ·{" "}
-          {label(entry.data.type)} · {label(entry.productData.data.category)}
-        </p>
-        <p>{entry.data.tags.map(label).join(", ")}</p>
-      </li>
-    ))}
+    {entries.map((entry) => {
+      const { palette, harmony, harmonyColors } = entry.data.colors;
+      return (
+        <li>
+          <img
+            src={mediaUrl(entry.id, entry.data.cover)}
+            alt=""
+            width="240"
+            loading="lazy"
+          />
+          <p>
+            <strong>{entry.productData.data.name}</strong> ·{" "}
+            {label(entry.data.type)} · {label(entry.productData.data.category)}
+          </p>
+          <p>{entry.data.tags.map(label).join(", ")}</p>
+          <section class="colors" id={`colors-${entry.id}`}>
+            <h3>Colour harmony: {label(harmony)}</h3>
+            <ColorWheel
+              harmony={harmony}
+              harmonyColors={palette.filter((c) =>
+                harmonyColors.includes(c.hex),
+              )}
+              accents={palette.filter(
+                (c) => !harmonyColors.includes(c.hex) && !isNeutral(c.hex),
+              )}
+              neutrals={palette.filter((c) => isNeutral(c.hex))}
+            />
+            <HarmonyGuide harmony={harmony} baseHex={harmonyColors[0]!} />
+          </section>
+        </li>
+      );
+    })}
   </ul>
 </BaseLayout>

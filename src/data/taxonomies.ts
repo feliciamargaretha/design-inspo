@@ -76,14 +76,21 @@ export const COLOR_ROLES = [
   "secondary",
   "accent",
 ] as const;
-/** Named colour schemes (defined in glossary.ts). */
-export const COLOR_SCHEMES = [
+/** How the main hues relate on the colour wheel (defined in glossary.ts). */
+export const COLOR_HARMONIES = [
   "monochromatic",
   "analogous",
   "complementary",
+  "split-complementary",
   "triadic",
+  "tetradic",
+  "square",
+] as const;
+/** How much of each colour is used (defined in glossary.ts). */
+export const COLOR_STRATEGIES = [
   "neutral-with-accent",
   "multicolour",
+  "tonal",
 ] as const;
 
 /** Typography topic filters. Broad groups, used for filtering. */

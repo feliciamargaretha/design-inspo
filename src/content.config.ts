@@ -1,11 +1,13 @@
 import { defineCollection, reference } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { checkHarmony, isNeutral } from "./lib/color";
 import {
   CATEGORIES,
   COLOR_MODES,
+  COLOR_HARMONIES,
   COLOR_ROLES,
-  COLOR_SCHEMES,
+  COLOR_STRATEGIES,
   COLOR_TEMPERATURES,
   ENTRY_TYPES,
   IMAGERY_STYLES,
@@ -109,7 +111,12 @@ const entries = defineCollection({
               }),
             )
             .min(1),
-          scheme: z.enum(COLOR_SCHEMES),
+          /** How the main hues relate on the colour wheel. */
+          harmony: z.enum(COLOR_HARMONIES),
+          /** The palette hexes that form the harmony (shown on the wheel). */
+          harmonyColors: z.array(hex).min(1),
+          /** How much of each colour is used. */
+          strategy: z.enum(COLOR_STRATEGIES),
           mode: z.enum(COLOR_MODES),
           temperature: z.enum(COLOR_TEMPERATURES),
         },
@@ -197,6 +204,35 @@ const entries = defineCollection({
           code: "custom",
           path: ["screens"],
           message: "iOS / desktop entries need at least one screen type.",
+        });
+      }
+
+      // The stated harmony must match the actual hues.
+      const paletteHexes = entry.colors.palette.map((c) => c.hex);
+      for (const hexValue of entry.colors.harmonyColors) {
+        if (!paletteHexes.includes(hexValue)) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["colors", "harmonyColors"],
+            message: `${hexValue} isn't in the palette.`,
+          });
+        } else if (isNeutral(hexValue)) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["colors", "harmonyColors"],
+            message: `${hexValue} is a neutral and has no place on the colour wheel.`,
+          });
+        }
+      }
+      const harmonyProblem = checkHarmony(
+        entry.colors.harmony,
+        entry.colors.harmonyColors,
+      );
+      if (harmonyProblem) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["colors", "harmony"],
+          message: harmonyProblem,
         });
       }
 

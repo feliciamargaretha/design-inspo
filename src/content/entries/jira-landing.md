@@ -19,15 +19,21 @@ colors:
     - { hex: "#803FA5", name: Purple, role: accent }
     - { hex: "#4C6B1F", name: Olive green, role: accent }
     - { hex: "#FFE48F", name: Soft yellow, role: accent }
-  scheme: neutral-with-accent
+  harmony: tetradic
+  harmonyColors: ["#1868DB", "#FFE48F", "#803FA5", "#4C6B1F"]
+  strategy: neutral-with-accent
   mode: mixed
   temperature: cool
   what: >-
     A mostly white and light-grey page with near-black text, where a single
     saturated blue carries every call to action. A charcoal band breaks the
     page for the AI/developer section, and purple, olive and soft-yellow
-    tints appear only in small cards and labels. Hex values were measured
-    from the live page.
+    tints appear only in small cards and labels. On the colour wheel the
+    four hues form a tetradic (rectangle) harmony: Atlassian blue (215°) and
+    soft yellow (46°) are a complementary pair 170° apart, and purple (278°)
+    and olive (85°) are a second pair 166° apart. The strategy is neutral
+    with a single accent: only the blue is used at any size. Hex values were
+    measured from the live page.
   why: >-
     Atlassian's design system gives every colour a role. The "brand" role is
     reserved for "primary actions or elements that communicate the Atlassian
@@ -35,8 +41,10 @@ colors:
     Neutrals cover "most backgrounds, text, and shapes", and accent colours
     are explicitly meaningless and interchangeable, so the purple, olive and
     yellow cards decorate without competing with the call to action.
-    (Our read: the dark band borrows the look of a code editor to signal
-    "this part is for developers".)
+    (Our read: a tetradic harmony is rich but hard to balance, so letting
+    blue dominate and keeping the other three as small accents is what
+    stops it feeling busy. The dark band borrows the look of a code editor
+    to signal "this part is for developers".)
   basis: brand-guidelines
   sources:
     - title: Atlassian Design System, Color
