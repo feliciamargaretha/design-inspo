@@ -19,6 +19,7 @@ colors:
     - { hex: "#803FA5", name: Purple, role: accent }
     - { hex: "#4C6B1F", name: Olive green, role: accent }
     - { hex: "#FFE48F", name: Soft yellow, role: accent }
+  scheme: neutral-with-accent
   mode: mixed
   temperature: cool
   what: >-
@@ -44,7 +45,7 @@ colors:
 typography:
   fonts:
     - family: Charlie Display
-      classification: sans-serif
+      style: geometric-sans
       roles: [display, heading]
       source: Custom (Charlie Sans family, by Ohno Type Co.)
       specimen: specimen-charlie-display.webp
@@ -77,7 +78,7 @@ typography:
           tracking: -0.24
           sample: Agents in Jira raise the floor for what every team can do.
     - family: Charlie Text
-      classification: sans-serif
+      style: geometric-sans
       roles: [body, ui]
       source: Custom (Charlie Sans family, by Ohno Type Co.)
       specimen: specimen-charlie-text.webp
@@ -110,7 +111,7 @@ typography:
           weight: 500
           sample: Get it free
     - family: Atlassian Mono
-      classification: monospace
+      style: monospace
       roles: [code]
       source: Atlassian app typeface
       specimen: specimen-atlassian-mono.webp
@@ -148,69 +149,94 @@ typography:
       url: https://ohnotype.co/custom/atlassian
 
 imagery:
-  styles: [product-ui, photography, iconography]
+  styles: [product-ui, portrait-photography, line-icons, logo-wall]
+  treatments:
+    [layered-cards, multiplayer-cursors, black-and-white, colour-blocking]
+  textures: [grid-pattern, dot-grid]
   what: >-
-    The page is dominated by real, polished product screenshots (boards,
-    timelines, agent panels) shown large and early. Supporting imagery is
-    simple line icons, partner logos and customer portrait photos next to
-    testimonials.
+    A product UI showcase leads: real Jira boards shown large and early, with
+    layered cards pulled out of the interface and multiplayer cursors
+    labelled with people and AI agents ("Design", "Claude Agent", "Figma
+    Agent"). Testimonials use black-and-white portrait photography on soft
+    colour-blocked panels. Features are labelled with line icons, and a logo
+    wall of customers runs below the hero. Backgrounds carry two quiet
+    textures: a grid pattern fading out behind the hero, and a dot grid on
+    the dark developer section.
   why: >-
     For a tool people use all day, showing the actual interface is the
     strongest argument; it lowers the "what am I signing up for" anxiety.
-    Avoiding illustration keeps the tone serious and enterprise-ready, while
-    real customer faces add the human, trustworthy side that a wall of UI
-    can't. Atlassian's public illustration guidance covers in-app use (and
-    reserves collage for marketing), so the choice of product UI over
-    illustration on this page is our interpretation.
+    Multiplayer cursors borrow the language of collaborative tools to say
+    "humans and agents work here together" without a single word.
+    Black-and-white portraits keep real customer faces from clashing with the
+    brand palette, and the grid and dot textures quietly signal structure
+    and precision. Atlassian's public illustration guidance covers in-app
+    use (and reserves collage for marketing), so these choices on the
+    marketing page are our interpretation.
   basis: interpretation
   sources:
     - title: Atlassian Design System, Illustrations
       url: https://atlassian.design/foundations/illustrations
   examples:
     - src: imagery-product-ui.webp
-      alt: Jira board screenshot with cards and AI agents assigned to tasks
-      caption: Product UI as the hero image
+      alt: Jira board with floating task cards and labelled cursors for a designer and AI agents
+      caption: Product UI with layered cards and multiplayer cursors
+      terms: [product-ui, layered-cards, multiplayer-cursors]
     - src: imagery-photography.webp
-      alt: Customer testimonial card with a black-and-white portrait photo
-      caption: Customer portraits in testimonials
+      alt: Testimonial card with a black-and-white portrait on a pale blue panel
+      caption: Black-and-white portraits on colour blocks
+      terms: [portrait-photography, black-and-white, colour-blocking]
     - src: imagery-icons.webp
-      alt: Row of four line icons labelled Intake, Plan, Coordinate and Review
-      caption: Simple line icons
-
+      alt: Row of four line icons labelled Intake, Plan, Coordinate and Review on a dark background
+      caption: Line icons
+      terms: [line-icons]
+    - src: imagery-logo-wall.webp
+      alt: Row of customer logos including Reddit, Cisco, Rippling, Roblox, Dropbox and Databricks
+      caption: Logo wall
+      terms: [logo-wall]
+    - src: texture-grid.webp
+      alt: Close-up of a faint square grid fading out behind the hero form
+      caption: Grid pattern, fading at the edges (zoomed in)
+      terms: [grid-pattern]
+    - src: texture-dot-grid.webp
+      alt: Close-up of tiny evenly spaced dots on a charcoal background
+      caption: Dot grid on the dark section (zoomed in)
+      terms: [dot-grid]
 motion:
-  types: [scroll-reveal, text-animation, marquee, carousel]
+  types: [scroll-reveal, slide-in, fade-in, stagger, typewriter, marquee]
   what: >-
-    Three kinds of movement. On scroll, the testimonial and "Discover the
-    latest" cards start off-screen to the right and invisible, then fade and
-    slide into place one after another, each slightly behind the previous
-    one. A terminal-style block types and deletes rotating phrases ("> in
-    your IDE", "> built for agents", "> connect anywhere"), each with a
-    colour-coded keyword and a blinking block cursor. The customer logo strip
-    scrolls sideways on its own. The cards then sit in carousels with arrow
-    controls.
+    A scroll-triggered reveal: as the testimonial and "Discover the latest"
+    rows come into view, each card slides in from the right while fading in,
+    with a stagger so they arrive one after another. A terminal block uses a
+    typewriter effect, typing and deleting rotating phrases ("> in your
+    IDE", "> built for agents", "> connect anywhere") with a blinking block
+    cursor and a colour-coded keyword. The logo wall runs as an infinite
+    marquee.
   why: >-
     Atlassian's motion principles call for motion that is "human" (subtle
     and rhythmic), a "clarifying layer, not decoration", accessible and fast.
     Those are written for the product, so applying them here is our
-    interpretation: the staggered slide-in hints that the row continues
-    sideways and invites you to use the carousel; the typing effect mimics a
-    command line, so the AI/developer message feels native; and the endless
-    logo strip shows scale ("everyone uses this") without taking up a whole
-    section.
+    interpretation: the staggered slide-in from the right hints that the row
+    continues sideways and invites you to use the carousel; the typewriter
+    effect mimics a command line, so the AI/developer message feels native;
+    and the marquee shows scale ("everyone uses this") without taking up a
+    whole section.
   basis: interpretation
   sources:
     - title: Atlassian Design System, Motion
       url: https://atlassian.design/foundations/motion
   examples:
     - src: motion-scroll-reveal.webp
-      alt: Testimonial cards sliding in from the right and fading in as the section scrolls into view
-      caption: Cards slide in from the right on scroll
+      alt: Testimonial cards sliding in from the right and fading in, one after another, as the section scrolls into view
+      caption: Scroll-triggered reveal (slide-in + fade-in, staggered)
+      terms: [scroll-reveal, slide-in, fade-in, stagger]
     - src: motion-text.webp
-      alt: Terminal typing "in your IDE", "built for agents" and "connect anywhere"
-      caption: Typing terminal
+      alt: Terminal typing "in your IDE", "built for agents" and "connect anywhere" with a blinking cursor
+      caption: Typewriter effect
+      terms: [typewriter]
     - src: motion-marquee.webp
-      alt: Customer logos (Reddit, Cisco, Rippling, Roblox, Dropbox, Databricks, Canva) scrolling sideways
-      caption: Auto-scrolling logo strip
+      alt: Customer logos scrolling sideways in an endless loop
+      caption: Infinite marquee
+      terms: [marquee]
 ---
 
 Jira's page reads as "serious tool, friendly door": enterprise-grade proof

@@ -19,6 +19,7 @@ Live site: https://feliciamargaretha.github.io/design-inspo
 
 - **Product** (`src/content/products/`): one file per product, e.g. Jira. Holds the name, website and category.
 - **Entry** (`src/content/entries/`): one file per source, e.g. Jira's landing page _or_ Jira's iOS app. Holds the media, tags and the color / typography / imagery / motion breakdown. Each section has a _what_, a _why_, visual examples, and a label showing where the _why_ comes from: the brand's own guidelines, a brand statement (press, agency or foundry case study), or our interpretation.
+- **Glossary** (`src/data/glossary.ts`): the proper name and a plain-English definition for every style, treatment, texture, motion technique, colour scheme and type classification, so browsing doubles as learning the vocabulary.
 - **Taxonomies** (`src/data/taxonomies.ts`): the single list of allowed categories, screen types, personality tags and filter labels.
 - **Media** (`public/media/<entry>/`): screenshots and recordings.
 

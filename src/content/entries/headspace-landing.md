@@ -19,6 +19,7 @@ colors:
     - { hex: "#FFCE00", name: Sunshine yellow, role: secondary }
     - { hex: "#FFA1CC", name: Bubblegum pink, role: accent }
     - { hex: "#3B197F", name: Deep purple, role: accent }
+  scheme: multicolour
   mode: light
   temperature: warm
   what: >-
@@ -44,7 +45,7 @@ colors:
 typography:
   fonts:
     - family: Headspace Apercu
-      classification: sans-serif
+      style: grotesque-sans
       roles: [display, heading, body, ui]
       source: Custom cut of Apercu, by Colophon Foundry
       specimen: specimen-headspace-apercu.webp
@@ -112,12 +113,27 @@ typography:
       url: https://www.itsnicethat.com/articles/italic-studio-headspace-graphic-design-project-250424
 
 imagery:
-  styles: [mascot, flat-illustration, photography, product-ui]
+  styles:
+    [
+      character-mascot,
+      flat-illustration,
+      lifestyle-photography,
+      device-mockup,
+      product-ui,
+      mixed-media-collage,
+      logo-wall,
+    ]
+  treatments: [colour-blocking, layered-cards, soft-glow, decorative-sparkles]
+  textures: [soft-gradient, flat-colour]
   what: >-
-    Ebb, a round orange character with closed, smiling eyes, appears
-    throughout alongside other round characters, sparkles and clouds in flat
-    colour. These sit next to real photos of therapists and members, and
-    phone mock-ups of the app.
+    Ebb, a character mascot (a round orange-to-pink blob with closed, smiling
+    eyes), appears throughout. Around it, flat vector illustration: round
+    characters with different expressions, plus decorative sparkles and
+    clouds. Real lifestyle photos of people sit in a mixed-media collage with
+    illustrated clouds and sparkles, next to a partner logo wall. The app is
+    shown as product UI inside a device mock-up, with layered cards and a
+    chat bubble with a soft glow. Sections use bold colour blocking; most
+    surfaces are flat colour, with soft gradients on Ebb and the clouds.
   why: >-
     Headspace says it "has always led as an illustrative and animated
     brand", which makes it stand out in digital wellness. The orange smiley
@@ -135,50 +151,61 @@ imagery:
   examples:
     - src: imagery-mascot.webp
       alt: Yellow section with Ebb, a round orange-pink character with closed eyes, next to a chat bubble
-      caption: Ebb, the AI companion character
+      caption: Character mascot (Ebb) on a colour block
+      terms: [character-mascot, colour-blocking]
     - src: imagery-flat.webp
-      alt: Round flat-colour characters with different expressions around a headline
-      caption: Characters with a range of emotions
+      alt: Round flat-colour characters with different expressions and small sparkles around a headline
+      caption: Flat vector illustration with decorative sparkles
+      terms: [flat-illustration, decorative-sparkles]
     - src: imagery-photography.webp
-      alt: Blue section with photos of real people and illustrated clouds and sparkles
-      caption: Photography where trust matters
+      alt: Blue section with a row of partner logos above photos of real people, illustrated clouds and sparkles
+      caption: Lifestyle photography in a mixed-media collage, with a logo wall
+      terms: [lifestyle-photography, mixed-media-collage, logo-wall]
     - src: imagery-product-ui.webp
-      alt: Phone mock-up of a meditation screen next to Ebb and content cards
-      caption: App UI in phone mock-ups
-
+      alt: Phone mock-up of a meditation screen next to floating content cards and a glowing chat bubble
+      caption: Product UI in a device mock-up, with layered cards and a soft glow
+      terms: [product-ui, device-mockup, layered-cards, soft-glow]
+    - src: texture-gradient.webp
+      alt: Close-up of Ebb, an orange circle blending into pink, with a glowing chat bubble
+      caption: Soft gradient (zoomed in)
+      terms: [soft-gradient]
 motion:
   types:
-    [scroll-reveal, text-animation, marquee, animated-illustration, carousel]
+    [text-rotator, slide-in, scroll-reveal, fade-in, marquee, idle-animation]
   what: >-
-    The hero headline slides its first line up on a loop ("Stress less",
-    "Sleep better", "Feel less anxious", "Improve relationships") while "all
-    with Headspace" stays fixed. On scroll, the round characters and sparkles
-    around "Members are enjoying happier and healthier lives" fade in. A
-    yellow "find some headspace" ticker scrolls sideways, and the little
-    eyes between the words blink and glance around as it moves. Ebb also
-    moves gently in the "Always-there support" section.
+    The hero uses a text rotator: the first line slides up and swaps on a
+    loop ("Stress less", "Sleep better", "Feel less anxious", "Improve
+    relationships") while "all with Headspace" stays fixed. A
+    scroll-triggered reveal fades in the round characters and sparkles
+    around "Members are enjoying happier and healthier lives". A yellow
+    "find some headspace" ticker runs as an infinite marquee, and the little
+    eyes between the words have an idle animation: they blink and glance
+    around as the strip moves.
   why: >-
     Headspace says it "has always led as an illustrative and animated
     brand", and that its animations are kept to "help simplify complex
-    ideas". (Our read: every movement here is slow and soft, like fades, gentle
-    slides and blinking eyes, rather than snappy, matching the calm the
-    product promises. The rotating headline speaks to several needs in one
-    spot, so each visitor quickly sees "their" problem, and the blinking
-    eyes add a small moment of delight.)
+    ideas". (Our read: every movement here is slow and soft, like fades,
+    gentle slides and blinking eyes, rather than snappy, matching the calm
+    the product promises. The text rotator speaks to several needs in one
+    spot, so each visitor quickly sees "their" problem, and the idle
+    animation of the eyes adds a small moment of delight.)
   basis: brand-statement
   sources:
     - title: It's Nice That, Headspace overhauls visual identity (2024)
       url: https://www.itsnicethat.com/articles/italic-studio-headspace-graphic-design-project-250424
   examples:
     - src: motion-text.webp
-      alt: Headline cycling through "Sleep better", "Improve relationships", "Feel less anxious" and "Stress less"
-      caption: Rotating headline
+      alt: Headline line sliding up and swapping between "Sleep better", "Improve relationships", "Feel less anxious" and "Stress less"
+      caption: Text rotator with a vertical slide-in
+      terms: [text-rotator, slide-in]
     - src: motion-scroll-reveal.webp
-      alt: Round characters and sparkles fading in around the headline "Members are enjoying happier and healthier lives"
-      caption: Characters fade in on scroll
+      alt: Round characters and sparkles fading in around a headline as it scrolls into view
+      caption: Scroll-triggered reveal (fade-in)
+      terms: [scroll-reveal, fade-in]
     - src: motion-marquee.webp
-      alt: Yellow ticker reading "find some headspace" with blinking cartoon eyes between the words
-      caption: Ticker with blinking eyes
+      alt: Yellow ticker reading "find some headspace" scrolling sideways, with cartoon eyes blinking between the words
+      caption: Infinite marquee with idle-animated eyes
+      terms: [marquee, idle-animation]
 ---
 
 Headspace turns a clinical subject into something that feels like a warm

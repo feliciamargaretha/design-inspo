@@ -76,8 +76,17 @@ export const COLOR_ROLES = [
   "secondary",
   "accent",
 ] as const;
+/** Named colour schemes (defined in glossary.ts). */
+export const COLOR_SCHEMES = [
+  "monochromatic",
+  "analogous",
+  "complementary",
+  "triadic",
+  "neutral-with-accent",
+  "multicolour",
+] as const;
 
-/** Typography topic filters. */
+/** Typography topic filters. Broad groups, used for filtering. */
 export const TYPE_CLASSIFICATIONS = [
   "sans-serif",
   "serif",
@@ -85,36 +94,97 @@ export const TYPE_CLASSIFICATIONS = [
   "display",
   "script",
 ] as const;
+/** Named type classifications (defined in glossary.ts), each in one broad group. */
+export const TYPE_STYLES = [
+  "geometric-sans",
+  "humanist-sans",
+  "grotesque-sans",
+  "neo-grotesque-sans",
+  "old-style-serif",
+  "transitional-serif",
+  "didone",
+  "slab-serif",
+  "monospace",
+  "display-face",
+  "script-face",
+] as const;
+export const TYPE_STYLE_GROUP: Record<
+  (typeof TYPE_STYLES)[number],
+  (typeof TYPE_CLASSIFICATIONS)[number]
+> = {
+  "geometric-sans": "sans-serif",
+  "humanist-sans": "sans-serif",
+  "grotesque-sans": "sans-serif",
+  "neo-grotesque-sans": "sans-serif",
+  "old-style-serif": "serif",
+  "transitional-serif": "serif",
+  didone: "serif",
+  "slab-serif": "serif",
+  monospace: "monospace",
+  "display-face": "display",
+  "script-face": "script",
+};
 export const TYPE_ROLES = ["display", "heading", "body", "ui", "code"] as const;
 
-/** Imagery topic filters. */
+/** Imagery: what kind of image (defined in glossary.ts). */
 export const IMAGERY_STYLES = [
-  "photography",
   "product-ui",
-  "line-illustration",
+  "device-mockup",
+  "portrait-photography",
+  "lifestyle-photography",
   "flat-illustration",
-  "3d",
+  "line-illustration",
+  "3d-render",
   "hand-drawn",
-  "mascot",
+  "character-mascot",
   "abstract-shapes",
-  "gradient",
-  "iconography",
-  "collage",
+  "line-icons",
+  "logo-wall",
+  "mixed-media-collage",
 ] as const;
 
-/** Motion topic filters. */
+/** Imagery: how images are treated or framed (defined in glossary.ts). */
+export const IMAGERY_TREATMENTS = [
+  "black-and-white",
+  "duotone",
+  "cutout",
+  "colour-blocking",
+  "layered-cards",
+  "multiplayer-cursors",
+  "soft-glow",
+  "decorative-sparkles",
+] as const;
+
+/** Imagery: surface texture and background pattern (defined in glossary.ts). */
+export const TEXTURES = [
+  "flat-colour",
+  "grid-pattern",
+  "dot-grid",
+  "grain",
+  "halftone",
+  "soft-gradient",
+  "gradient-mesh",
+  "glassmorphism",
+  "paper",
+] as const;
+
+/** Motion techniques (defined in glossary.ts). Combine them: a card can scroll-reveal with a fade-in, slide-in and stagger. */
 export const MOTION_TYPES = [
   "scroll-reveal",
-  "hover",
+  "fade-in",
+  "slide-in",
+  "stagger",
+  "parallax",
+  "typewriter",
+  "text-rotator",
+  "marquee",
+  "carousel",
+  "idle-animation",
+  "hover-state",
   "micro-interaction",
   "page-transition",
-  "loading",
-  "parallax",
-  "animated-illustration",
-  "carousel",
-  "marquee",
-  "text-animation",
-  "video",
+  "skeleton-loading",
+  "background-video",
 ] as const;
 
 /**

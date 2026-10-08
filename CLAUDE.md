@@ -19,6 +19,9 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   2. The brand or its designers explaining choices elsewhere (press interviews, agency or type-foundry case studies) → `basis: brand-statement`
   3. Nothing found → `basis: interpretation`
      Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
+- Name things properly. A goal of this site is learning design vocabulary, so use the most precise term from `src/data/glossary.ts` (e.g. "staggered slide-in", "multiplayer cursors", "dot grid", "geometric sans") in lists, captions and the _what_ text. If a precise term is missing, add it to the taxonomy list and glossary (with a plain-English definition) in the same PR.
+  - Colors: `scheme`. Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
+  - Every imagery/motion example lists the `terms` it shows; every term claimed in a section needs at least one example showing it (the build enforces both).
 - Examples:
   - Colors: the palette (hex codes) is the example.
   - Typography: a type specimen per font, never a screenshot crop. Fill in `weights` (only cuts the page really loads) and `scale` (measured from the page), set `specimen: specimen-<font>.webp`, then run `npm run specimen -- <entry-id>`. Free fonts can use `webFont` instead to render live.

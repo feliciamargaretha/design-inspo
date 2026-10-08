@@ -5,15 +5,18 @@ import {
   CATEGORIES,
   COLOR_MODES,
   COLOR_ROLES,
+  COLOR_SCHEMES,
   COLOR_TEMPERATURES,
   ENTRY_TYPES,
   IMAGERY_STYLES,
+  IMAGERY_TREATMENTS,
   MOTION_TYPES,
   PERSONALITY_TAGS,
   RATIONALE_BASES,
   SCREEN_TYPES,
-  TYPE_CLASSIFICATIONS,
+  TEXTURES,
   TYPE_ROLES,
+  TYPE_STYLES,
 } from "./data/taxonomies";
 
 /** A product, e.g. Jira. One product can have several entries (landing, iOS, desktop). */
@@ -36,6 +39,8 @@ const mediaItem = z.object({
   kind: z.enum(["image", "video"]).default("image"),
   alt: z.string().min(1),
   caption: z.string().optional(),
+  /** Glossary terms this example shows (imagery and motion examples need at least one). */
+  terms: z.array(z.string()).default([]),
 });
 
 const source = z.object({
@@ -104,6 +109,7 @@ const entries = defineCollection({
               }),
             )
             .min(1),
+          scheme: z.enum(COLOR_SCHEMES),
           mode: z.enum(COLOR_MODES),
           temperature: z.enum(COLOR_TEMPERATURES),
         },
@@ -122,7 +128,7 @@ const entries = defineCollection({
               z
                 .object({
                   family: z.string(),
-                  classification: z.enum(TYPE_CLASSIFICATIONS),
+                  style: z.enum(TYPE_STYLES),
                   roles: z.array(z.enum(TYPE_ROLES)).min(1),
                   /** e.g. "Custom", "Licensed (Colophon)", "Google Fonts" */
                   source: z.string().optional(),
@@ -164,7 +170,11 @@ const entries = defineCollection({
       ),
 
       imagery: section(
-        { styles: z.array(z.enum(IMAGERY_STYLES)).min(1) },
+        {
+          styles: z.array(z.enum(IMAGERY_STYLES)).min(1),
+          treatments: z.array(z.enum(IMAGERY_TREATMENTS)).default([]),
+          textures: z.array(z.enum(TEXTURES)).default([]),
+        },
         { examplesRequired: true },
       ),
 
@@ -188,6 +198,60 @@ const entries = defineCollection({
           path: ["screens"],
           message: "iOS / desktop entries need at least one screen type.",
         });
+      }
+
+      // Every named style / technique must be shown by at least one example,
+      // and every example must name what it shows.
+      const { imagery, motion } = entry;
+      const checks = [
+        {
+          key: "imagery",
+          claimed: [
+            ...imagery.styles,
+            ...imagery.treatments,
+            ...imagery.textures.filter((t) => t !== "flat-colour"),
+          ],
+          examples: imagery.examples,
+        },
+        ...(motion
+          ? [
+              {
+                key: "motion",
+                claimed: motion.types,
+                examples: motion.examples,
+              },
+            ]
+          : []),
+      ];
+      for (const { key, claimed, examples } of checks) {
+        examples.forEach((example, i) => {
+          if (example.terms.length === 0) {
+            ctx.addIssue({
+              code: "custom",
+              path: [key, "examples", i, "terms"],
+              message: "Name what this example shows (glossary terms).",
+            });
+          }
+          for (const term of example.terms) {
+            if (!(claimed as string[]).includes(term)) {
+              ctx.addIssue({
+                code: "custom",
+                path: [key, "examples", i, "terms"],
+                message: `"${term}" isn't listed in this ${key} section.`,
+              });
+            }
+          }
+        });
+        const shown = new Set(examples.flatMap((e) => e.terms));
+        for (const term of claimed) {
+          if (!shown.has(term)) {
+            ctx.addIssue({
+              code: "custom",
+              path: [key],
+              message: `"${term}" has no example showing it.`,
+            });
+          }
+        }
       }
     }),
 });

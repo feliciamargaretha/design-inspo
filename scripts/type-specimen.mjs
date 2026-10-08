@@ -31,6 +31,9 @@ const INK = "#16161A";
 const MUTED = "#6B6B76";
 const LINE = "#E4E4E7";
 
+const humanize = (id) =>
+  id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, " ");
+
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
 
 function specimenHtml(font) {
@@ -61,7 +64,7 @@ function specimenHtml(font) {
       box-sizing:border-box;width:${WIDTH}px;padding:64px;background:#fff;color:${INK};
       font-family:${family};font-weight:${regular};-webkit-font-smoothing:antialiased">
       <div style="display:flex;justify-content:space-between;font-size:15px;color:${MUTED}">
-        <span>${esc(font.family)}</span><span>${esc(font.classification)}${font.source ? ` · ${esc(font.source)}` : ""}</span>
+        <span>${esc(font.family)}</span><span>${esc(humanize(font.style))}${font.source ? ` · ${esc(font.source)}` : ""}</span>
       </div>
       <div style="display:flex;gap:56px;align-items:center;margin-top:40px">
         <div style="font-size:240px;line-height:1;letter-spacing:-4px;font-weight:${font.weights.at(-1).value}">Aa</div>
