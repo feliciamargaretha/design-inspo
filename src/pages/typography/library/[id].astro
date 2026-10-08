@@ -1,0 +1,127 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FontWeights from "@/components/FontWeights.astro";
+import LiveSpecimen from "@/components/LiveSpecimen.astro";
+import Terms from "@/components/Terms";
+import {
+  fontMediaId,
+  getFonts,
+  googleFontsHref,
+  mediaUrl,
+  type LibraryFont,
+} from "@/lib/content";
+import { term } from "@/lib/terms";
+import { tagUrl, url } from "@/lib/url";
+import { TYPE_STYLE_TERMS } from "@/data/glossary";
+import { label } from "@/data/taxonomies";
+
+export async function getStaticPaths() {
+  const fonts = await getFonts();
+  return fonts.map((font) => ({ params: { id: font.id }, props: { font } }));
+}
+
+interface Props {
+  font: LibraryFont;
+}
+const { font } = Astro.props;
+const { data } = font;
+const { Content } = await render(font);
+const facts = [
+  ["Classification", TYPE_STYLE_TERMS[data.style].name],
+  ["From", data.source.name],
+  ...(data.designers.length
+    ? [["Designed by", data.designers.join(", ")]]
+    : []),
+  ...(data.year ? [["Released", String(data.year)]] : []),
+  ["License", data.free ? "Free" : "Paid (commercial license)"],
+  ["Format", data.variable ? "Variable font" : "Static weights"],
+];
+---
+
+<BaseLayout title={data.family}>
+  {data.webFont && (
+    <link
+      slot="head"
+      rel="stylesheet"
+      href={googleFontsHref([
+        {
+          family: data.webFont.family,
+          weights: data.weights.map((w) => w.value),
+        },
+      ])}
+    />
+  )}
+  <a
+    href={url("/typography/library/")}
+    class="text-sm text-muted-foreground hover:text-foreground"
+  >
+    ← Font library
+  </a>
+  <header class="mt-4 mb-8 flex flex-wrap items-end justify-between gap-6">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+        {data.family}
+      </h1>
+      <Terms client:visible terms={[term(data.style)]} className="mt-4" />
+      {data.tags.length > 0 && (
+        <ul class="mt-4 flex flex-wrap gap-1.5" aria-label="Personality">
+          {data.tags.map((tag) => (
+            <li>
+              <a
+                href={tagUrl(tag)}
+                class="inline-block rounded-full bg-secondary px-3 py-1 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+              >
+                {label(tag)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <a
+      href={data.source.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex h-10 items-center rounded-md bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+    >
+      View on {data.source.name} ↗
+    </a>
+  </header>
+
+  <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+    <div class="space-y-8">
+      <dl class="grid grid-cols-[8rem_minmax(0,1fr)] gap-x-6 gap-y-2 text-sm">
+        {facts.map(([k, v]) => (
+          <>
+            <dt class="text-muted-foreground">{k}</dt>
+            <dd>{v}</dd>
+          </>
+        ))}
+      </dl>
+      <FontWeights weights={data.weights} />
+    </div>
+    <div class="leading-relaxed text-pretty [&_p+p]:mt-3">
+      <h2 class="mb-1.5 text-sm font-semibold">Notes</h2>
+      <Content />
+    </div>
+  </div>
+
+  <div class="mt-12">
+    {data.webFont ? (
+      <LiveSpecimen
+        family={data.webFont.family}
+        weights={data.weights}
+        meta={`${TYPE_STYLE_TERMS[data.style].name} · ${data.source.name}`}
+      />
+    ) : (
+      <div class="overflow-hidden rounded-xl border border-border">
+        <img
+          src={mediaUrl(fontMediaId(font.id), data.specimen!)}
+          alt={`Type specimen of ${data.family}`}
+          class="w-full"
+        />
+      </div>
+    )}
+  </div>
+</BaseLayout>

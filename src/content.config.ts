@@ -208,6 +208,16 @@ const entries = defineCollection({
         });
       }
 
+      // Drafts from `npm run capture` mark judgment calls with TODO.
+      const todos = JSON.stringify(entry).match(/TODO/g)?.length ?? 0;
+      if (todos > 0) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["draft"],
+          message: `${todos} TODO${todos > 1 ? "s" : ""} left from the capture draft.`,
+        });
+      }
+
       // The stated harmony must match the actual hues.
       const paletteHexes = entry.colors.palette.map((c) => c.hex);
       for (const hexValue of entry.colors.harmonyColors) {
@@ -293,4 +303,49 @@ const entries = defineCollection({
     }),
 });
 
-export const collections = { products, entries };
+/**
+ * A font saved on its own (not from an entry): a Google Font, or a font from
+ * a foundry. Shown in the Font library under Typography. The body holds
+ * notes: why it's good, where it works, pairing ideas.
+ */
+const fonts = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/fonts" }),
+  schema: z
+    .object({
+      family: z.string(),
+      style: z.enum(TYPE_STYLES),
+      /** Where the font comes from. */
+      source: z.object({
+        kind: z.enum(["google", "foundry", "other"]),
+        url: z.url(),
+        /** Foundry or publisher, e.g. "Google Fonts", "Colophon". */
+        name: z.string(),
+      }),
+      designers: z.array(z.string()).default([]),
+      free: z.boolean(),
+      year: z.number().optional(),
+      variable: z.boolean().default(false),
+      /** Every weight available, lightest first. */
+      weights: z
+        .array(z.object({ value: z.number(), name: z.string() }))
+        .min(1),
+      tags: z.array(z.enum(PERSONALITY_TAGS)).default([]),
+      addedAt: z.coerce.date(),
+      /** Free Google Font: the site renders the specimen live. */
+      webFont: z
+        .object({ provider: z.enum(["google"]), family: z.string() })
+        .optional(),
+      /** Otherwise: specimen image in public/media/fonts/<id>/ (from `npm run add-font`). */
+      specimen: z.string().optional(),
+      /** Small "Aa Bb Cc" image for the library grid (fonts without webFont). */
+      preview: z.string().optional(),
+    })
+    .refine((f) => f.specimen || f.webFont, {
+      message: "Add a `webFont` (Google Fonts) or a `specimen` image.",
+    })
+    .refine((f) => !JSON.stringify(f).includes("TODO"), {
+      message: "TODOs left from the add-font draft.",
+    }),
+});
+
+export const collections = { products, entries, fonts };

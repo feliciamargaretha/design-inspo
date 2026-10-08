@@ -84,6 +84,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Circles, blobs, lines or other non-representational forms used for rhythm, color and energy rather than meaning.",
   },
+  shader: {
+    name: "Shader (WebGL)",
+    aka: ["WebGL graphics", "generative graphics"],
+    definition:
+      "Graphics drawn live by the graphics card from code rather than loaded as an image: liquid gradients, noise and grain, glowing blobs, distortions. Usually animated.",
+  },
   "line-icons": {
     name: "Line icons",
     aka: ["outline icons", "stroke icons"],
@@ -284,6 +290,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["skeleton screen", "shimmer"],
     definition:
       "Grey placeholder shapes in the layout of the coming content, often shimmering, shown while it loads.",
+  },
+  "shader-animation": {
+    name: "Shader animation",
+    aka: ["WebGL animation", "real-time graphics"],
+    definition:
+      "A shader that moves: colors flowing, surfaces rippling or warping, often reacting to the mouse or to scrolling. Smoother and lighter than video because it's computed live.",
   },
   "background-video": {
     name: "Background video",

@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader.astro";
 import FilterBar from "@/components/FilterBar";
 import ExampleCard from "@/components/ExampleCard.astro";
 import { allExamples, getEntries } from "@/lib/content";
-import { filterGroup } from "@/lib/filters";
+import { feelGroup, filterGroup } from "@/lib/filters";
 import { MOTION_TERMS } from "@/data/glossary";
 import { MOTION_TYPES } from "@/data/taxonomies";
 
@@ -19,6 +19,7 @@ const groups = [
     (ex) => ex.terms,
     (v) => MOTION_TERMS[v as keyof typeof MOTION_TERMS].name,
   ),
+  feelGroup(examples, (ex) => ex.entry.data.tags),
 ];
 ---
 
@@ -31,7 +32,10 @@ const groups = [
   <div id="grid">
     <ul class="columns-1 gap-6 space-y-8 sm:columns-2">
       {examples.map((ex) => (
-        <ExampleCard example={ex} filters={{ technique: ex.terms }} />
+        <ExampleCard
+          example={ex}
+          filters={{ technique: ex.terms, feel: ex.entry.data.tags }}
+        />
       ))}
     </ul>
     <p data-empty hidden class="py-16 text-center text-muted-foreground">

@@ -1,5 +1,5 @@
 import type { FilterGroup } from "@/components/FilterBar";
-import { label } from "@/data/taxonomies";
+import { PERSONALITY_TAGS, label } from "@/data/taxonomies";
 
 /**
  * Builds a filter group from items, listing only values that occur, in the
@@ -25,4 +25,12 @@ export function filterGroup<T>(
       .filter((v) => counts.has(v))
       .map((v) => ({ value: v, label: labelOf(v), count: counts.get(v)! })),
   };
+}
+
+/** The "Feel" filter (personality tags), shared by every browsing page. */
+export function feelGroup<T>(
+  items: T[],
+  tagsOf: (item: T) => readonly string[],
+) {
+  return filterGroup("feel", "Feel", PERSONALITY_TAGS, items, tagsOf);
 }

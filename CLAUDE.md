@@ -27,6 +27,8 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   - Typography: a type specimen per font, never a screenshot crop. Fill in `weights` (only cuts the page really loads) and `scale` (measured from the page), set `specimen: specimen-<font>.webp`, then run `npm run specimen -- <entry-id>`. Free fonts can use `webFont` instead to render live.
   - Imagery: one cropped example per imagery style.
   - Motion: a short animated `.webp` per kind of movement. Always check for scroll-triggered animations (elements that fade or slide in when scrolled into view), not just ones that play on load; slow the page's animations down while recording fast ones, then play back at real speed.
+- New entries start from `npm run capture -- <url> --product <id>` (or `npm run import-screens` for app screenshots); see README "Adding an entry". The capture measures, the human judges: treat its harmony and role guesses as suggestions, check every motion clip, and never leave a `TODO` (the build fails on them).
+- Standalone fonts go in the Font library (`src/content/fonts/`), started with `npm run add-font -- <url>`. Google Fonts use `webFont` (rendered live; never self-host or redistribute font files); other fonts get a generated `specimen` and `preview` in `public/media/fonts/<id>/`.
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
 

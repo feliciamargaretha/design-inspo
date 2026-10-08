@@ -5,9 +5,15 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Breakdown from "@/components/Breakdown.astro";
 import Examples from "@/components/Examples.astro";
 import Palette from "@/components/Palette.astro";
+import FontWeights from "@/components/FontWeights.astro";
+import LiveSpecimen from "@/components/LiveSpecimen.astro";
 import ColorWheel from "@/components/ColorWheel.astro";
 import HarmonyGuide from "@/components/HarmonyGuide.astro";
-import { mediaUrl, type EntryWithProduct } from "@/lib/content";
+import {
+  googleFontsHref,
+  mediaUrl,
+  type EntryWithProduct,
+} from "@/lib/content";
 import { isNeutral } from "@/lib/color";
 import { term, terms } from "@/lib/terms";
 import { tagUrl, url } from "@/lib/url";
@@ -29,6 +35,11 @@ const sections = [
   ...(motion ? [{ id: "motion", title: "Motion" }] : []),
 ];
 const hero = data.media[0]!;
+const webFonts = typography.fonts.flatMap((f) =>
+  f.webFont
+    ? [{ family: f.webFont.family, weights: f.weights.map((w) => w.value) }]
+    : [],
+);
 const typeName = {
   landing: "Landing page",
   ios: "iOS app",
@@ -40,6 +51,9 @@ const typeName = {
   title={`${product.name} ${typeName}`}
   description={`${product.name} ${typeName.toLowerCase()}: color, typography, imagery and motion breakdown.`}
 >
+  {webFonts.length > 0 && (
+    <link slot="head" rel="stylesheet" href={googleFontsHref(webFonts)} />
+  )}
   <a
     href={url(`/inspiration/${data.type}/`)}
     class="text-sm text-muted-foreground hover:text-foreground"
@@ -183,7 +197,7 @@ const typeName = {
                 Used for {font.roles.map(label).join(", ").toLowerCase()}
               </p>
             </div>
-            {font.specimen && (
+            {font.specimen ? (
               <div class="overflow-hidden rounded-xl border border-border">
                 <img
                   src={mediaUrl(entry.id, font.specimen)}
@@ -192,7 +206,16 @@ const typeName = {
                   class="w-full"
                 />
               </div>
-            )}
+            ) : font.webFont ? (
+              <LiveSpecimen
+                family={font.webFont.family}
+                weights={font.weights}
+                scale={font.scale}
+              />
+            ) : null}
+            <div class="mt-4">
+              <FontWeights weights={font.weights} scale={font.scale} />
+            </div>
           </div>
         ))}
       </div>

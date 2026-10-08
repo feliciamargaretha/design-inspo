@@ -7,7 +7,7 @@ import EntryCard from "@/components/EntryCard.astro";
 import EntryDetail from "@/components/EntryDetail.astro";
 import FilterBar from "@/components/FilterBar";
 import { getEntries, type EntryWithProduct } from "@/lib/content";
-import { filterGroup } from "@/lib/filters";
+import { feelGroup, filterGroup } from "@/lib/filters";
 import { url } from "@/lib/url";
 import { CATEGORIES, ENTRY_TYPES, SCREEN_TYPES } from "@/data/taxonomies";
 
@@ -61,6 +61,7 @@ const TABS: { type: Tab; label: string; blurb: string }[] = [
             filterGroup("category", "Industry", CATEGORIES, items, (e) => [
               e.productData.data.category,
             ]),
+            feelGroup(items, (e) => e.data.tags),
           ]
         : [
             filterGroup(
@@ -73,6 +74,7 @@ const TABS: { type: Tab; label: string; blurb: string }[] = [
             filterGroup("category", "Category", CATEGORIES, items, (e) => [
               e.productData.data.category,
             ]),
+            feelGroup(items, (e) => e.data.tags),
           ];
     const tab = TABS.find((t) => t.type === props.type)!;
     return (
@@ -110,6 +112,7 @@ const TABS: { type: Tab; label: string; blurb: string }[] = [
                     filters={{
                       category: [entry.productData.data.category],
                       screen: entry.data.screens,
+                      feel: entry.data.tags,
                     }}
                   />
                 ))}

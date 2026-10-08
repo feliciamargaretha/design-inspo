@@ -14,6 +14,7 @@ Live site: https://feliciamargaretha.github.io/design-inspo
 | `/inspiration/<entry>`                          | Detail: screenshot, live link, personality tags, breakdown  |
 | `/colors`, `/typography`, `/imagery`, `/motion` | Every entry's breakdown for that topic, with simple filters |
 | `/tags/<tag>`                                   | Every entry with that personality tag                       |
+| `/typography/library`                           | Fonts saved on their own, with live or generated specimens  |
 | `/glossary`                                     | Every design term, defined, with real examples              |
 
 ## How content is organized
@@ -26,10 +27,48 @@ Live site: https://feliciamargaretha.github.io/design-inspo
 
 ## Adding an entry
 
-1. Add the product to `src/content/products/<product>.yaml` (if it's new).
-2. Put media in `public/media/<product>-<type>/`: a `cover.webp` and the full screenshot(s) or recording(s).
-3. Copy `src/content/entries/jira-landing.md` to `src/content/entries/<product>-<type>.md` and fill it in.
-4. Run `npm run build`. It fails with a clear message if anything is missing or misspelled.
+### From a link (landing pages and web apps)
+
+```sh
+npm run capture -- https://example.com --product example
+```
+
+This opens the page like a visitor, then writes:
+
+- `public/media/<id>/full.webp` and `cover.webp`: the screenshots
+- `drafts/<id>/report.md`: fonts and loaded weights, the type scale, the palette (from CSS and from pixels) with hue angles, harmony suggestions, motion it detected, and the page structure with y-coordinates
+- `drafts/<id>/motion-*.webp`: recordings of each detected motion (scroll reveals are recorded with animations slowed down, so fast ones are visible)
+- `drafts/<id>/entry.md`: a draft entry with everything measurable filled in and `TODO` for the judgment calls
+- `drafts/<id>/sections.png`: the page with a y-coordinate ruler, for cropping
+
+Then, by hand:
+
+1. Look for brand guidelines or designer interviews and fill in `basis` and `sources`.
+2. Name everything with glossary terms, crop imagery examples (`npm run crop -- <id> <name> <x> <y> <w> <h> [--zoom 2]`) and keep the motion clips that matter.
+3. Write the what / why, tags and summary. Move the draft to `src/content/entries/<id>.md` (and `drafts/<id>/product.yaml` to `src/content/products/` if the product is new).
+4. `npm run specimen -- <id>`, then `npm run build`. The build lists every remaining `TODO` and anything invalid.
+
+`npm run capture -- --redraft <id>` rebuilds the draft and report from the saved measurements without opening the page again.
+
+### A font on its own (Font library)
+
+```sh
+npm run add-font -- https://fonts.google.com/specimen/Space+Grotesk
+npm run add-font -- https://klim.co.nz/retail-fonts/tiempos-text/ [--family "<css name>"]
+```
+
+- **Google Fonts link**: reads Google's catalogue (designers, category, year, every weight, variable or not). The site renders the specimen live.
+- **Any other page** (a foundry page, or a site using the font): finds the font named in the page title or URL (or `--family`), checks the weights the page really loads, and renders a specimen and a preview image inside that page. Some foundries show their fonts as images; then use a page that actually loads the font.
+
+It writes `drafts/fonts/<id>.md`. Fill in the classification, personality and notes, then move it to `src/content/fonts/`.
+
+### From screenshots (iOS and desktop apps)
+
+```sh
+npm run import-screens -- <id> screen1.png screen2.png
+```
+
+Converts the screenshots, makes a cover, and writes a palette and harmony report. Fonts can't be measured from images.
 
 ## Development
 

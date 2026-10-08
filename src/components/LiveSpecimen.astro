@@ -1,0 +1,106 @@
+---
+// Type specimen rendered live in the real font (free web fonts only), laid
+// out like the generated specimen images. The page must load the font, e.g.
+// via googleFontsHref() in the layout's head slot.
+interface Props {
+  family: string;
+  weights: { value: number; name: string }[];
+  meta?: string;
+  scale?: {
+    label: string;
+    size: number;
+    lineHeight: number;
+    weight: number;
+    tracking?: number;
+    uppercase?: boolean;
+  }[];
+}
+const { family, weights, meta, scale } = Astro.props;
+const heaviest = weights.at(-1)!.value;
+const regular = (weights.find((w) => w.value === 400) ?? weights[0]!).value;
+const pick = (...prefs: number[]) =>
+  prefs.find((p) => weights.some((w) => w.value === p)) ?? heaviest;
+const rows = scale ?? [
+  {
+    label: "Display",
+    size: 72,
+    lineHeight: 76,
+    weight: pick(700, 600, 800, 500),
+    tracking: -1.5,
+  },
+  {
+    label: "Heading",
+    size: 40,
+    lineHeight: 46,
+    weight: pick(600, 500, 700),
+    tracking: -0.5,
+  },
+  { label: "Body", size: 18, lineHeight: 28, weight: pick(400, 300, 500) },
+  {
+    label: "Caption",
+    size: 13,
+    lineHeight: 18,
+    weight: pick(500, 400, 600),
+    tracking: 1,
+    uppercase: true,
+  },
+];
+const ff = `font-family:'${family}',ui-sans-serif`;
+---
+
+<div
+  class="overflow-hidden rounded-xl border border-border bg-white px-6 py-8 sm:px-12 sm:py-12"
+  style={`${ff};font-weight:${regular}`}
+>
+  <div class="flex justify-between gap-4 font-sans text-sm text-muted-foreground">
+    <span>{family}</span>
+    {meta && <span class="text-right">{meta}</span>}
+  </div>
+  <div class="mt-8 flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
+    <div
+      class="text-[120px] leading-none tracking-tight sm:text-[200px]"
+      style={`font-weight:${heaviest}`}
+    >
+      Aa
+    </div>
+    <div class="text-xl leading-snug break-all sm:text-2xl">
+      ABCDEFGHIJKLMNOPQRSTUVWXYZ
+      <br />
+      abcdefghijklmnopqrstuvwxyz
+      <br />
+      0123456789
+      <br />
+      !?@#&amp;%()[]&#123;&#125;/*+–—.,:;“”
+    </div>
+  </div>
+  <div class="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8 sm:grid-cols-5">
+    {weights.map((w) => (
+      <div>
+        <div class="text-5xl leading-none" style={`font-weight:${w.value}`}>
+          Aa
+        </div>
+        <div class="mt-2 font-sans text-sm text-muted-foreground">
+          {w.name} · {w.value}
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="mt-10">
+    {rows.map((s) => (
+      <div class="flex flex-col gap-1 border-t border-border py-4 sm:flex-row sm:items-baseline sm:gap-8">
+        <div class="w-40 shrink-0 font-sans text-xs leading-relaxed text-muted-foreground">
+          {s.label}
+          <br />
+          {s.size}/{s.lineHeight} · {s.weight}
+          {s.tracking ? ` · ${s.tracking}px` : ""}
+        </div>
+        <div
+          class="min-w-0 truncate"
+          style={`font-size:min(${s.size}px,10vw);line-height:${s.lineHeight}px;font-weight:${s.weight};letter-spacing:${s.tracking ?? 0}px;${s.uppercase ? "text-transform:uppercase" : ""}`}
+        >
+          {family}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

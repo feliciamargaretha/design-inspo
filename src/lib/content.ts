@@ -75,3 +75,40 @@ export function allExamples(entries: EntryWithProduct[]): ExampleRef[] {
     })),
   ]);
 }
+
+export type LibraryFont = CollectionEntry<"fonts">;
+
+/** Media folder for a library font: public/media/fonts/<id>/. */
+export const fontMediaId = (id: string) => `fonts/${id}`;
+
+/** Font library, newest first, with notes checked for leftover TODOs. */
+export async function getFonts(): Promise<LibraryFont[]> {
+  const fonts = await getCollection("fonts");
+  for (const font of fonts) {
+    if (font.body?.includes("TODO")) {
+      throw new Error(`Font "${font.id}": TODO left in the notes.`);
+    }
+    for (const file of [font.data.specimen, font.data.preview]) {
+      if (!file) continue;
+      const path = `./public/media/fonts/${font.id}/${file}`;
+      if (!existsSync(path))
+        throw new Error(`Font "${font.id}": missing ${path}`);
+    }
+  }
+  return fonts.sort(
+    (a, b) => b.data.addedAt.getTime() - a.data.addedAt.getTime(),
+  );
+}
+
+/** Google Fonts stylesheet URL for the given families and weights. */
+export function googleFontsHref(
+  fonts: { family: string; weights: number[] }[],
+): string {
+  const families = fonts
+    .map(
+      (f) =>
+        `family=${encodeURIComponent(f.family).replace(/%20/g, "+")}:wght@${[...new Set(f.weights)].sort((a, b) => a - b).join(";")}`,
+    )
+    .join("&");
+  return `https://fonts.googleapis.com/css2?${families}&display=swap`;
+}

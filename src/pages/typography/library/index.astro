@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import TypographyTabs from "@/components/TypographyTabs.astro";
+import FilterBar from "@/components/FilterBar";
+import {
+  fontMediaId,
+  getFonts,
+  googleFontsHref,
+  mediaUrl,
+} from "@/lib/content";
+import { feelGroup, filterGroup } from "@/lib/filters";
+import { url } from "@/lib/url";
+import { TYPE_STYLE_TERMS } from "@/data/glossary";
+import { TYPE_STYLES, label } from "@/data/taxonomies";
+
+const fonts = await getFonts();
+const google = fonts.filter((f) => f.data.webFont);
+const groups = [
+  filterGroup(
+    "style",
+    "Classification",
+    TYPE_STYLES,
+    fonts,
+    (f) => [f.data.style],
+    (v) => TYPE_STYLE_TERMS[v as keyof typeof TYPE_STYLE_TERMS].name,
+  ),
+  filterGroup("license", "License", ["free", "paid"], fonts, (f) => [
+    f.data.free ? "free" : "paid",
+  ]),
+  feelGroup(fonts, (f) => f.data.tags),
+].filter((g) => g.options.length > 0);
+---
+
+<BaseLayout title="Font library">
+  {google.length > 0 && (
+    <link
+      slot="head"
+      rel="stylesheet"
+      href={googleFontsHref(
+        google.map((f) => ({
+          family: f.data.webFont!.family,
+          weights: f.data.weights.map((w) => w.value),
+        })),
+      )}
+    />
+  )}
+  <PageHeader
+    title="Typography"
+    description="Fonts I like on their own, outside any entry: classification, weights, where they come from, and notes."
+  />
+  <TypographyTabs current="library" />
+  {fonts.length === 0 ? (
+    <p class="rounded-xl border border-dashed border-border px-6 py-16 text-center text-muted-foreground">
+      No fonts in the library yet. Send a Google Fonts link or a foundry page to
+      add one.
+    </p>
+  ) : (
+    <>
+      <FilterBar client:load groups={groups} target="grid" noun="fonts" />
+      <div id="grid">
+        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {fonts.map((font) => (
+            <li
+              data-item
+              data-f-style={font.data.style}
+              data-f-license={font.data.free ? "free" : "paid"}
+              data-f-feel={font.data.tags.join(" ")}
+            >
+              <a
+                href={url(`/typography/library/${font.id}/`)}
+                class="block h-full rounded-xl border border-border p-5 transition-colors hover:bg-secondary"
+              >
+                {font.data.webFont ? (
+                  <p
+                    class="truncate text-5xl leading-tight"
+                    style={`font-family:'${font.data.webFont.family}';font-weight:${(font.data.weights.find((w) => w.value === 400) ?? font.data.weights[0]!).value}`}
+                  >
+                    Aa Bb Cc
+                  </p>
+                ) : font.data.preview ? (
+                  <img
+                    src={mediaUrl(fontMediaId(font.id), font.data.preview)}
+                    alt=""
+                    loading="lazy"
+                    class="h-[60px] w-auto"
+                  />
+                ) : (
+                  <p class="truncate text-5xl leading-tight">
+                    {font.data.family}
+                  </p>
+                )}
+                <h2 class="mt-4 font-semibold">{font.data.family}</h2>
+                <p class="mt-0.5 text-sm text-muted-foreground">
+                  {TYPE_STYLE_TERMS[font.data.style].name} ·{" "}
+                  {font.data.weights.length}{" "}
+                  {font.data.weights.length === 1 ? "weight" : "weights"}
+                  {font.data.variable && " (variable)"} ·{" "}
+                  {font.data.free ? "Free" : "Paid"}
+                </p>
+                <p class="mt-0.5 text-sm text-muted-foreground">
+                  {font.data.source.name}
+                  {font.data.designers.length > 0 &&
+                    ` · ${font.data.designers.join(", ")}`}
+                </p>
+                {font.data.tags.length > 0 && (
+                  <p class="mt-2 text-xs text-muted-foreground">
+                    {font.data.tags.map(label).join(", ")}
+                  </p>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p data-empty hidden class="py-16 text-center text-muted-foreground">
+          Nothing matches these filters.
+        </p>
+      </div>
+    </>
+  )}
+</BaseLayout>
