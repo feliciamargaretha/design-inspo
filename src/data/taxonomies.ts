@@ -211,6 +211,7 @@ export const RATIONALE_BASES = [
 const LABEL_OVERRIDES: Record<string, string> = {
   ai: "AI",
   ios: "iOS",
+  ui: "UI",
   "3d": "3D",
   "product-ui": "Product UI",
   "e-commerce": "E-commerce",

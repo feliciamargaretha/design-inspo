@@ -28,7 +28,9 @@ export async function measurePage(page) {
     for (const f of document.fonts) {
       if (f.status !== "loaded" || f.style !== "normal") continue;
       const family = clean(f.family);
-      (fonts[family] ||= new Set()).add(f.weight);
+      const weight =
+        f.weight === "normal" ? "400" : f.weight === "bold" ? "700" : f.weight;
+      (fonts[family] ||= new Set()).add(weight);
     }
 
     // Type scale: every distinct text style, with how much text uses it.
@@ -195,6 +197,7 @@ export async function measurePage(page) {
     fonts: Object.fromEntries(
       Object.entries(raw.fonts).filter(([f]) => usedFamilies.has(f)),
     ),
+    allFonts: raw.fonts,
     unusedFonts: Object.keys(raw.fonts).filter((f) => !usedFamilies.has(f)),
     typeScale,
     backgroundColors: cssColors(raw.bg, "px²").slice(0, 16),

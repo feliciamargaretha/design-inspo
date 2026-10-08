@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/PageHeader.astro";
+import TypographyTabs from "@/components/TypographyTabs.astro";
+import FontWeights from "@/components/FontWeights.astro";
 import FilterBar from "@/components/FilterBar";
 import Terms from "@/components/Terms";
 import { getEntries, mediaUrl } from "@/lib/content";
@@ -32,6 +34,7 @@ const groups = [
     title="Typography"
     description="A type specimen for every font: the character set, the weights the page loads, and the page's own type scale."
   />
+  <TypographyTabs current="inspiration" />
   <FilterBar client:load groups={groups} target="grid" noun="fonts" />
   <div id="grid">
     <ul class="grid gap-10 lg:grid-cols-2">
@@ -69,6 +72,9 @@ const groups = [
             size="sm"
             className="mt-3"
           />
+          <div class="mt-4">
+            <FontWeights weights={font.weights} scale={font.scale} />
+          </div>
         </li>
       ))}
     </ul>

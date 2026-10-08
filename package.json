@@ -13,7 +13,8 @@
     "specimen": "node scripts/type-specimen.mjs",
     "capture": "node scripts/capture.mjs",
     "crop": "node scripts/crop.mjs",
-    "import-screens": "node scripts/import-screens.mjs"
+    "import-screens": "node scripts/import-screens.mjs",
+    "add-font": "node scripts/add-font.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.1",

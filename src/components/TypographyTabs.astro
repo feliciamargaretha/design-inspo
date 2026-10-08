@@ -1,0 +1,27 @@
+---
+import { url } from "@/lib/url";
+
+interface Props {
+  current: "inspiration" | "library";
+}
+const { current } = Astro.props;
+const tabs = [
+  { id: "inspiration", label: "From inspiration", href: "/typography/" },
+  { id: "library", label: "Font library", href: "/typography/library/" },
+] as const;
+---
+
+<nav
+  aria-label="Typography"
+  class="mb-8 inline-flex rounded-lg bg-secondary p-1"
+>
+  {tabs.map((t) => (
+    <a
+      href={url(t.href)}
+      aria-current={t.id === current ? "page" : undefined}
+      class="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:bg-background aria-[current=page]:font-medium aria-[current=page]:text-foreground aria-[current=page]:shadow-sm"
+    >
+      {t.label}
+    </a>
+  ))}
+</nav>

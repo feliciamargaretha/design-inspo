@@ -1,0 +1,49 @@
+---
+// A font's weights as plain text: which weights exist, and (for fonts measured
+// from a page) which weight does which job, e.g. "Medium: Heading 1, Heading 2".
+
+interface Props {
+  weights: { value: number; name: string }[];
+  /** Type scale from the page, to show which weight each style uses. */
+  scale?: { label: string; weight: number }[];
+}
+const { weights, scale = [] } = Astro.props;
+const nameOf = (v: number) =>
+  weights.find((w) => w.value === v)?.name ?? String(v);
+const byWeight = [...new Set(scale.map((s) => s.weight))]
+  .sort((a, b) => b - a)
+  .map((w) => ({
+    weight: w,
+    labels: [
+      ...new Set(scale.filter((s) => s.weight === w).map((s) => s.label)),
+    ],
+  }));
+---
+
+<dl class="grid gap-x-6 gap-y-3 text-sm sm:grid-cols-[8rem_minmax(0,1fr)]">
+  <dt class="text-muted-foreground">
+    {weights.length === 1 ? "Weight" : `${weights.length} weights`}
+  </dt>
+  <dd class="flex flex-wrap gap-1.5">
+    {weights.map((w) => (
+      <span class="rounded-md border border-border px-2 py-0.5">
+        {w.name} <span class="text-muted-foreground">{w.value}</span>
+      </span>
+    ))}
+  </dd>
+  {byWeight.length > 0 && (
+    <>
+      <dt class="text-muted-foreground">Used for</dt>
+      <dd>
+        <ul class="space-y-1">
+          {byWeight.map((b) => (
+            <li>
+              <span class="font-medium">{nameOf(b.weight)}</span>
+              <span class="text-muted-foreground">: {b.labels.join(", ")}</span>
+            </li>
+          ))}
+        </ul>
+      </dd>
+    </>
+  )}
+</dl>

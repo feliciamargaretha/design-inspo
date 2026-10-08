@@ -36,6 +36,7 @@ const isActive = (item: (typeof nav)[number]) =>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title ? `${title} · design-inspo` : "design-inspo"}</title>
+    <slot name="head" />
   </head>
   <body class="min-h-dvh">
     <header class="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">

@@ -2,40 +2,49 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import EntryCard from "@/components/EntryCard.astro";
-import { getEntries, type EntryWithProduct } from "@/lib/content";
-import { tagUrl } from "@/lib/url";
+import {
+  getEntries,
+  getFonts,
+  type EntryWithProduct,
+  type LibraryFont,
+} from "@/lib/content";
+import { tagUrl, url } from "@/lib/url";
 import { PERSONALITY_TAGS, label } from "@/data/taxonomies";
 
 export async function getStaticPaths() {
   const entries = await getEntries();
-  return PERSONALITY_TAGS.filter((tag) =>
-    entries.some((e) => e.data.tags.includes(tag)),
-  ).map((tag) => ({
+  const fonts = await getFonts();
+  const used = PERSONALITY_TAGS.filter(
+    (tag) =>
+      entries.some((e) => e.data.tags.includes(tag)) ||
+      fonts.some((f) => f.data.tags.includes(tag)),
+  );
+  return used.map((tag) => ({
     params: { tag },
     props: {
       tag,
-      entries,
+      used,
       matching: entries.filter((e) => e.data.tags.includes(tag)),
+      matchingFonts: fonts.filter((f) => f.data.tags.includes(tag)),
     },
   }));
 }
 
 interface Props {
   tag: string;
-  entries: EntryWithProduct[];
+  used: string[];
   matching: EntryWithProduct[];
+  matchingFonts: LibraryFont[];
 }
-const { tag, entries, matching } = Astro.props;
-const used = PERSONALITY_TAGS.filter((t) =>
-  entries.some((e) => e.data.tags.includes(t)),
-);
+const { tag, used, matching, matchingFonts } = Astro.props;
+const total = matching.length + matchingFonts.length;
 ---
 
 <BaseLayout title={label(tag)}>
   <PageHeader
     eyebrow="Personality"
     title={label(tag)}
-    description={`${matching.length} ${matching.length === 1 ? "entry" : "entries"} with a ${tag} personality.`}
+    description={`${total} ${total === 1 ? "item" : "items"} with a ${tag} personality.`}
   />
   <ul class="mb-10 flex flex-wrap gap-1.5" aria-label="Other personalities">
     {used.map((t) => (
@@ -55,4 +64,21 @@ const used = PERSONALITY_TAGS.filter((t) =>
       <EntryCard entry={entry} />
     ))}
   </ul>
+  {matchingFonts.length > 0 && (
+    <section class="mt-14">
+      <h2 class="mb-4 text-xl font-semibold tracking-tight">Fonts</h2>
+      <ul class="flex flex-wrap gap-2">
+        {matchingFonts.map((f) => (
+          <li>
+            <a
+              href={url(`/typography/library/${f.id}/`)}
+              class="inline-block rounded-lg border border-border px-4 py-2 transition-colors hover:bg-secondary"
+            >
+              {f.data.family}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 </BaseLayout>

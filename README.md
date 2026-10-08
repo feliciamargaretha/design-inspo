@@ -14,6 +14,7 @@ Live site: https://feliciamargaretha.github.io/design-inspo
 | `/inspiration/<entry>`                          | Detail: screenshot, live link, personality tags, breakdown  |
 | `/colors`, `/typography`, `/imagery`, `/motion` | Every entry's breakdown for that topic, with simple filters |
 | `/tags/<tag>`                                   | Every entry with that personality tag                       |
+| `/typography/library`                           | Fonts saved on their own, with live or generated specimens  |
 | `/glossary`                                     | Every design term, defined, with real examples              |
 
 ## How content is organized
@@ -48,6 +49,18 @@ Then, by hand:
 4. `npm run specimen -- <id>`, then `npm run build`. The build lists every remaining `TODO` and anything invalid.
 
 `npm run capture -- --redraft <id>` rebuilds the draft and report from the saved measurements without opening the page again.
+
+### A font on its own (Font library)
+
+```sh
+npm run add-font -- https://fonts.google.com/specimen/Space+Grotesk
+npm run add-font -- https://klim.co.nz/retail-fonts/tiempos-text/ [--family "<css name>"]
+```
+
+- **Google Fonts link**: reads Google's catalogue (designers, category, year, every weight, variable or not). The site renders the specimen live.
+- **Any other page** (a foundry page, or a site using the font): finds the font named in the page title or URL (or `--family`), checks the weights the page really loads, and renders a specimen and a preview image inside that page. Some foundries show their fonts as images; then use a page that actually loads the font.
+
+It writes `drafts/fonts/<id>.md`. Fill in the classification, personality and notes, then move it to `src/content/fonts/`.
 
 ### From screenshots (iOS and desktop apps)
 
