@@ -208,6 +208,16 @@ const entries = defineCollection({
         });
       }
 
+      // Drafts from `npm run capture` mark judgment calls with TODO.
+      const todos = JSON.stringify(entry).match(/TODO/g)?.length ?? 0;
+      if (todos > 0) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["draft"],
+          message: `${todos} TODO${todos > 1 ? "s" : ""} left from the capture draft.`,
+        });
+      }
+
       // The stated harmony must match the actual hues.
       const paletteHexes = entry.colors.palette.map((c) => c.hex);
       for (const hexValue of entry.colors.harmonyColors) {

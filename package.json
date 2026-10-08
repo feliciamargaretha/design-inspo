@@ -10,7 +10,10 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "specimen": "node scripts/type-specimen.mjs"
+    "specimen": "node scripts/type-specimen.mjs",
+    "capture": "node scripts/capture.mjs",
+    "crop": "node scripts/crop.mjs",
+    "import-screens": "node scripts/import-screens.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.1",

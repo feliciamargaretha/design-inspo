@@ -17,3 +17,6 @@ npm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# capture drafts (reports, raw screenshots, motion candidates)
+drafts/

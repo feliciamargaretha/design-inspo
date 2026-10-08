@@ -31,10 +31,15 @@ export function hexToHsl(hex: string): Hsl {
   return { h: (h * 60 + 360) % 360, s, l };
 }
 
-/** Whites, greys and near-blacks have no meaningful place on the wheel. */
+/**
+ * Whites, greys and near-blacks have no meaningful place on the wheel. That
+ * includes faintly tinted greys (low chroma), which read as grey.
+ */
 export function isNeutral(hex: string): boolean {
   const { s, l } = hexToHsl(hex);
-  return s < 0.15 || l > 0.94 || l < 0.08;
+  const channels = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  const chroma = (Math.max(...channels) - Math.min(...channels)) / 255;
+  return s < 0.15 || l > 0.94 || l < 0.08 || chroma < 0.1;
 }
 
 /** Shortest distance between two hues, 0–180. */
