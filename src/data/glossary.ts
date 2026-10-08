@@ -90,7 +90,7 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Graphics drawn live by the graphics card from code rather than loaded as an image: liquid gradients, noise and grain, glowing blobs, distortions. Usually animated.",
   },
-  "outline-icons": {
+  "line-icons": {
     name: "Outline icons",
     aka: ["Line icons", "stroke icons"],
     definition:
