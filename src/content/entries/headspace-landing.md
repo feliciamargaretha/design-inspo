@@ -47,29 +47,69 @@ typography:
       classification: sans-serif
       roles: [display, heading, body, ui]
       source: Custom cut of Apercu, by Colophon Foundry
+      specimen: specimen-headspace-apercu.webp
+      weights:
+        - { value: 400, name: Regular }
+        - { value: 600, name: SemiBold }
+        - { value: 700, name: Bold }
+      scale:
+        - label: Display
+          size: 72
+          lineHeight: 72
+          weight: 700
+          tracking: -2.16
+          sample: Get your headspace
+        - label: Heading 2
+          size: 64
+          lineHeight: 64
+          weight: 700
+          tracking: -1.92
+          sample: Members are enjoying happier lives
+        - label: Heading 3
+          size: 40
+          lineHeight: 46
+          weight: 700
+          tracking: -1.2
+          sample: Always-there support
+        - label: Card title
+          size: 32
+          lineHeight: 38
+          weight: 700
+          tracking: -0.96
+          sample: Mental health app with expert-led meditations
+        - label: Body large
+          size: 24
+          lineHeight: 31
+          weight: 400
+          sample: What is Headspace?
+        - label: Body
+          size: 18
+          lineHeight: 26
+          weight: 400
+          tracking: -0.18
+          sample: Support your team today with mindfulness, coaching, therapy, and psychiatry.
+        - label: Button
+          size: 18
+          lineHeight: 22
+          weight: 700
+          tracking: -0.54
+          sample: Try for free
   what: >-
     One typeface throughout: a custom version of Apercu with round, friendly
-    details. Headlines are bold (700) and large (52px+); body text is set in
-    a medium weight (500) rather than regular.
+    details. Headlines are bold, large (40 to 72px) and tightly tracked; body
+    text is regular weight with relaxed line spacing.
   why: >-
     Colophon Foundry created a "Headspace-ified version" of Apercu, chosen
     for its ability to "flex from playful to clinical" as Headspace moved
     from meditation into therapy and coaching. The letterforms are described
     as "playful... friendly but functional", with curves designed to mimic
-    the shape of the Headspace smile. (Our read: one typeface keeps the page
-    calm and uncluttered, and medium-weight body text feels soft and easy to
-    read for someone who may be stressed.)
+    the shape of the Headspace smile. (Our read: using a single typeface
+    keeps the page calm and uncluttered, in line with the product's
+    promise.)
   basis: brand-statement
   sources:
     - title: It's Nice That, Headspace overhauls visual identity (2024)
       url: https://www.itsnicethat.com/articles/italic-studio-headspace-graphic-design-project-250424
-  examples:
-    - src: type-headline.webp
-      alt: Headline "Stress less all with Headspace" in bold Headspace Apercu
-      caption: Bold headline
-    - src: type-body.webp
-      alt: Three member testimonial cards set in medium-weight Headspace Apercu
-      caption: Medium-weight body text
 
 imagery:
   styles: [mascot, flat-illustration, photography, product-ui]
@@ -107,26 +147,38 @@ imagery:
       caption: App UI in phone mock-ups
 
 motion:
-  types: [text-animation, carousel]
+  types:
+    [scroll-reveal, text-animation, marquee, animated-illustration, carousel]
   what: >-
     The hero headline slides its first line up on a loop ("Stress less",
     "Sleep better", "Feel less anxious", "Improve relationships") while "all
-    with Headspace" stays fixed. Content categories and the library sit in
-    horizontal carousels.
+    with Headspace" stays fixed. On scroll, the round characters and sparkles
+    around "Members are enjoying happier and healthier lives" fade in. A
+    yellow "find some headspace" ticker scrolls sideways, and the little
+    eyes between the words blink and glance around as it moves. Ebb also
+    moves gently in the "Always-there support" section.
   why: >-
-    The brand says its animations are kept to "help simplify complex ideas".
-    (Our read on this headline: it speaks to several needs in one spot
-    without cramming them in, so each visitor is likely to see "their"
-    problem within a few seconds. The slide is slow and gentle, matching the
-    calm tone instead of grabbing attention.)
+    Headspace says it "has always led as an illustrative and animated
+    brand", and that its animations are kept to "help simplify complex
+    ideas". (Our read: every movement here is slow and soft, like fades, gentle
+    slides and blinking eyes, rather than snappy, matching the calm the
+    product promises. The rotating headline speaks to several needs in one
+    spot, so each visitor quickly sees "their" problem, and the blinking
+    eyes add a small moment of delight.)
   basis: brand-statement
   sources:
     - title: It's Nice That, Headspace overhauls visual identity (2024)
       url: https://www.itsnicethat.com/articles/italic-studio-headspace-graphic-design-project-250424
   examples:
     - src: motion-text.webp
-      alt: Animation of the headline cycling through "Sleep better", "Improve relationships", "Feel less anxious" and "Stress less"
-      caption: Rotating headline (recorded from the live page)
+      alt: Headline cycling through "Sleep better", "Improve relationships", "Feel less anxious" and "Stress less"
+      caption: Rotating headline
+    - src: motion-scroll-reveal.webp
+      alt: Round characters and sparkles fading in around the headline "Members are enjoying happier and healthier lives"
+      caption: Characters fade in on scroll
+    - src: motion-marquee.webp
+      alt: Yellow ticker reading "find some headspace" with blinking cartoon eyes between the words
+      caption: Ticker with blinking eyes
 ---
 
 Headspace turns a clinical subject into something that feels like a warm

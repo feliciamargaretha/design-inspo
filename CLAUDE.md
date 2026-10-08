@@ -19,7 +19,11 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   2. The brand or its designers explaining choices elsewhere (press interviews, agency or type-foundry case studies) → `basis: brand-statement`
   3. Nothing found → `basis: interpretation`
      Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
-- Examples: colors show the palette (hex codes); typography, imagery and motion each need at least one cropped example from the source (headline/body type crops, one crop per imagery style, a short recording or animated `.webp` for motion).
+- Examples:
+  - Colors: the palette (hex codes) is the example.
+  - Typography: a type specimen per font, never a screenshot crop. Fill in `weights` (only cuts the page really loads) and `scale` (measured from the page), set `specimen: specimen-<font>.webp`, then run `npm run specimen -- <entry-id>`. Free fonts can use `webFont` instead to render live.
+  - Imagery: one cropped example per imagery style.
+  - Motion: a short animated `.webp` per kind of movement. Always check for scroll-triggered animations (elements that fade or slide in when scrolled into view), not just ones that play on load; slow the page's animations down while recording fast ones, then play back at real speed.
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
 

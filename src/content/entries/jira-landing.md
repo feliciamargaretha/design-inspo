@@ -47,43 +47,105 @@ typography:
       classification: sans-serif
       roles: [display, heading]
       source: Custom (Charlie Sans family, by Ohno Type Co.)
+      specimen: specimen-charlie-display.webp
+      weights:
+        - { value: 400, name: Regular }
+        - { value: 500, name: Medium }
+        - { value: 800, name: ExtraBold }
+      scale:
+        - label: Heading 1
+          size: 64
+          lineHeight: 67
+          weight: 500
+          tracking: -1.28
+          sample: Turn ideas into forward motion
+        - label: Heading 2
+          size: 48
+          lineHeight: 56
+          weight: 500
+          tracking: -0.96
+          sample: Keep your entire team in the know
+        - label: Heading 3
+          size: 32
+          lineHeight: 40
+          weight: 500
+          sample: More than project management
+        - label: Quote
+          size: 24
+          lineHeight: 33
+          weight: 400
+          tracking: -0.24
+          sample: Agents in Jira raise the floor for what every team can do.
     - family: Charlie Text
       classification: sans-serif
       roles: [body, ui]
       source: Custom (Charlie Sans family, by Ohno Type Co.)
-    - family: Monospace (terminal)
+      specimen: specimen-charlie-text.webp
+      weights:
+        - { value: 400, name: Regular }
+        - { value: 500, name: Medium }
+        - { value: 700, name: Bold }
+      scale:
+        - label: Lead
+          size: 20
+          lineHeight: 31
+          weight: 400
+          tracking: -0.2
+          sample: Jira gives teams and agents the context, coordination, and control to move from intent to impact.
+        - label: Body
+          size: 16
+          lineHeight: 25
+          weight: 400
+          tracking: -0.16
+          sample: Capture conversations from Slack and Microsoft Teams and turn them into actionable tasks.
+        - label: Eyebrow
+          size: 16
+          lineHeight: 19
+          weight: 500
+          tracking: 1.28
+          sample: WORKS WITH
+        - label: Button
+          size: 16
+          lineHeight: 24
+          weight: 500
+          sample: Get it free
+    - family: Atlassian Mono
       classification: monospace
       roles: [code]
+      source: Atlassian app typeface
+      specimen: specimen-atlassian-mono.webp
+      weights:
+        - { value: 500, name: Medium }
+      scale:
+        - label: Terminal
+          size: 48
+          lineHeight: 56
+          weight: 500
+          sample: "> in your IDE"
   what: >-
     Atlassian's custom brand typeface in two optical cuts: Charlie Display at
-    large sizes (64px, medium weight, tight letter-spacing) for headlines,
-    Charlie Text for everything else. A monospace face appears only inside
-    the terminal-style "Jira for the AI era" block.
+    large sizes (medium weight, tight letter-spacing) for headlines, Charlie
+    Text for everything else. Atlassian Mono, the company's in-app monospace,
+    appears only in the terminal-style "Jira for the AI era" block.
   why: >-
     Atlassian's guidelines say that "when you need to express the Atlassian
     brand, such as in marketing", it uses its custom brand font, Charlie
-    Sans, while product UI uses Atlassian Sans. Its stated principles are to
-    optimise for readability and "create visual harmony". The type designer
-    describes the brief as a typeface that conveyed "bold energy, without
-    annoying their pragmatically minded clientele", and one family used
+    Sans, while apps use Atlassian Sans and Atlassian Mono. Its stated
+    principles are to optimise for readability and "create visual harmony".
+    The type designer describes the brief as a typeface that conveyed "bold
+    energy, without annoying their pragmatically minded clientele", used
     across every product logotype so the many products still feel related.
     The Text cut has a larger x-height and wider spacing for comfortable
     reading, and the switch from headline to paragraph is meant to go
-    unnoticed. (Our read: the monospace block speaks the visual language of
-    developers before saying anything.)
+    unnoticed. (Our read: borrowing the product's own monospace for the
+    developer section speaks developers' visual language before saying
+    anything.)
   basis: brand-guidelines
   sources:
     - title: Atlassian Design System, Typography
       url: https://atlassian.design/foundations/typography
     - title: Ohno Type Co., Atlassian custom typeface
       url: https://ohnotype.co/custom/atlassian
-  examples:
-    - src: type-headline.webp
-      alt: Headline "Turn ideas into forward motion" in Charlie Display with body copy in Charlie Text
-      caption: Charlie Display headline, Charlie Text body
-    - src: type-mono.webp
-      alt: Terminal-style block reading "Jira for the AI era" in a monospace font
-      caption: Monospace, used only for the developer section
 
 imagery:
   styles: [product-ui, photography, iconography]
@@ -116,28 +178,39 @@ imagery:
       caption: Simple line icons
 
 motion:
-  types: [text-animation, carousel]
+  types: [scroll-reveal, text-animation, marquee, carousel]
   what: >-
-    A terminal-style block types and deletes rotating phrases ("> in your
-    IDE", "> built for agents", "> connect anywhere", "> all your context"),
-    each with a colour-coded keyword and a blinking block cursor.
-    Testimonials and articles sit in horizontal carousels with arrow
+    Three kinds of movement. On scroll, the testimonial and "Discover the
+    latest" cards start off-screen to the right and invisible, then fade and
+    slide into place one after another, each slightly behind the previous
+    one. A terminal-style block types and deletes rotating phrases ("> in
+    your IDE", "> built for agents", "> connect anywhere"), each with a
+    colour-coded keyword and a blinking block cursor. The customer logo strip
+    scrolls sideways on its own. The cards then sit in carousels with arrow
     controls.
   why: >-
-    Atlassian's motion principles call for motion that is "human", a
-    "clarifying layer, not decoration", accessible and fast. Those are
-    written for the product, so applying them here is our interpretation:
-    the typing effect mimics a command line, which makes the AI/developer
-    message feel native rather than like marketing, and it cycles through
-    several benefits in one small space without slowing anyone down.
+    Atlassian's motion principles call for motion that is "human" (subtle
+    and rhythmic), a "clarifying layer, not decoration", accessible and fast.
+    Those are written for the product, so applying them here is our
+    interpretation: the staggered slide-in hints that the row continues
+    sideways and invites you to use the carousel; the typing effect mimics a
+    command line, so the AI/developer message feels native; and the endless
+    logo strip shows scale ("everyone uses this") without taking up a whole
+    section.
   basis: interpretation
   sources:
     - title: Atlassian Design System, Motion
       url: https://atlassian.design/foundations/motion
   examples:
+    - src: motion-scroll-reveal.webp
+      alt: Testimonial cards sliding in from the right and fading in as the section scrolls into view
+      caption: Cards slide in from the right on scroll
     - src: motion-text.webp
-      alt: Animation of a terminal typing "in your IDE", "built for agents" and "connect anywhere"
-      caption: Typing terminal (recorded from the live page)
+      alt: Terminal typing "in your IDE", "built for agents" and "connect anywhere"
+      caption: Typing terminal
+    - src: motion-marquee.webp
+      alt: Customer logos (Reddit, Cisco, Rippling, Roblox, Dropbox, Databricks, Canva) scrolling sideways
+      caption: Auto-scrolling logo strip
 ---
 
 Jira's page reads as "serious tool, friendly door": enterprise-grade proof

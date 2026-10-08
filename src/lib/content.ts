@@ -21,6 +21,7 @@ function assertMediaExists(entry: Entry): void {
       imagery.examples,
       motion?.examples ?? [],
     ].flatMap((items) => items.map((m) => m.src)),
+    ...typography.fonts.flatMap((f) => (f.specimen ? [f.specimen] : [])),
   ];
   for (const file of files) {
     const path = `./public/media/${entry.id}/${file}`;

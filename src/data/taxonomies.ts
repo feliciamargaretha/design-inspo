@@ -112,6 +112,7 @@ export const MOTION_TYPES = [
   "parallax",
   "animated-illustration",
   "carousel",
+  "marquee",
   "text-animation",
   "video",
 ] as const;
