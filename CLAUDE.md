@@ -13,7 +13,13 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
 - Entry file name: `<product>-<type>` (e.g. `jira-landing`, `jira-ios`). Add a suffix if a product has two entries of the same type.
 - The entry structure is defined in `src/content.config.ts`; use `src/content/entries/jira-landing.md` as the reference example.
 - Only use categories, screen types, tags and filter labels that exist in `src/data/taxonomies.ts`. If a new one is genuinely needed, add it there in the same PR and mention it in the PR description.
-- Every breakdown (colors, typography, imagery, motion) has a factual _what_ and an interpretive _why_. The _why_ is an informed assumption about the brand's intent; write it as such, not as fact.
+- Every breakdown (colors, typography, imagery, motion) has a factual _what_, a _why_, a `basis` and `examples`.
+- Before writing a _why_, look for the brand's own reasoning, in this order:
+  1. Official brand guidelines or design system → `basis: brand-guidelines`
+  2. The brand or its designers explaining choices elsewhere (press interviews, agency or type-foundry case studies) → `basis: brand-statement`
+  3. Nothing found → `basis: interpretation`
+     Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
+- Examples: colors show the palette (hex codes); typography, imagery and motion each need at least one cropped example from the source (headline/body type crops, one crop per imagery style, a short recording or animated `.webp` for motion).
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
 

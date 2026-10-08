@@ -10,6 +10,7 @@ import {
   IMAGERY_STYLES,
   MOTION_TYPES,
   PERSONALITY_TAGS,
+  RATIONALE_BASES,
   SCREEN_TYPES,
   TYPE_CLASSIFICATIONS,
   TYPE_ROLES,
@@ -25,12 +26,6 @@ const products = defineCollection({
   }),
 });
 
-/** Every breakdown section states what is used and why we think it is used. */
-const whatWhy = {
-  what: z.string().min(1),
-  why: z.string().min(1),
-};
-
 const hex = z
   .string()
   .regex(/^#[0-9A-F]{6}$/, "Use uppercase 6-digit hex, e.g. #0061EF");
@@ -40,7 +35,45 @@ const mediaItem = z.object({
   src: z.string(),
   kind: z.enum(["image", "video"]).default("image"),
   alt: z.string().min(1),
+  caption: z.string().optional(),
 });
+
+const source = z.object({
+  title: z.string(),
+  url: z.url(),
+});
+
+/**
+ * Shared by every breakdown section: what is used, why we think it is used,
+ * where that "why" comes from, and visual examples.
+ */
+function section<T extends z.ZodRawShape>(
+  shape: T,
+  { examplesRequired }: { examplesRequired: boolean },
+) {
+  return z
+    .object({
+      ...shape,
+      what: z.string().min(1),
+      why: z.string().min(1),
+      basis: z.enum(RATIONALE_BASES),
+      sources: z.array(source).default([]),
+      examples: examplesRequired
+        ? z.array(mediaItem).min(1)
+        : z.array(mediaItem).default([]),
+    })
+    .refine(
+      (s) => {
+        // Generic shape hides these fields from TypeScript; they always exist.
+        const { basis, sources } = s as { basis: string; sources: unknown[] };
+        return basis === "interpretation" || sources.length > 0;
+      },
+      {
+        path: ["sources"],
+        message: "Brand guidelines / statements need at least one source link.",
+      },
+    );
+}
 
 /** One source of inspiration: a landing page, or screens from an iOS / desktop app. */
 const entries = defineCollection({
@@ -59,48 +92,51 @@ const entries = defineCollection({
       screens: z.array(z.enum(SCREEN_TYPES)).default([]),
       tags: z.array(z.enum(PERSONALITY_TAGS)).min(1),
 
-      colors: z.object({
-        palette: z
-          .array(
-            z.object({
-              hex,
-              name: z.string().optional(),
-              role: z.enum(COLOR_ROLES),
-            }),
-          )
-          .min(1),
-        mode: z.enum(COLOR_MODES),
-        temperature: z.enum(COLOR_TEMPERATURES),
-        ...whatWhy,
-      }),
+      /** The palette itself is the example; extra images are optional. */
+      colors: section(
+        {
+          palette: z
+            .array(
+              z.object({
+                hex,
+                name: z.string().optional(),
+                role: z.enum(COLOR_ROLES),
+              }),
+            )
+            .min(1),
+          mode: z.enum(COLOR_MODES),
+          temperature: z.enum(COLOR_TEMPERATURES),
+        },
+        { examplesRequired: false },
+      ),
 
-      typography: z.object({
-        fonts: z
-          .array(
-            z.object({
-              family: z.string(),
-              classification: z.enum(TYPE_CLASSIFICATIONS),
-              roles: z.array(z.enum(TYPE_ROLES)).min(1),
-              /** e.g. "Custom", "Licensed (Colophon)", "Google Fonts" */
-              source: z.string().optional(),
-            }),
-          )
-          .min(1),
-        ...whatWhy,
-      }),
+      typography: section(
+        {
+          fonts: z
+            .array(
+              z.object({
+                family: z.string(),
+                classification: z.enum(TYPE_CLASSIFICATIONS),
+                roles: z.array(z.enum(TYPE_ROLES)).min(1),
+                /** e.g. "Custom", "Licensed (Colophon)", "Google Fonts" */
+                source: z.string().optional(),
+              }),
+            )
+            .min(1),
+        },
+        { examplesRequired: true },
+      ),
 
-      imagery: z.object({
-        styles: z.array(z.enum(IMAGERY_STYLES)).min(1),
-        ...whatWhy,
-      }),
+      imagery: section(
+        { styles: z.array(z.enum(IMAGERY_STYLES)).min(1) },
+        { examplesRequired: true },
+      ),
 
       /** Only when motion is a notable part of the experience. */
-      motion: z
-        .object({
-          types: z.array(z.enum(MOTION_TYPES)).min(1),
-          ...whatWhy,
-        })
-        .optional(),
+      motion: section(
+        { types: z.array(z.enum(MOTION_TYPES)).min(1) },
+        { examplesRequired: true },
+      ).optional(),
     })
     .superRefine((entry, ctx) => {
       if (entry.type === "landing" && entry.screens.length > 0) {

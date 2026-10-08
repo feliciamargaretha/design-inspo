@@ -11,7 +11,17 @@ export function mediaUrl(entryId: string, file: string): string {
 }
 
 function assertMediaExists(entry: Entry): void {
-  const files = [entry.data.cover, ...entry.data.media.map((m) => m.src)];
+  const { colors, typography, imagery, motion } = entry.data;
+  const files = [
+    entry.data.cover,
+    ...[
+      entry.data.media,
+      colors.examples,
+      typography.examples,
+      imagery.examples,
+      motion?.examples ?? [],
+    ].flatMap((items) => items.map((m) => m.src)),
+  ];
   for (const file of files) {
     const path = `./public/media/${entry.id}/${file}`;
     if (!existsSync(path)) {

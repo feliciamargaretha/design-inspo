@@ -116,6 +116,20 @@ export const MOTION_TYPES = [
   "video",
 ] as const;
 
+/**
+ * Where the "why" of a breakdown comes from. Brand sources always win over
+ * our own interpretation when they exist.
+ * - brand-guidelines: the company's own published guidelines / design system
+ * - brand-statement: the brand or its designers explaining choices elsewhere
+ *   (press interviews, agency or type-foundry case studies)
+ * - interpretation: our own informed assumption
+ */
+export const RATIONALE_BASES = [
+  "brand-guidelines",
+  "brand-statement",
+  "interpretation",
+] as const;
+
 const LABEL_OVERRIDES: Record<string, string> = {
   ai: "AI",
   ios: "iOS",
