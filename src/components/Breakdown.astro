@@ -1,0 +1,51 @@
+---
+// One breakdown section on the detail page: title, source label, named
+// terms, what + why, then the section's visual examples (slot).
+import Basis from "@/components/Basis.astro";
+import Terms from "@/components/Terms";
+import type { TermProps } from "@/lib/terms";
+import type { RATIONALE_BASES } from "@/data/taxonomies";
+
+interface Props {
+  id: string;
+  title: string;
+  what: string;
+  why: string;
+  basis: (typeof RATIONALE_BASES)[number];
+  sources: { title: string; url: string }[];
+  terms?: { label: string; items: TermProps[] }[];
+}
+const { id, title, what, why, basis, sources, terms = [] } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-24 border-t border-border pt-10">
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+    <div class="space-y-5">
+      <h2 class="text-2xl font-semibold tracking-tight">{title}</h2>
+      {terms.map((group) => (
+        <div>
+          <p class="mb-2 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            {group.label}
+          </p>
+          <Terms client:visible terms={group.items} />
+        </div>
+      ))}
+    </div>
+    <div class="space-y-5">
+      <div>
+        <h3 class="mb-1.5 text-sm font-semibold">What</h3>
+        <p class="leading-relaxed text-pretty">{what}</p>
+      </div>
+      <div>
+        <h3 class="mb-1.5 text-sm font-semibold">Why</h3>
+        <p class="leading-relaxed text-pretty">{why}</p>
+        <div class="mt-3">
+          <Basis basis={basis} sources={sources} />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-8">
+    <slot />
+  </div>
+</section>

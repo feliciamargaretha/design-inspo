@@ -1,5 +1,5 @@
-// Colour maths for the colour wheel and for checking that an entry's stated
-// colour harmony matches its actual hues.
+// Color maths for the color wheel and for checking that an entry's stated
+// color harmony matches its actual hues.
 
 import type { COLOR_HARMONIES } from "@/data/taxonomies";
 
@@ -138,7 +138,7 @@ export const HARMONY_OFFSETS: Record<Harmony, number[]> = {
   square: [0, 90, 180, 270],
 };
 
-/** Plain-English sentence explaining how the given colours form the harmony. */
+/** Plain-English sentence explaining how the given colors form the harmony. */
 export function describeHarmony(
   harmony: Harmony,
   colors: { hex: string; name?: string }[],
@@ -169,11 +169,11 @@ export function describeHarmony(
       const main = `${apart(anchor, far[0]!)}: opposite sides of the wheel.`;
       const extras = [...near.slice(1), ...far.slice(1)];
       return extras.length
-        ? `${main} ${list(extras.map((p) => p.label))} ${extras.length > 1 ? "sit beside them as analogous neighbours" : "sits beside them as an analogous neighbour"}.`
+        ? `${main} ${list(extras.map((p) => p.label))} ${extras.length > 1 ? "sit beside them as analogous neighbors" : "sits beside them as an analogous neighbor"}.`
         : main;
     }
     case "tetradic": {
-      // Pair each colour with its most opposite partner.
+      // Pair each color with its most opposite partner.
       const [a, ...rest] = pts;
       const partner = rest.reduce((best, p) =>
         hueDistance(p.h, a!.h) > hueDistance(best.h, a!.h) ? p : best,

@@ -20,7 +20,7 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   3. Nothing found → `basis: interpretation`
      Always link what you used in `sources` (required for 1 and 2). Quote or closely paraphrase the source; never invent brand intent. When adding your own reading on top of a brand source, put it in a final sentence starting `(Our read: ...)`.
 - Name things properly. A goal of this site is learning design vocabulary, so use the most precise term from `src/data/glossary.ts` (e.g. "staggered slide-in", "multiplayer cursors", "dot grid", "geometric sans") in lists, captions and the _what_ text. If a precise term is missing, add it to the taxonomy list and glossary (with a plain-English definition) in the same PR.
-  - Colors: `harmony` (colour-wheel relationship, with the `harmonyColors` that form it; the build checks the hues really match) and `strategy` (how much of each colour is used). Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
+  - Colors: `harmony` (color-wheel relationship, with the `harmonyColors` that form it; the build checks the hues really match) and `strategy` (how much of each color is used). Typography: each font's `style`. Imagery: `styles`, `treatments`, `textures`. Motion: `types`.
   - Every imagery/motion example lists the `terms` it shows; every term claimed in a section needs at least one example showing it (the build enforces both).
 - Examples:
   - Colors: the palette (hex codes) is the example.
@@ -29,6 +29,12 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
   - Motion: a short animated `.webp` per kind of movement. Always check for scroll-triggered animations (elements that fade or slide in when scrolled into view), not just ones that play on load; slow the page's animations down while recording fast ones, then play back at real speed.
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
+
+## Site design
+
+- Light mode only, white background. UI uses only cool greys, black and white: no accent colors. The only color on the site comes from the inspiration itself.
+- UI is built with shadcn/ui (React, Tailwind v4, theme tokens in `src/styles/global.css`). Pages are static Astro; only interactive parts are React islands (`FilterBar`, `Terms`).
+- American spelling in all user-facing text ("color", not "colour"), except inside quotes from sources.
 
 ## Links
 

@@ -1,0 +1,43 @@
+---
+// Labeled visual examples (images or animated clips) with their terms.
+import Terms from "@/components/Terms";
+import { mediaUrl } from "@/lib/content";
+import { terms } from "@/lib/terms";
+
+interface Props {
+  entryId: string;
+  items: { src: string; alt: string; caption?: string; terms: string[] }[];
+}
+const { entryId, items } = Astro.props;
+---
+
+<ul class="grid gap-6 sm:grid-cols-2">
+  {items.map((ex) => (
+    <li>
+      <figure>
+        <div class="overflow-hidden rounded-xl border border-border bg-secondary">
+          <img
+            src={mediaUrl(entryId, ex.src)}
+            alt={ex.alt}
+            loading="lazy"
+            decoding="async"
+            class="w-full"
+          />
+        </div>
+        {ex.caption && (
+          <figcaption class="mt-2 text-sm text-muted-foreground">
+            {ex.caption}
+          </figcaption>
+        )}
+      </figure>
+      {ex.terms.length > 0 && (
+        <Terms
+          client:visible
+          terms={terms(ex.terms)}
+          size="sm"
+          className="mt-2"
+        />
+      )}
+    </li>
+  ))}
+</ul>

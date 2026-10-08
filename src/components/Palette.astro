@@ -1,0 +1,27 @@
+---
+// Palette swatches with hex, name and role.
+import { hexToHsl } from "@/lib/color";
+import { label } from "@/data/taxonomies";
+
+interface Props {
+  colors: { hex: string; name?: string; role: string }[];
+}
+const { colors } = Astro.props;
+---
+
+<ul class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+  {colors.map((c) => (
+    <li class="overflow-hidden rounded-xl border border-border">
+      <div
+        class="flex h-20 items-end p-2.5 font-mono text-xs"
+        style={`background:${c.hex};color:${hexToHsl(c.hex).l > 0.6 ? "#0f172a" : "#fff"}`}
+      >
+        {c.hex}
+      </div>
+      <div class="px-2.5 py-2">
+        <p class="text-sm font-medium">{c.name ?? c.hex}</p>
+        <p class="text-xs text-muted-foreground">{label(c.role)}</p>
+      </div>
+    </li>
+  ))}
+</ul>

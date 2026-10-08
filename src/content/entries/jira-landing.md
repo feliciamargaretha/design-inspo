@@ -28,17 +28,17 @@ colors:
     A mostly white and light-grey page with near-black text, where a single
     saturated blue carries every call to action. A charcoal band breaks the
     page for the AI/developer section, and purple, olive and soft-yellow
-    tints appear only in small cards and labels. On the colour wheel the
+    tints appear only in small cards and labels. On the color wheel the
     four hues form a tetradic (rectangle) harmony: Atlassian blue (215°) and
     soft yellow (46°) are a complementary pair 170° apart, and purple (278°)
     and olive (85°) are a second pair 166° apart. The strategy is neutral
     with a single accent: only the blue is used at any size. Hex values were
     measured from the live page.
   why: >-
-    Atlassian's design system gives every colour a role. The "brand" role is
+    Atlassian's design system gives every color a role. The "brand" role is
     reserved for "primary actions or elements that communicate the Atlassian
     brand", which is why blue appears almost only on buttons and links.
-    Neutrals cover "most backgrounds, text, and shapes", and accent colours
+    Neutrals cover "most backgrounds, text, and shapes", and accent colors
     are explicitly meaningless and interchangeable, so the purple, olive and
     yellow cards decorate without competing with the call to action.
     (Our read: a tetradic harmony is rich but hard to balance, so letting
@@ -132,7 +132,7 @@ typography:
     Atlassian's guidelines say that "when you need to express the Atlassian
     brand, such as in marketing", it uses its custom brand font, Charlie
     Sans, while apps use Atlassian Sans and Atlassian Mono. Its stated
-    principles are to optimise for readability and "create visual harmony".
+    principles are to optimize for readability and "create visual harmony".
     The type designer describes the brief as a typeface that conveyed "bold
     energy, without annoying their pragmatically minded clientele", used
     across every product logotype so the many products still feel related.
@@ -151,14 +151,14 @@ typography:
 imagery:
   styles: [product-ui, portrait-photography, line-icons, logo-wall]
   treatments:
-    [layered-cards, multiplayer-cursors, black-and-white, colour-blocking]
+    [layered-cards, multiplayer-cursors, black-and-white, color-blocking]
   textures: [grid-pattern, dot-grid]
   what: >-
     A product UI showcase leads: real Jira boards shown large and early, with
     layered cards pulled out of the interface and multiplayer cursors
-    labelled with people and AI agents ("Design", "Claude Agent", "Figma
+    labeled with people and AI agents ("Design", "Claude Agent", "Figma
     Agent"). Testimonials use black-and-white portrait photography on soft
-    colour-blocked panels. Features are labelled with line icons, and a logo
+    color-blocked panels. Features are labeled with line icons, and a logo
     wall of customers runs below the hero. Backgrounds carry two quiet
     textures: a grid pattern fading out behind the hero, and a dot grid on
     the dark developer section.
@@ -178,15 +178,15 @@ imagery:
       url: https://atlassian.design/foundations/illustrations
   examples:
     - src: imagery-product-ui.webp
-      alt: Jira board with floating task cards and labelled cursors for a designer and AI agents
+      alt: Jira board with floating task cards and labeled cursors for a designer and AI agents
       caption: Product UI with layered cards and multiplayer cursors
       terms: [product-ui, layered-cards, multiplayer-cursors]
     - src: imagery-photography.webp
       alt: Testimonial card with a black-and-white portrait on a pale blue panel
-      caption: Black-and-white portraits on colour blocks
-      terms: [portrait-photography, black-and-white, colour-blocking]
+      caption: Black-and-white portraits on color blocks
+      terms: [portrait-photography, black-and-white, color-blocking]
     - src: imagery-icons.webp
-      alt: Row of four line icons labelled Intake, Plan, Coordinate and Review on a dark background
+      alt: Row of four line icons labeled Intake, Plan, Coordinate and Review on a dark background
       caption: Line icons
       terms: [line-icons]
     - src: imagery-logo-wall.webp
@@ -209,7 +209,7 @@ motion:
     with a stagger so they arrive one after another. A terminal block uses a
     typewriter effect, typing and deleting rotating phrases ("> in your
     IDE", "> built for agents", "> connect anywhere") with a blinking block
-    cursor and a colour-coded keyword. The logo wall runs as an infinite
+    cursor and a color-coded keyword. The logo wall runs as an infinite
     marquee.
   why: >-
     Atlassian's motion principles call for motion that is "human" (subtle

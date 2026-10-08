@@ -1,14 +1,32 @@
 ---
+import "@/styles/global.css";
+import { url } from "@/lib/url";
+
 interface Props {
   title?: string;
   description?: string;
 }
 
 const {
-  title = "design-inspo",
-  description = "A library of design inspiration, broken down by color, typography, imagery and motion.",
+  title,
+  description = "A personal library of design inspiration, broken down by color, typography, imagery and motion, with the vocabulary to describe them.",
 } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const nav = [
+  {
+    href: "/inspiration/landing/",
+    label: "Inspiration",
+    match: "/inspiration/",
+  },
+  { href: "/colors/", label: "Colors" },
+  { href: "/typography/", label: "Typography" },
+  { href: "/imagery/", label: "Imagery" },
+  { href: "/motion/", label: "Motion" },
+  { href: "/glossary/", label: "Glossary" },
+];
+const current = Astro.url.pathname;
+const isActive = (item: (typeof nav)[number]) =>
+  current.startsWith(url(item.match ?? item.href));
 ---
 
 <!doctype html>
@@ -17,16 +35,38 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title}</title>
+    <title>{title ? `${title} · design-inspo` : "design-inspo"}</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href={`${base}/`}>design-inspo</a>
-      </nav>
+  <body class="min-h-dvh">
+    <header class="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
+      <div class="mx-auto flex h-14 max-w-6xl items-center gap-6 px-4 sm:px-6">
+        <a href={url("/")} class="shrink-0 font-semibold tracking-tight">
+          design-inspo
+        </a>
+        <nav
+          aria-label="Main"
+          class="-mr-4 flex min-w-0 flex-1 gap-1 overflow-x-auto pr-4 [scrollbar-width:none] sm:mr-0 sm:pr-0"
+        >
+          {nav.map((item) => (
+            <a
+              href={url(item.href)}
+              aria-current={isActive(item) ? "page" : undefined}
+              class="shrink-0 rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:bg-secondary aria-[current=page]:font-medium aria-[current=page]:text-foreground"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
     </header>
-    <main>
+    <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <slot />
     </main>
+    <footer class="border-t border-border">
+      <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-muted-foreground sm:px-6">
+        Screenshots, fonts and brand assets belong to their owners and are shown
+        here for study.
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import FilterBar from "@/components/FilterBar";
+import Terms from "@/components/Terms";
+import { getEntries, mediaUrl } from "@/lib/content";
+import { filterGroup } from "@/lib/filters";
+import { term } from "@/lib/terms";
+import { entryUrl } from "@/lib/url";
+import { TYPE_STYLE_TERMS } from "@/data/glossary";
+import { TYPE_ROLES, TYPE_STYLES, label } from "@/data/taxonomies";
+
+const entries = await getEntries();
+const fonts = entries.flatMap((entry) =>
+  entry.data.typography.fonts.map((font) => ({ entry, font })),
+);
+const groups = [
+  filterGroup(
+    "style",
+    "Classification",
+    TYPE_STYLES,
+    fonts,
+    (f) => [f.font.style],
+    (v) => TYPE_STYLE_TERMS[v as keyof typeof TYPE_STYLE_TERMS].name,
+  ),
+  filterGroup("role", "Used for", TYPE_ROLES, fonts, (f) => f.font.roles),
+];
+---
+
+<BaseLayout title="Typography">
+  <PageHeader
+    title="Typography"
+    description="A type specimen for every font: the character set, the weights the page loads, and the page's own type scale."
+  />
+  <FilterBar client:load groups={groups} target="grid" noun="fonts" />
+  <div id="grid">
+    <ul class="grid gap-10 lg:grid-cols-2">
+      {fonts.map(({ entry, font }) => (
+        <li
+          data-item
+          data-f-style={font.style}
+          data-f-role={font.roles.join(" ")}
+        >
+          <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 class="font-semibold">{font.family}</h2>
+            <a
+              href={entryUrl(entry.id) + "#typography"}
+              class="text-sm text-muted-foreground hover:text-foreground"
+            >
+              {entry.productData.data.name} · {label(entry.data.type)}
+            </a>
+          </div>
+          {font.specimen && (
+            <a
+              href={entryUrl(entry.id) + "#typography"}
+              class="block overflow-hidden rounded-xl border border-border"
+            >
+              <img
+                src={mediaUrl(entry.id, font.specimen)}
+                alt={`Type specimen of ${font.family}`}
+                loading="lazy"
+                class="w-full"
+              />
+            </a>
+          )}
+          <Terms
+            client:visible
+            terms={[term(font.style)]}
+            size="sm"
+            className="mt-3"
+          />
+        </li>
+      ))}
+    </ul>
+    <p data-empty hidden class="py-16 text-center text-muted-foreground">
+      Nothing matches these filters.
+    </p>
+  </div>
+</BaseLayout>

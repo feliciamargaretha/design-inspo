@@ -1,5 +1,5 @@
 // Design vocabulary: the proper name and a plain-English definition for every
-// style, treatment, texture, motion technique, colour harmony and strategy, and type
+// style, treatment, texture, motion technique, color harmony and strategy, and type
 // classification used on the site. The site shows these wherever a term
 // appears, so browsing entries doubles as learning the vocabulary.
 //
@@ -53,13 +53,13 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     name: "Flat vector illustration",
     aka: ["flat design illustration"],
     definition:
-      "Drawings made of solid shapes of colour with little or no shading or perspective; clean, simple and scalable.",
+      "Drawings made of solid shapes of color with little or no shading or perspective; clean, simple and scalable.",
   },
   "line-illustration": {
     name: "Line illustration",
     aka: ["line art", "outline illustration"],
     definition:
-      "Drawings built from strokes rather than filled shapes, often in a single colour; feels light and sketch-like.",
+      "Drawings built from strokes rather than filled shapes, often in a single color; feels light and sketch-like.",
   },
   "3d-render": {
     name: "3D render",
@@ -82,7 +82,7 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     name: "Abstract shapes",
     aka: ["geometric shapes"],
     definition:
-      "Circles, blobs, lines or other non-representational forms used for rhythm, colour and energy rather than meaning.",
+      "Circles, blobs, lines or other non-representational forms used for rhythm, color and energy rather than meaning.",
   },
   "line-icons": {
     name: "Line icons",
@@ -108,23 +108,23 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     name: "Black-and-white photography",
     aka: ["greyscale", "monochrome photo"],
     definition:
-      "Photos with the colour removed, so they don't clash with the brand palette and feel timeless or editorial.",
+      "Photos with the color removed, so they don't clash with the brand palette and feel timeless or editorial.",
   },
   duotone: {
     name: "Duotone",
     definition:
-      "A photo recoloured using just two colours (often brand colours), mapping the darks to one and the lights to the other.",
+      "A photo recolored using just two colors (often brand colors), mapping the darks to one and the lights to the other.",
   },
   cutout: {
     name: "Cutout",
     aka: ["silhouetted photo", "knockout"],
     definition:
-      "A subject cut away from its original background so it can sit directly on a colour or overlap other elements.",
+      "A subject cut away from its original background so it can sit directly on a color or overlap other elements.",
   },
-  "colour-blocking": {
-    name: "Colour blocking",
+  "color-blocking": {
+    name: "Color blocking",
     definition:
-      "Large flat areas of solid colour placed behind or next to content, used to group things and add boldness.",
+      "Large flat areas of solid color placed behind or next to content, used to group things and add boldness.",
   },
   "layered-cards": {
     name: "Layered cards",
@@ -136,11 +136,11 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     name: "Multiplayer cursors",
     aka: ["collaboration cursors", "cursor callouts"],
     definition:
-      "Coloured mouse pointers with name labels placed over a UI, borrowed from collaborative tools to suggest many people (or agents) working together live.",
+      "Colored mouse pointers with name labels placed over a UI, borrowed from collaborative tools to suggest many people (or agents) working together live.",
   },
   "soft-glow": {
     name: "Soft glow",
-    aka: ["coloured shadow"],
+    aka: ["colored shadow"],
     definition:
       "A blurred, often tinted shadow or halo around an element, softer and warmer than a hard drop shadow.",
   },
@@ -153,8 +153,8 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
 };
 
 export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
-  "flat-colour": {
-    name: "Flat colour",
+  "flat-color": {
+    name: "Flat color",
     definition: "Solid fills with no pattern, grain or gradient.",
   },
   "grid-pattern": {
@@ -173,7 +173,7 @@ export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
     name: "Grain",
     aka: ["noise texture", "film grain"],
     definition:
-      "A fine speckled noise laid over colours or gradients to make digital surfaces feel tactile and less flat.",
+      "A fine speckled noise laid over colors or gradients to make digital surfaces feel tactile and less flat.",
   },
   halftone: {
     name: "Halftone",
@@ -183,13 +183,13 @@ export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
   "soft-gradient": {
     name: "Soft gradient",
     definition:
-      "A smooth blend between two or more colours across a shape or background, giving gentle depth and warmth.",
+      "A smooth blend between two or more colors across a shape or background, giving gentle depth and warmth.",
   },
   "gradient-mesh": {
     name: "Gradient mesh",
     aka: ["mesh gradient", "aurora gradient"],
     definition:
-      "Several colours blending in organic, blurry clouds rather than a straight line.",
+      "Several colors blending in organic, blurry clouds rather than a straight line.",
   },
   glassmorphism: {
     name: "Glassmorphism",
@@ -267,7 +267,7 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     name: "Hover state",
     aka: ["hover effect"],
     definition:
-      "A visual change (lift, colour shift, underline, zoom) when the pointer moves over something clickable.",
+      "A visual change (lift, color shift, underline, zoom) when the pointer moves over something clickable.",
   },
   "micro-interaction": {
     name: "Micro-interaction",
@@ -301,12 +301,12 @@ export const COLOR_HARMONY_TERMS: Glossary<typeof COLOR_HARMONIES> = {
   analogous: {
     name: "Analogous",
     definition:
-      "Hues that sit next to each other on the colour wheel (e.g. yellow, orange, red). Harmonious and natural-feeling, because nothing clashes.",
+      "Hues that sit next to each other on the color wheel (e.g. yellow, orange, red). Harmonious and natural-feeling, because nothing clashes.",
   },
   complementary: {
     name: "Complementary",
     definition:
-      "Hues from opposite sides of the colour wheel (e.g. blue and orange). Maximum contrast: each makes the other look more vivid, so one usually leads and the other is used sparingly.",
+      "Hues from opposite sides of the color wheel (e.g. blue and orange). Maximum contrast: each makes the other look more vivid, so one usually leads and the other is used sparingly.",
   },
   "split-complementary": {
     name: "Split-complementary",
@@ -334,12 +334,12 @@ export const COLOR_HARMONY_TERMS: Glossary<typeof COLOR_HARMONIES> = {
 export const COLOR_STRATEGY_TERMS: Glossary<typeof COLOR_STRATEGIES> = {
   "neutral-with-accent": {
     name: "Neutral with a single accent",
-    aka: ["accent colour scheme"],
+    aka: ["accent color scheme"],
     definition:
-      "Mostly whites, greys and black, with one strong colour reserved for what matters most (usually actions). Other hues, if any, stay small.",
+      "Mostly whites, greys and black, with one strong color reserved for what matters most (usually actions). Other hues, if any, stay small.",
   },
-  multicolour: {
-    name: "Multicolour",
+  multicolor: {
+    name: "Multicolor",
     aka: ["polychromatic"],
     definition:
       "Many saturated hues used generously, each often owning a section or category; playful and expressive.",
@@ -347,7 +347,7 @@ export const COLOR_STRATEGY_TERMS: Glossary<typeof COLOR_STRATEGIES> = {
   tonal: {
     name: "Tonal",
     definition:
-      "Built mainly from lighter and darker versions of one colour family, with neutrals; quiet and sophisticated.",
+      "Built mainly from lighter and darker versions of one color family, with neutrals; quiet and sophisticated.",
   },
 };
 
