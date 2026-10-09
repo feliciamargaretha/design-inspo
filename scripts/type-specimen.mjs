@@ -35,7 +35,12 @@ await page.waitForTimeout(3000);
 
 for (const font of fonts) {
   const out = `public/media/${entryId}/${font.specimen}`;
-  const missing = await renderSpecimen(page, font, out);
+  // Render with the page's own CSS name, label with the readable one.
+  const missing = await renderSpecimen(
+    page,
+    { ...font, family: font.cssFamily ?? font.family, label: font.family },
+    out,
+  );
   if (missing.length) {
     console.error(
       `✗ ${font.family}: weights ${missing} are not loaded by ${entry.sourceUrl}; fix \`weights\` in the entry.`,

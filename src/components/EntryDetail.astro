@@ -104,13 +104,14 @@ const typeName = {
       <img src={mediaUrl(entry.id, hero.src)} alt={hero.alt} class="w-full" />
     </div>
     <figcaption class="mt-2 text-sm text-muted-foreground">
-      Full page, captured{" "}
+      {hero.caption ?? "Full page. Scroll inside the frame to see it all."}{" "}
+      Captured{" "}
       {data.capturedAt.toLocaleDateString("en-GB", {
         day: "numeric",
         month: "long",
         year: "numeric",
       })}
-      . Scroll inside the frame to see it all.
+      .
     </figcaption>
   </figure>
 
@@ -194,7 +195,7 @@ const typeName = {
             <div class="mb-3 flex flex-wrap items-baseline justify-between gap-2">
               <h3 class="text-lg font-semibold">{font.family}</h3>
               <p class="text-sm text-muted-foreground">
-                Used for {font.roles.map(label).join(", ").toLowerCase()}
+                Used for {font.roles.map(label).join(", ")}
               </p>
             </div>
             {font.specimen ? (

@@ -142,6 +142,7 @@ export const IMAGERY_STYLES = [
   "flat-illustration",
   "line-illustration",
   "3d-render",
+  "3d-type",
   "hand-drawn",
   "character-mascot",
   "abstract-shapes",
@@ -149,6 +150,7 @@ export const IMAGERY_STYLES = [
   "line-icons",
   "logo-wall",
   "mixed-media-collage",
+  "data-visualization",
 ] as const;
 
 /** Imagery: how images are treated or framed (defined in glossary.ts). */
@@ -179,7 +181,10 @@ export const TEXTURES = [
 /** Motion techniques (defined in glossary.ts). Combine them: a card can scroll-reveal with a fade-in, slide-in and stagger. */
 export const MOTION_TYPES = [
   "scroll-reveal",
+  "scroll-scrubbed",
+  "pinning",
   "fade-in",
+  "blur-reveal",
   "slide-in",
   "stagger",
   "parallax",

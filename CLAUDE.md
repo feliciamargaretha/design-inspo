@@ -31,6 +31,7 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
 - Standalone fonts go in the Font library (`src/content/fonts/`), started with `npm run add-font -- <url>`. Google Fonts use `webFont` (rendered live; never self-host or redistribute font files); other fonts get a generated `specimen` and `preview` in `public/media/fonts/<id>/`.
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
+- Scroll-driven pages (scrollytelling, pinned scenes) don't work as one full-page screenshot: use a storyboard of viewport frames taken while scrolling as the first media item (with a caption saying so), and record scenes by scrolling through them. Check whether motion is scroll-linked or time-based before naming it (compare frames while idle vs while scrolling).
 
 ## Site design
 
