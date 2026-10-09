@@ -154,6 +154,10 @@ imagery:
     [layered-cards, multiplayer-cursors, black-and-white, color-blocking]
   textures: [grid-pattern, dot-grid]
   what: >-
+    Overall, the imagery is the product itself: almost every image is the
+    real Jira interface or a real customer, set on quiet structural textures,
+    with no illustration beyond small line icons.
+
     A product UI showcase leads: real Jira boards shown large and early, with
     layered cards pulled out of the interface and multiplayer cursors
     labeled with people and AI agents ("Design", "Claude Agent", "Figma
@@ -163,15 +167,20 @@ imagery:
     textures: a grid pattern fading out behind the hero, and a dot grid on
     the dark developer section.
   why: >-
-    For a tool people use all day, showing the actual interface is the
-    strongest argument; it lowers the "what am I signing up for" anxiety.
+    Atlassian's public illustration guidance covers in-app use (and reserves
+    collage for marketing), so these choices on the marketing page are our
+    interpretation. The overall idea seems to be "show, don't illustrate":
+    Jira sells clarity and coordination, so the page shows the work itself,
+    literally and in order, and adds one new message on top: people and AI
+    agents now work in it together.
+
+    In detail: for a tool people use all day, showing the actual interface is
+    the strongest argument; it lowers the "what am I signing up for" anxiety.
     Multiplayer cursors borrow the language of collaborative tools to say
     "humans and agents work here together" without a single word.
     Black-and-white portraits keep real customer faces from clashing with the
     brand palette, and the grid and dot textures quietly signal structure
-    and precision. Atlassian's public illustration guidance covers in-app
-    use (and reserves collage for marketing), so these choices on the
-    marketing page are our interpretation.
+    and precision.
   basis: interpretation
   sources:
     - title: Atlassian Design System, Illustrations
