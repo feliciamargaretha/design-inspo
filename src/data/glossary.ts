@@ -305,6 +305,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A visual change (lift, color shift, underline, zoom) when the pointer moves over something clickable.",
   },
+  "cursor-distortion": {
+    name: "Cursor-reactive distortion",
+    aka: ["hover distortion", "mouse-trail effect", "fluid cursor"],
+    definition:
+      "A WebGL effect where whatever is under the pointer warps, smears or dissolves, leaving a soft trail that settles back once the cursor moves on. More playful than a hover state: it reacts to where the mouse is, not just whether it's over something.",
+  },
   "micro-interaction": {
     name: "Micro-interaction",
     definition:
@@ -320,6 +326,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["skeleton screen", "shimmer"],
     definition:
       "Grey placeholder shapes in the layout of the coming content, often shimmering, shown while it loads.",
+  },
+  "intro-animation": {
+    name: "Intro animation",
+    aka: ["page-load animation", "entrance animation", "loading reveal"],
+    definition:
+      "A short sequence that plays once when the page first opens, before you do anything: a curtain, fade or mist clearing to reveal the first screen. It sets the mood and hides the moment the page is still loading.",
   },
   "shader-animation": {
     name: "Shader animation",

@@ -216,21 +216,40 @@ imagery:
 
 motion:
   types:
-    [scroll-scrubbed, pinning, blur-reveal, scroll-reveal, shader-animation]
+    [
+      intro-animation,
+      cursor-distortion,
+      scroll-scrubbed,
+      pinning,
+      blur-reveal,
+      scroll-reveal,
+      shader-animation,
+    ]
   what: >-
-    The entire essay is scroll-linked: scrolling is the descent. The
-    elevation readout on the left counts down from 30,000 ft as you scroll,
-    and the shader clouds shift with every scroll (they don't move when you
-    stop). Text arrives with a blur-in, sharpening from a soft blur as it
-    reaches you. Scenes are pinned while your scrolling plays them: the 3D
-    lettering turns "Artificial Intelligence" into "Applied Imagination",
-    and at the end the mountains rise while the title sinks behind them.
-    Smaller elements such as the notepaper sketches appear with a
-    scroll-triggered reveal.
+    The page opens with an intro animation: you start inside a white cloud
+    bank, the mist thins out to blue sky, and the title comes through the
+    fog before the subtitle and labels fade in. The title is drawn inside
+    the cloud shader rather than as page text, so it sits among the clouds
+    (its lower edge is veiled by mist) and reacts to the mouse with a
+    cursor-reactive distortion: letters under the pointer dissolve into
+    cloud-like wisps and re-form behind it. After the intro, everything else
+    is scroll-linked: scrolling is the descent. The elevation readout on the
+    left counts down from 30,000 ft as you scroll, and the clouds shift with
+    every scroll (once the intro has played they stay still when you stop).
+    Text arrives with a blur-in, sharpening from a soft blur as it reaches
+    you. Scenes are pinned while your scrolling plays them: the 3D lettering
+    turns "Artificial Intelligence" into "Applied Imagination", and at the
+    end the mountains rise while the title sinks behind them. Smaller
+    elements such as the notepaper sketches appear with a scroll-triggered
+    reveal.
   why: >-
     No statement from the designers was found, so this is our
-    interpretation. Tying everything to the scroll makes reading feel like
-    the flight the essay starts on: you control the descent, and the
+    interpretation. The intro puts you inside the clouds at 30,000 ft, the
+    altitude the essay starts from, and clearing the mist works as a
+    curtain rise. Making the title part of the clouds, so the cursor can
+    blow it apart like vapor, hints at the theme before you read a word:
+    ideas that are fluid rather than fixed. Tying the rest to the scroll
+    makes reading feel like that flight: you control the descent, and the
     elevation readout turns progress through a long text into a sense of
     place. Pinning lets key ideas play out in front of you instead of
     scrolling past, which matters most for the central swap from
@@ -241,6 +260,14 @@ motion:
     - title: One Page Love, Applied Imagination
       url: https://onepagelove.com/applied-imagination
   examples:
+    - src: motion-intro.webp
+      alt: The page opening in white mist that thins to blue sky as the Applied Imagination title darkens into view
+      caption: Intro animation on first load, the mist clearing (frame timing approximated)
+      terms: [intro-animation, shader-animation]
+    - src: motion-hover.webp
+      alt: The cursor moving across the title, dissolving the letters it passes into cloud-like wisps that re-form behind it
+      caption: Cursor-reactive distortion on the title
+      terms: [cursor-distortion, shader-animation]
     - src: motion-descent.webp
       alt: Scrolling from the title down through the clouds, with text blurring in and parachuting collage objects drifting past
       caption: Scroll-linked descent with blur-in text
