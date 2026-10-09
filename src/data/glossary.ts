@@ -78,6 +78,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Imagery with visible imperfection (wobbly lines, scribbles, marker or pencil marks) that feels human and informal.",
   },
+  "painterly-illustration": {
+    name: "Painterly illustration",
+    aka: ["watercolor illustration", "gouache", "digital painting"],
+    definition:
+      "Illustration that looks hand-painted: visible brushstrokes, soft edges and colors that bleed into each other like watercolor, gouache or oil. Feels crafted, warm and a little nostalgic, the opposite of crisp flat vector art.",
+  },
   "character-mascot": {
     name: "Character mascot",
     aka: ["brand character"],
@@ -139,6 +145,12 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     definition:
       "A subject cut away from its original background so it can sit directly on a color or overlap other elements.",
   },
+  "stamp-frame": {
+    name: "Postage-stamp frame",
+    aka: ["stamp border", "perforated edge"],
+    definition:
+      "An image framed like a postage stamp, with a scalloped, perforated edge and a pale border. Makes a picture feel collectible, handmade and personal, like something sent in the mail.",
+  },
   "color-blocking": {
     name: "Color blocking",
     definition:
@@ -198,6 +210,12 @@ export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
     definition:
       "An image or shading made of dots of varying size, borrowed from print; feels retro or editorial.",
   },
+  dither: {
+    name: "Dithering",
+    aka: ["ordered dither", "Bayer dither"],
+    definition:
+      "Same-size dots on a regular grid that fake in-between shades by mixing two colors, like early computer graphics. Used to fade one area into another with a grainy, pixel-by-pixel edge instead of a smooth gradient. Unlike halftone, the dots don't change size.",
+  },
   "soft-gradient": {
     name: "Soft gradient",
     definition:
@@ -240,6 +258,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["sticky scrolling", "scroll pinning"],
     definition:
       "A section stays fixed on screen while you keep scrolling, so the scrolling drives what happens inside it instead of moving it away.",
+  },
+  "scroll-text-fill": {
+    name: "Scroll-linked text fill",
+    aka: ["text highlight on scroll", "scroll text reveal"],
+    definition:
+      "A heading starts faded and darkens letter by letter as you scroll, tied to the scroll position rather than a timer: stop scrolling and the fill stops with you. Makes you read the line at the pace you move.",
   },
   "fade-in": {
     name: "Fade-in",
@@ -293,11 +317,23 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A row of cards you move through sideways with arrows, swipes or dots, showing a few at a time.",
   },
+  "auto-advance": {
+    name: "Auto-advancing tabs",
+    aka: ["autoplay tabs", "progress tabs", "auto-playing accordion"],
+    definition:
+      "A list of features that steps through itself: one item opens, a thin progress line fills, then the next item takes over, and the visual beside the list changes to match. Lets a section demo itself without the visitor clicking.",
+  },
   "idle-animation": {
     name: "Idle animation",
     aka: ["ambient animation"],
     definition:
       "A small, looping movement on a character or object while nothing else is happening (breathing, blinking, floating) that makes it feel alive.",
+  },
+  "turbulence-displacement": {
+    name: "Turbulence displacement",
+    aka: ["wind effect", "SVG displacement filter", "ripple distortion"],
+    definition:
+      "An animated noise pattern nudges an image's pixels back and forth, so a still picture ripples like leaves in a breeze or water. Usually made with an SVG filter (feTurbulence + feDisplacementMap), so no video is needed.",
   },
   "hover-state": {
     name: "Hover state",
@@ -338,6 +374,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["WebGL animation", "real-time graphics"],
     definition:
       "A shader that moves: colors flowing, surfaces rippling or warping, often reacting to the mouse or to scrolling. Smoother and lighter than video because it's computed live.",
+  },
+  "lottie-animation": {
+    name: "Lottie animation",
+    aka: ["Lottie", "vector animation"],
+    definition:
+      "A lightweight vector animation, designed in a tool like After Effects and exported as a small JSON file that plays in the browser. Sharp at any size and far smaller than video, so it's popular for animated icons and little product demos.",
   },
   "background-video": {
     name: "Background video",
