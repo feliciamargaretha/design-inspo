@@ -163,6 +163,10 @@ imagery:
   treatments: [cutout]
   textures: [halftone, paper]
   what: >-
+    Overall, the imagery builds one world: the sky. Everything happens in, or
+    falls through, a cloudscape, from the title at 30,000 ft down to the
+    mountains where the essay lands.
+
     A full-screen WebGL shader draws the sky and clouds behind everything,
     under a fine halftone dot screen. Over it, a mixed-media collage of
     cutout photographs drifts through the story: parachuting objects, a
@@ -172,16 +176,31 @@ imagery:
     hand-drawn sketches sit on lined notepaper, and the essay lands among
     3D-rendered mountains.
   why: >-
-    No statement from the designers was found, so this is our
-    interpretation. Each style seems chosen to make one point: cutout
-    collage turns abstract ideas (burning out, pilots that go nowhere) into
-    something you can picture; the 3D lettering gives the essay's key
-    phrase physical weight; the hand-drawn sketches on notepaper show the
-    workshop exercise the essay describes rather than describing it; and
-    the halftone screen ties photos, renders and type together with a
-    printed, editorial feel, like a magazine feature told online.
+    The designers haven't explained the imagery, so this is our
+    interpretation, built on the essay's own words. The essay opens "on a
+    Delta flight, 30,000 feet in the sky", where the author has
+    the realization, so the clouds are first of all the setting of the story.
+    They also carry its argument. Clouds are where imagination lives (to have
+    your head in the clouds), and the essay asks us to bring imagination down
+    to earth and apply it, to "get down to the first principles of what work
+    is". Read that way, the page is one long descent from the sky
+    (imagination) to solid ground (application). Even the title, which
+    dissolves into vapor under your cursor, is an idea that hasn't taken
+    shape yet.
+
+    In detail, each style makes one point. Cutout collage turns abstract
+    ideas (burning out, pilots that go nowhere) into objects falling through
+    the sky. The 3D lettering is the author's own image, picturing the A
+    and the I "fanning out, animating, and turning into the words 'applied
+    imagination' in large, blocky text, surrounded by a bunch of beautiful
+    visuals in colors that represent possibility". The hand-drawn sketches on
+    notepaper show the workshop exercise the essay describes rather than
+    describing it. The halftone screen ties photos, renders and type together
+    with a printed, editorial feel, like a magazine feature told online.
   basis: interpretation
   sources:
+    - title: Pete Sena, Applied Imagination (the essay itself)
+      url: https://applied-imagination.gpc.consulting/
     - title: One Page Love, Applied Imagination
       url: https://onepagelove.com/applied-imagination
   examples:

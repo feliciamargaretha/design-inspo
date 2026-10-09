@@ -126,6 +126,9 @@ imagery:
   treatments: [color-blocking, layered-cards, soft-glow, decorative-sparkles]
   textures: [soft-gradient, flat-color]
   what: >-
+    Overall, a soft cartoon world built around one character, grounded with
+    real people and the real app.
+
     Ebb, a character mascot (a round orange-to-pink blob with closed, smiling
     eyes), appears throughout. Around it, flat vector illustration: round
     characters with different expressions, plus decorative sparkles and
@@ -136,14 +139,17 @@ imagery:
     surfaces are flat color, with soft gradients on Ebb and the clouds.
   why: >-
     Headspace says it "has always led as an illustrative and animated
-    brand", which makes it stand out in digital wellness. The orange smiley
-    was inspired by the robes worn in the Buddhist tradition of meditation,
-    and the 2024 style adds a "range of faces expressing a range of emotions
-    beyond a smile", not just joy but stress, sadness and contentment. More
-    photography was added to show its new services, part of a more
-    professional persona. The brand hopes this approach "can help
-    destigmatise seeking care by making talking about mental health feel
-    approachable and normalised".
+    brand", which makes it stand out in digital wellness, and hopes the
+    approach "can help destigmatise seeking care by making talking about
+    mental health feel approachable and normalised".
+
+    In detail: the orange smiley was inspired by the robes worn in the
+    Buddhist tradition of meditation, and the 2024 style adds a "range of
+    faces expressing a range of emotions beyond a smile", not just joy but
+    stress, sadness and contentment. More photography was added to show its
+    new services, part of a more professional persona. (Our read: the mix
+    works in two steps. The cartoon world invites you in to a heavy subject,
+    then the real people and the real app reassure you it's serious care.)
   basis: brand-statement
   sources:
     - title: It's Nice That, Headspace overhauls visual identity (2024)

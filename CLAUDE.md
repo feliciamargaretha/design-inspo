@@ -14,6 +14,7 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
 - The entry structure is defined in `src/content.config.ts`; use `src/content/entries/jira-landing.md` as the reference example.
 - Only use categories, screen types, tags and filter labels that exist in `src/data/taxonomies.ts`. If a new one is genuinely needed, add it there in the same PR and mention it in the PR description.
 - Every breakdown (colors, typography, imagery, motion) has a factual _what_, a _why_, a `basis` and `examples`.
+- Imagery starts with the big picture before the per-style detail: the _what_ opens with one sentence on the overall visual world (e.g. "the sky"), and the _why_ opens with an overarching hypothesis for that world (e.g. why clouds) as its own paragraph. Start a new paragraph with a blank line.
 - Before writing a _why_, look for the brand's own reasoning, in this order:
   1. Official brand guidelines or design system → `basis: brand-guidelines`
   2. The brand or its designers explaining choices elsewhere (press interviews, agency or type-foundry case studies) → `basis: brand-statement`
