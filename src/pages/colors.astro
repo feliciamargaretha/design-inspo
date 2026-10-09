@@ -33,7 +33,7 @@ const groups = [
 <BaseLayout title="Colors">
   <PageHeader
     title="Colors"
-    description="Every palette, under the page it comes from. Open one to see it on the color wheel, with its harmony and strategy explained."
+    description="Every palette's primary colors, under the page they come from. Open one to see it on the color wheel, with its harmony and strategy explained."
   />
   <FilterBar client:load groups={groups} target="grid" />
   <div id="grid">
@@ -42,7 +42,9 @@ const groups = [
         <EntryCard
           entry={entry}
           anchor="#colors"
-          palette={entry.data.colors.palette}
+          palette={entry.data.colors.palette.filter(
+            (c) => c.tier === "primary",
+          )}
           filters={{
             harmony: [entry.data.colors.harmony],
             strategy: [entry.data.colors.strategy],

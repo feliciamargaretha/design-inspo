@@ -32,6 +32,20 @@ export function hexToHsl(hex: string): Hsl {
 }
 
 /**
+ * Text color for a label on top of `hex`: dark on light colors, white on dark
+ * ones. Uses perceived brightness (WCAG relative luminance), so bright
+ * yellows get dark text even though their HSL lightness is only middling.
+ */
+export function textOn(hex: string): string {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  }) as [number, number, number];
+  const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return luminance > 0.18 ? "#0f172a" : "#fff";
+}
+
+/**
  * Whites, greys and near-blacks have no meaningful place on the wheel. That
  * includes faintly tinted greys (low chroma), which read as grey.
  */

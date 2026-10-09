@@ -9,7 +9,7 @@ import { entryUrl } from "@/lib/url";
 interface Props {
   entry: EntryWithProduct;
   filters?: Record<string, readonly string[]>;
-  /** Palette strip under the image (Colors page). */
+  /** Palette strip under the image (Colors page: primary colors only). */
   palette?: { hex: string; name?: string }[];
   /** Section of the detail page to link to, e.g. "#colors". */
   anchor?: string;

@@ -7,6 +7,7 @@ import {
   COLOR_MODES,
   COLOR_HARMONIES,
   COLOR_ROLES,
+  COLOR_TIERS,
   COLOR_STRATEGIES,
   COLOR_TEMPERATURES,
   ENTRY_TYPES,
@@ -108,9 +109,13 @@ const entries = defineCollection({
                 hex,
                 name: z.string().optional(),
                 role: z.enum(COLOR_ROLES),
+                tier: z.enum(COLOR_TIERS),
               }),
             )
-            .min(1),
+            .min(1)
+            .refine((p) => p.some((c) => c.tier === "primary"), {
+              message: "At least one palette color needs tier: primary.",
+            }),
           /** How the main hues relate on the color wheel. */
           harmony: z.enum(COLOR_HARMONIES),
           /** The palette hexes that form the harmony (shown on the wheel). */

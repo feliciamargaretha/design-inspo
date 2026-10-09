@@ -11,14 +11,14 @@ tags: [friendly, playful, calm, optimistic, reassuring]
 
 colors:
   palette:
-    - { hex: "#FF7401", name: Headspace orange, role: primary }
-    - { hex: "#FFFFFF", name: White, role: background }
-    - { hex: "#F9F4F2", name: Warm off-white, role: surface }
-    - { hex: "#2D2C2B", name: Warm charcoal, role: text }
-    - { hex: "#0061EF", name: Bright blue, role: secondary }
-    - { hex: "#FFCE00", name: Sunshine yellow, role: secondary }
-    - { hex: "#FFA1CC", name: Bubblegum pink, role: accent }
-    - { hex: "#3B197F", name: Deep purple, role: accent }
+    - { hex: "#FF7401", name: Headspace orange, role: brand, tier: primary }
+    - { hex: "#FFFFFF", name: White, role: background, tier: primary }
+    - { hex: "#F9F4F2", name: Warm off-white, role: surface, tier: secondary }
+    - { hex: "#2D2C2B", name: Warm charcoal, role: text, tier: secondary }
+    - { hex: "#0061EF", name: Bright blue, role: accent, tier: secondary }
+    - { hex: "#FFCE00", name: Sunshine yellow, role: accent, tier: secondary }
+    - { hex: "#FFA1CC", name: Bubblegum pink, role: accent, tier: tertiary }
+    - { hex: "#3B197F", name: Deep purple, role: accent, tier: tertiary }
   harmony: complementary
   harmonyColors: ["#FF7401", "#FFCE00", "#0061EF"]
   strategy: multicolor
