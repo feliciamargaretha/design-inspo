@@ -68,14 +68,20 @@ export const PERSONALITY_TAGS = [
 /** Colors topic filters. */
 export const COLOR_MODES = ["light", "dark", "mixed"] as const;
 export const COLOR_TEMPERATURES = ["warm", "cool", "neutral"] as const;
+/** What job a color does on the page. */
 export const COLOR_ROLES = [
   "background",
   "surface",
   "text",
-  "primary",
-  "secondary",
+  "brand",
   "accent",
 ] as const;
+/**
+ * How important a color is to the look: primary = the colors you'd name to
+ * describe the site (dominant or signature), secondary = supporting colors,
+ * tertiary = small accents and details.
+ */
+export const COLOR_TIERS = ["primary", "secondary", "tertiary"] as const;
 /** How the main hues relate on the color wheel (defined in glossary.ts). */
 export const COLOR_HARMONIES = [
   "monochromatic",

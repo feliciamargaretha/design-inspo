@@ -1,27 +1,62 @@
 ---
-// Palette swatches with hex, name and role.
-import { hexToHsl } from "@/lib/color";
-import { label } from "@/data/taxonomies";
+// Palette swatches with hex, name and role, grouped by tier: primary colors
+// get the biggest swatches, tertiary the smallest.
+import { textOn } from "@/lib/color";
+import { COLOR_TIERS, label } from "@/data/taxonomies";
 
+type Tier = (typeof COLOR_TIERS)[number];
 interface Props {
-  colors: { hex: string; name?: string; role: string }[];
+  colors: { hex: string; name?: string; role: string; tier: Tier }[];
 }
 const { colors } = Astro.props;
+
+const TIERS: Record<Tier, { blurb: string; grid: string; swatch: string }> = {
+  primary: {
+    blurb: "The colors that define the look.",
+    grid: "grid-cols-2 sm:grid-cols-3",
+    swatch: "h-32",
+  },
+  secondary: {
+    blurb: "Supporting colors.",
+    grid: "grid-cols-2 sm:grid-cols-4",
+    swatch: "h-20",
+  },
+  tertiary: {
+    blurb: "Small accents and details.",
+    grid: "grid-cols-3 sm:grid-cols-6",
+    swatch: "h-12",
+  },
+};
+const groups = COLOR_TIERS.map((tier) => ({
+  tier,
+  ...TIERS[tier],
+  colors: colors.filter((c) => c.tier === tier),
+})).filter((g) => g.colors.length);
 ---
 
-<ul class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-  {colors.map((c) => (
-    <li class="overflow-hidden rounded-xl border border-border">
-      <div
-        class="flex h-20 items-end p-2.5 font-mono text-xs"
-        style={`background:${c.hex};color:${hexToHsl(c.hex).l > 0.6 ? "#0f172a" : "#fff"}`}
-      >
-        {c.hex}
-      </div>
-      <div class="px-2.5 py-2">
-        <p class="text-sm font-medium">{c.name ?? c.hex}</p>
-        <p class="text-xs text-muted-foreground">{label(c.role)}</p>
-      </div>
-    </li>
+<div class="space-y-6">
+  {groups.map((g) => (
+    <div>
+      <p class="mb-2 text-sm">
+        <span class="font-semibold">{label(g.tier)}</span>
+        <span class="text-muted-foreground"> · {g.blurb}</span>
+      </p>
+      <ul class:list={["grid gap-3", g.grid]}>
+        {g.colors.map((c) => (
+          <li class="overflow-hidden rounded-xl border border-border">
+            <div
+              class:list={["flex items-end p-2.5 font-mono text-xs", g.swatch]}
+              style={`background:${c.hex};color:${textOn(c.hex)}`}
+            >
+              {c.hex}
+            </div>
+            <div class="px-2.5 py-2">
+              <p class="text-sm font-medium">{c.name ?? c.hex}</p>
+              <p class="text-xs text-muted-foreground">{label(c.role)}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   ))}
-</ul>
+</div>

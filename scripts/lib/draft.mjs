@@ -133,10 +133,23 @@ function guessPalette(palette) {
       Math.abs(c.lightness - (background?.lightness ?? 100)) <= 25,
   );
   const out = [];
+  // Tier guesses: the background and the most prominent hue are primary.
   if (background)
-    out.push({ hex: background.hex, name: TODO, role: "background" });
-  if (surface) out.push({ hex: surface.hex, name: TODO, role: "surface" });
-  if (text) out.push({ hex: text.hex, name: TODO, role: "text" });
+    out.push({
+      hex: background.hex,
+      name: TODO,
+      role: "background",
+      tier: "primary",
+    });
+  if (surface)
+    out.push({
+      hex: surface.hex,
+      name: TODO,
+      role: "surface",
+      tier: "secondary",
+    });
+  if (text)
+    out.push({ hex: text.hex, name: TODO, role: "text", tier: "secondary" });
   palette
     .filter((c) => !c.neutral)
     .slice(0, 6)
@@ -144,7 +157,8 @@ function guessPalette(palette) {
       out.push({
         hex: c.hex,
         name: TODO,
-        role: i === 0 ? "primary" : i === 1 ? "secondary" : "accent",
+        role: i === 0 ? "brand" : "accent",
+        tier: i === 0 ? "primary" : i <= 2 ? "secondary" : "tertiary",
       }),
     );
   return out;

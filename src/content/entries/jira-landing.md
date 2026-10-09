@@ -11,14 +11,14 @@ tags: [professional, approachable, trustworthy, technical]
 
 colors:
   palette:
-    - { hex: "#FFFFFF", name: White, role: background }
-    - { hex: "#F8F8F8", name: Off-white, role: surface }
-    - { hex: "#101214", name: Near-black, role: text }
-    - { hex: "#1868DB", name: Atlassian blue, role: primary }
-    - { hex: "#1F1F21", name: Charcoal, role: surface }
-    - { hex: "#803FA5", name: Purple, role: accent }
-    - { hex: "#4C6B1F", name: Olive green, role: accent }
-    - { hex: "#FFE48F", name: Soft yellow, role: accent }
+    - { hex: "#FFFFFF", name: White, role: background, tier: primary }
+    - { hex: "#1868DB", name: Atlassian blue, role: brand, tier: primary }
+    - { hex: "#F8F8F8", name: Off-white, role: surface, tier: secondary }
+    - { hex: "#101214", name: Near-black, role: text, tier: secondary }
+    - { hex: "#1F1F21", name: Charcoal, role: surface, tier: secondary }
+    - { hex: "#803FA5", name: Purple, role: accent, tier: tertiary }
+    - { hex: "#4C6B1F", name: Olive green, role: accent, tier: tertiary }
+    - { hex: "#FFE48F", name: Soft yellow, role: accent, tier: tertiary }
   harmony: tetradic
   harmonyColors: ["#1868DB", "#FFE48F", "#803FA5", "#4C6B1F"]
   strategy: neutral-with-accent

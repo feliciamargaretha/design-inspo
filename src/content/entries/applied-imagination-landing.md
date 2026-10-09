@@ -12,14 +12,19 @@ tags: [editorial, optimistic, playful, sophisticated]
 
 colors:
   palette:
-    - { hex: "#A4D2ED", name: Sky blue, role: background }
-    - { hex: "#F3EBD5", name: Horizon cream, role: background }
-    - { hex: "#FAF5EE", name: Paper, role: surface }
-    - { hex: "#232424", name: Ink, role: text }
-    - { hex: "#FFC013", name: Marigold, role: primary }
-    - { hex: "#FF3B30", name: Signal red, role: secondary }
-    - { hex: "#FEEC97", name: Highlighter yellow, role: accent }
-    - { hex: "#9B338F", name: Plum, role: accent }
+    - { hex: "#A4D2ED", name: Sky blue, role: background, tier: primary }
+    - { hex: "#F3EBD5", name: Horizon cream, role: background, tier: primary }
+    - { hex: "#FAF5EE", name: Cloud white, role: surface, tier: primary }
+    - { hex: "#232424", name: Ink, role: text, tier: secondary }
+    - { hex: "#FFC013", name: Marigold, role: brand, tier: secondary }
+    - {
+        hex: "#FEEC97",
+        name: Highlighter yellow,
+        role: accent,
+        tier: secondary,
+      }
+    - { hex: "#FF3B30", name: Signal red, role: accent, tier: tertiary }
+    - { hex: "#9B338F", name: Plum, role: accent, tier: tertiary }
   harmony: complementary
   harmonyColors: ["#A4D2ED", "#FFC013", "#FEEC97"]
   strategy: multicolor
@@ -27,7 +32,8 @@ colors:
   temperature: warm
   what: >-
     The whole essay sits in a sky: a gradient from soft sky blue at the top
-    to a warm horizon cream at the bottom, with clouds, behind near-black
+    to a warm horizon cream at the bottom, with cloud-white clouds (these
+    three are the primary colors), behind near-black
     ink text. Saturated warm colors arrive in bursts: marigold and signal
     red for the 3D lettering and small tags, a highlighter yellow behind key
     words, and a plum panel for the newsletter sign-up at the end. On the
