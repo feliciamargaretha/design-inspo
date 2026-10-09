@@ -66,6 +66,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Computer-generated objects or scenes with depth, lighting and materials, from glossy blobs to realistic products.",
   },
+  "3d-type": {
+    name: "3D extruded type",
+    aka: ["dimensional type", "extruded lettering"],
+    definition:
+      "Letters given depth, as if pushed out of the page into solid 3D objects, with visible sides and shading. Loud, playful and hard to ignore.",
+  },
   "hand-drawn": {
     name: "Hand-drawn",
     aka: ["doodle"],
@@ -101,6 +107,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     aka: ["logo cloud", "social proof strip"],
     definition:
       "A row or grid of customer or partner logos, used as social proof: 'companies like these trust us'.",
+  },
+  "data-visualization": {
+    name: "Data visualization",
+    aka: ["chart", "infographic"],
+    definition:
+      "Numbers shown as a picture (line or bar charts, diagrams), so a trend or comparison is understood at a glance.",
   },
   "mixed-media-collage": {
     name: "Mixed-media collage",
@@ -217,10 +229,28 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "Elements animate into place the moment they scroll into view, instead of simply being there already.",
   },
+  "scroll-scrubbed": {
+    name: "Scroll-linked animation",
+    aka: ["scroll scrubbing", "scrollytelling"],
+    definition:
+      "The animation's progress is tied to the scroll position: scroll down and it plays forward, scroll up and it rewinds, like scrubbing through a video. Different from a scroll-triggered reveal, which plays once on its own.",
+  },
+  pinning: {
+    name: "Pinning",
+    aka: ["sticky scrolling", "scroll pinning"],
+    definition:
+      "A section stays fixed on screen while you keep scrolling, so the scrolling drives what happens inside it instead of moving it away.",
+  },
   "fade-in": {
     name: "Fade-in",
     definition:
       "An element goes from invisible (0% opacity) to fully visible; the gentlest way to make something appear.",
+  },
+  "blur-reveal": {
+    name: "Blur-in",
+    aka: ["focus pull", "blur reveal"],
+    definition:
+      "Content starts blurred and sharpens into focus as it arrives, like a camera finding focus; softer and more cinematic than a plain fade.",
   },
   "slide-in": {
     name: "Slide-in",
@@ -275,6 +305,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A visual change (lift, color shift, underline, zoom) when the pointer moves over something clickable.",
   },
+  "cursor-distortion": {
+    name: "Cursor-reactive distortion",
+    aka: ["hover distortion", "mouse-trail effect", "fluid cursor"],
+    definition:
+      "A WebGL effect where whatever is under the pointer warps, smears or dissolves, leaving a soft trail that settles back once the cursor moves on. More playful than a hover state: it reacts to where the mouse is, not just whether it's over something.",
+  },
   "micro-interaction": {
     name: "Micro-interaction",
     definition:
@@ -290,6 +326,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["skeleton screen", "shimmer"],
     definition:
       "Grey placeholder shapes in the layout of the coming content, often shimmering, shown while it loads.",
+  },
+  "intro-animation": {
+    name: "Intro animation",
+    aka: ["page-load animation", "entrance animation", "loading reveal"],
+    definition:
+      "A short sequence that plays once when the page first opens, before you do anything: a curtain, fade or mist clearing to reveal the first screen. It sets the mood and hides the moment the page is still loading.",
   },
   "shader-animation": {
     name: "Shader animation",

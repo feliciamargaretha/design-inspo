@@ -135,6 +135,8 @@ const entries = defineCollection({
               z
                 .object({
                   family: z.string(),
+                  /** The page's own CSS name when it differs (e.g. "fsKim" for FS Kim); used to render the specimen. */
+                  cssFamily: z.string().optional(),
                   style: z.enum(TYPE_STYLES),
                   roles: z.array(z.enum(TYPE_ROLES)).min(1),
                   /** e.g. "Custom", "Licensed (Colophon)", "Google Fonts" */
