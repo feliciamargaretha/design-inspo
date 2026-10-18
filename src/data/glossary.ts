@@ -168,6 +168,12 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     definition:
       "Colored mouse pointers with name labels placed over a UI, borrowed from collaborative tools to suggest many people (or agents) working together live.",
   },
+  "selection-box": {
+    name: "Selection box",
+    aka: ["bounding box", "transform handles"],
+    definition:
+      "The thin outline with small square handles that a design tool draws around a selected object. Used as decoration, it makes a page look like it's being edited on a canvas right now.",
+  },
   "soft-glow": {
     name: "Soft glow",
     aka: ["colored shadow"],
@@ -198,6 +204,12 @@ export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
     aka: ["dot matrix pattern"],
     definition:
       "Evenly spaced tiny dots in the background; feels technical and precise without being as heavy as a full grid.",
+  },
+  "glyph-grid": {
+    name: "Glyph grid",
+    aka: ["ASCII pattern", "character grid"],
+    definition:
+      "A dot grid made of tiny characters and symbols instead of plain dots (slashes, plus signs, brackets, little shapes). Reads as technical and code-like; often animated so the symbols change.",
   },
   grain: {
     name: "Grain",
@@ -347,6 +359,18 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A WebGL effect where whatever is under the pointer warps, smears or dissolves, leaving a soft trail that settles back once the cursor moves on. More playful than a hover state: it reacts to where the mouse is, not just whether it's over something.",
   },
+  "cursor-reactive-pattern": {
+    name: "Cursor-reactive pattern",
+    aka: ["interactive background", "hover field"],
+    definition:
+      "A background pattern of dots, lines or characters that responds to your pointer: marks near the cursor grow, darken or change shape, then settle back once it moves away. Makes a quiet background feel alive without distracting.",
+  },
+  "scripted-cursor": {
+    name: "Scripted cursor",
+    aka: ["demo cursor", "ghost cursor", "fake cursor"],
+    definition:
+      "A pretend mouse pointer that moves around the page on its own, clicking, dragging and typing to act out how a product works. It shows the interaction instead of describing it, and loops so it's always mid-demo.",
+  },
   "micro-interaction": {
     name: "Micro-interaction",
     definition:
@@ -389,6 +413,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
 };
 
 export const COLOR_HARMONY_TERMS: Glossary<typeof COLOR_HARMONIES> = {
+  achromatic: {
+    name: "Achromatic",
+    aka: ["monochrome", "black and white"],
+    definition:
+      "No hue at all: only black, white and greys, so nothing sits on the color wheel. Any real color is kept tiny and works as a signal (a selection, a status, a link). Feels precise and lets content supply the color.",
+  },
   monochromatic: {
     name: "Monochromatic",
     definition:

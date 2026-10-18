@@ -2,7 +2,8 @@
 // A color wheel with the palette plotted at its real hue angles and the
 // harmony drawn as a shape: an arc (monochromatic / analogous), a line across
 // the wheel (complementary) or a polygon (split-complementary, triadic,
-// tetradic, square). Neutrals have no hue, so they're listed separately.
+// tetradic, square). Neutrals have no hue, so they're listed separately; an
+// achromatic palette shows its greys stacked at the center instead.
 import {
   describeHarmony,
   hexToHsl,
@@ -67,10 +68,23 @@ const wedges = Array.from({ length: 72 }, (_, i) => {
 // Monochromatic colors share one hue, so spread them from the center
 // outwards by lightness (darkest innermost) instead of stacking them.
 const mono = harmony === "monochromatic";
+const achro = harmony === "achromatic";
+// Greys for the achromatic center: the guide passes examples, entries pass neutrals.
+const sortedGreys = [...(harmonyColors.length ? harmonyColors : neutrals)].sort(
+  (a, b) => hexToHsl(a.hex).l - hexToHsl(b.hex).l,
+);
+// Up to four, spread from darkest to lightest so the stack reads as a ladder.
+const greys = !achro
+  ? []
+  : sortedGreys.length <= 4
+    ? sortedGreys
+    : [0, 1, 2, 3].map(
+        (i) => sortedGreys[Math.round((i * (sortedGreys.length - 1)) / 3)]!,
+      );
 const byLightness = [...harmonyColors].sort(
   (a, b) => hexToHsl(a.hex).l - hexToHsl(b.hex).l,
 );
-const plotted = harmonyColors.map((p) => {
+const plotted = (achro ? [] : harmonyColors).map((p) => {
   const i = byLightness.indexOf(p);
   const r =
     mono && harmonyColors.length > 1
@@ -153,7 +167,18 @@ const small = compact ? size * 0.045 : 6.5;
         stroke-width={compact ? 2 : 2.5}
       />
     )}
-    <circle cx={c} cy={c} r={compact ? 2 : 3} class="center" />
+    {greys.length === 0 && (
+      <circle cx={c} cy={c} r={compact ? 2 : 3} class="center" />
+    )}
+    {greys.map((p, i) => (
+      <circle
+        cx={c}
+        cy={c + (i - (greys.length - 1) / 2) * big * 2.1}
+        r={big}
+        fill={p.hex}
+        class="dot"
+      />
+    ))}
     {accentDots.map((p) => {
       const { x, y } = at(p.h, dotRadius);
       return <circle cx={x} cy={y} r={small} fill={p.hex} class="dot accent" />;

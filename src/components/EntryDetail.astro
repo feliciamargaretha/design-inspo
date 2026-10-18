@@ -165,7 +165,11 @@ const typeName = {
             <h3 class="mb-3 font-semibold">Compare the harmonies</h3>
             <HarmonyGuide
               harmony={colors.harmony}
-              baseHex={colors.harmonyColors[0]!}
+              baseHex={
+                colors.harmonyColors[0] ??
+                colors.palette.find((c) => !isNeutral(c.hex))?.hex ??
+                "#4D90FE"
+              }
             />
           </div>
         </div>

@@ -35,7 +35,16 @@ export function suggestHarmonies(palette, { limit = 3 } = {}) {
       chromatic.push(c);
     if (chromatic.length === 5) break;
   }
-  if (chromatic.length === 0) return [];
+  if (chromatic.length === 0) {
+    return [
+      {
+        harmony: "achromatic",
+        colors: [],
+        score: 0,
+        explanation: describeHarmony("achromatic", []),
+      },
+    ];
+  }
   if (chromatic.length === 1) {
     return [
       {

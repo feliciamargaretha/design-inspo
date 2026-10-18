@@ -92,6 +92,12 @@ export function checkHarmony(harmony: Harmony, hexes: string[]): string | null {
     `${hexes.join(", ")} (hues ${hues.map((h) => Math.round(h) + "°").join(", ")}) don't form ${/^[aeiou]/.test(harmony) ? "an" : "a"} ${harmony} harmony: ${rule}`;
 
   switch (harmony) {
+    case "achromatic":
+      return n === 0
+        ? null
+        : fail(
+            "an achromatic palette has no hues, so harmonyColors stays empty.",
+          );
     case "monochromatic":
       return maxPair <= 20 ? null : fail("all hues should be within 20°.");
     case "analogous":
@@ -148,6 +154,7 @@ export function checkHarmony(harmony: Harmony, hexes: string[]): string | null {
 
 /** Ideal hue offsets (from a base hue) for each harmony, used by the harmony guide. */
 export const HARMONY_OFFSETS: Record<Harmony, number[]> = {
+  achromatic: [],
   monochromatic: [0, 0, 0],
   analogous: [-30, 0, 30],
   complementary: [0, 180],
@@ -174,6 +181,8 @@ export function describeHarmony(
       : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
 
   switch (harmony) {
+    case "achromatic":
+      return "No hues to place: the palette is black, white and greys, which sit at the center of the wheel. Any color is a small accent outside the harmony.";
     case "monochromatic":
     case "analogous": {
       const span = Math.max(

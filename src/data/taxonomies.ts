@@ -84,6 +84,7 @@ export const COLOR_ROLES = [
 export const COLOR_TIERS = ["primary", "secondary", "tertiary"] as const;
 /** How the main hues relate on the color wheel (defined in glossary.ts). */
 export const COLOR_HARMONIES = [
+  "achromatic",
   "monochromatic",
   "analogous",
   "complementary",
@@ -169,6 +170,7 @@ export const IMAGERY_TREATMENTS = [
   "color-blocking",
   "layered-cards",
   "multiplayer-cursors",
+  "selection-box",
   "soft-glow",
   "decorative-sparkles",
 ] as const;
@@ -178,6 +180,7 @@ export const TEXTURES = [
   "flat-color",
   "grid-pattern",
   "dot-grid",
+  "glyph-grid",
   "grain",
   "halftone",
   "dither",
@@ -206,7 +209,9 @@ export const MOTION_TYPES = [
   "idle-animation",
   "turbulence-displacement",
   "hover-state",
+  "scripted-cursor",
   "cursor-distortion",
+  "cursor-reactive-pattern",
   "micro-interaction",
   "page-transition",
   "intro-animation",
