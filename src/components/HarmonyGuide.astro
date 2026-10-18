@@ -1,5 +1,5 @@
 ---
-// All seven color harmonies as small wheels, built from the entry's own
+// All eight color harmonies as small wheels, built from the entry's own
 // base hue, with the entry's harmony highlighted, plus the definition.
 import ColorWheel from "@/components/ColorWheel.astro";
 import { COLOR_HARMONY_TERMS } from "@/data/glossary";
@@ -30,12 +30,17 @@ const toHex = (h: number, l = 50) => {
 const examples = COLOR_HARMONIES.map((h) => ({
   id: h,
   term: COLOR_HARMONY_TERMS[h],
-  points: HARMONY_OFFSETS[h].map((o, i) => ({
-    hex:
-      h === "monochromatic"
-        ? toHex(base, [30, 50, 72][i])
-        : toHex((base + o + 360) % 360),
-  })),
+  points: (h === "achromatic"
+    ? [{ hex: "#1A1A1A" }, { hex: "#808080" }, { hex: "#E6E6E6" }]
+    : []
+  ).concat(
+    HARMONY_OFFSETS[h].map((o, i) => ({
+      hex:
+        h === "monochromatic"
+          ? toHex(base, [30, 50, 72][i])
+          : toHex((base + o + 360) % 360),
+    })),
+  ),
 }));
 ---
 

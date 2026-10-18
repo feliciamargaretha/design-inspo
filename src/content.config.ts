@@ -119,7 +119,7 @@ const entries = defineCollection({
           /** How the main hues relate on the color wheel. */
           harmony: z.enum(COLOR_HARMONIES),
           /** The palette hexes that form the harmony (shown on the wheel). */
-          harmonyColors: z.array(hex).min(1),
+          harmonyColors: z.array(hex).default([]),
           /** How much of each color is used. */
           strategy: z.enum(COLOR_STRATEGIES),
           mode: z.enum(COLOR_MODES),
@@ -241,6 +241,24 @@ const entries = defineCollection({
             message: `${hexValue} is a neutral and has no place on the color wheel.`,
           });
         }
+      }
+      if (entry.colors.harmony === "achromatic") {
+        // Achromatic: the colors that set the look must all be neutral.
+        for (const c of entry.colors.palette) {
+          if (c.tier !== "tertiary" && !isNeutral(c.hex)) {
+            ctx.addIssue({
+              code: "custom",
+              path: ["colors", "harmony"],
+              message: `${c.hex} is a ${c.tier} color with a hue, so the palette isn't achromatic.`,
+            });
+          }
+        }
+      } else if (entry.colors.harmonyColors.length === 0) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["colors", "harmonyColors"],
+          message: "List the palette hexes that form the harmony.",
+        });
       }
       const harmonyProblem = checkHarmony(
         entry.colors.harmony,
