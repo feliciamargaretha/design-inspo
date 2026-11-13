@@ -84,6 +84,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Illustration that looks hand-painted: visible brushstrokes, soft edges and colors that bleed into each other like watercolor, gouache or oil. Feels crafted, warm and a little nostalgic, the opposite of crisp flat vector art.",
   },
+  "googly-eyes": {
+    name: "Googly eyes",
+    aka: ["cartoon eyes", "toy eyes"],
+    definition:
+      "Big round cartoon eyes, white with black pupils, added to a page or object to give it a face. Instantly funny and friendly; often animated to blink, look around or react.",
+  },
   "character-mascot": {
     name: "Character mascot",
     aka: ["brand character"],
@@ -150,6 +156,12 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     aka: ["stamp border", "perforated edge"],
     definition:
       "An image framed like a postage stamp, with a scalloped, perforated edge and a pale border. Makes a picture feel collectible, handmade and personal, like something sent in the mail.",
+  },
+  "sliced-tiles": {
+    name: "Sliced tiles",
+    aka: ["tile mosaic", "puzzle grid"],
+    definition:
+      "An image cut into a grid of square tiles that are slightly out of place, like a sliding puzzle that isn't quite solved. Makes a simple graphic feel playful and handmade; often the tiles shift around.",
   },
   "color-blocking": {
     name: "Color blocking",
@@ -277,6 +289,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A heading starts faded and darkens letter by letter as you scroll, tied to the scroll position rather than a timer: stop scrolling and the fill stops with you. Makes you read the line at the pace you move.",
   },
+  "masked-text": {
+    name: "Masked text",
+    aka: ["text color swap", "knockout text"],
+    definition:
+      "Text that changes color where a moving shape passes over it, as if the shape were a window or water. Made by stacking two copies of the text in different colors and clipping one to the shape.",
+  },
   "fade-in": {
     name: "Fade-in",
     definition:
@@ -371,6 +389,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A pretend mouse pointer that moves around the page on its own, clicking, dragging and typing to act out how a product works. It shows the interaction instead of describing it, and loops so it's always mid-demo.",
   },
+  "cursor-follow": {
+    name: "Cursor following",
+    aka: ["look-at cursor", "eye tracking"],
+    definition:
+      "Something on the page turns or moves to follow your pointer, most often a pair of eyes that watch the mouse. A tiny bit of attention that makes the page feel alive and aware of you.",
+  },
   "micro-interaction": {
     name: "Micro-interaction",
     definition:
@@ -442,7 +466,7 @@ export const COLOR_HARMONY_TERMS: Glossary<typeof COLOR_HARMONIES> = {
   triadic: {
     name: "Triadic",
     definition:
-      "Three hues evenly spaced around the wheel, 120° apart (e.g. red, yellow, blue). Vibrant and balanced, often playful.",
+      "Three hues evenly spaced around the wheel, 120° apart (e.g. red, yellow, blue). Vibrant and balanced, often playful. A palette can also use just two corners of a triad, two hues about 120° apart, for strong contrast that is less harsh than a complementary pair.",
   },
   tetradic: {
     name: "Tetradic (rectangle)",
