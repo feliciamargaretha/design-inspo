@@ -418,6 +418,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A tiny animated response to a single action, like a toggle sliding, a heart popping or a button confirming.",
   },
+  "tear-off": {
+    name: "Tear-off interaction",
+    aka: ["tear-off calendar", "rip-off page"],
+    definition:
+      "A click rips a piece of the interface away like a page from a desk calendar or a ticket stub: it tilts, falls off and leaves a jagged torn edge behind. A physical, satisfying way to mark something as taken, claimed or done.",
+  },
   "page-transition": {
     name: "Page transition",
     definition:

@@ -245,6 +245,7 @@ motion:
       cursor-follow,
       idle-animation,
       micro-interaction,
+      tear-off,
       marquee,
     ]
   what: >-
@@ -260,14 +261,20 @@ motion:
     cursor following to watch your mouse, blink on their own as an idle
     animation, and react to each checkbox you tick as a micro-interaction:
     they squint, blink, and once all three are ticked look down with a
-    tear. Marquees of text and logos run between sections, and at the
+    tear. "Get a day back" shows the week as a tear-off desk calendar: hovering
+    a day tugs its page down slightly, and clicking it uses a tear-off
+    interaction, the page tilting and falling away to leave a white
+    "✓ Claimed" sheet with a jagged torn top, and opens the sign-up form
+    ("Join the beta and take your Sundays back"). Marquees of text and logos
+    run between sections, and at the
     bottom the tiles of the smiley shift as you scroll before settling.
   why: >-
     No statement from the team about motion was found, so this is our
     interpretation. The hero turns the headline into a tiny story: you
     watch the words drown in admin, then scroll and they're gone under,
     which lands the problem before you've read anything else. The eyes
-    make a checklist feel like a conversation; ticking "multiple clients"
+    make a checklist feel like a conversation, and tearing a day off the
+    calendar turns "get a day back" into something you physically do; ticking "multiple clients"
     and watching them cry is a joke that also says "we see you". The
     self-playing demo shows the promise (talk, and it's organized) without
     asking you to click anything.
@@ -294,6 +301,10 @@ motion:
       alt: Ticking three checkboxes one by one while the eyes squint, blink and finally look down with a tear
       caption: Eyes reacting to each ticked box
       terms: [micro-interaction, cursor-follow]
+    - src: motion-tear-off.webp
+      alt: Clicking Saturday on a red tear-off calendar, the page tilting and falling away to leave a white Claimed sheet with a jagged torn top, while a sign-up form opens beside it
+      caption: Tear-off calendar day (recorded at quarter speed, played back at real speed)
+      terms: [tear-off]
     - src: motion-blink.webp
       alt: The googly eyes closing and opening in a blink
       caption: Idle blink

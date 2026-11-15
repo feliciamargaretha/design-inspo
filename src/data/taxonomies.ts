@@ -220,6 +220,7 @@ export const MOTION_TYPES = [
   "cursor-reactive-pattern",
   "cursor-trail",
   "micro-interaction",
+  "tear-off",
   "page-transition",
   "filter-transition",
   "intro-animation",
