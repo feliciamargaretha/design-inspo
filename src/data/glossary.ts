@@ -162,6 +162,12 @@ export const IMAGERY_TREATMENT_TERMS: Glossary<typeof IMAGERY_TREATMENTS> = {
     definition:
       "Pieces of interface pulled out into separate cards that overlap and float with shadows, to highlight specific features.",
   },
+  "card-pile": {
+    name: "Card pile",
+    aka: ["scattered cards", "tossed cards", "messy stack"],
+    definition:
+      "Cards dropped on top of each other at slight, random angles, like photos or sticky notes tossed on a table. Feels casual, hands-on and alive, the opposite of a tidy grid.",
+  },
   "multiplayer-cursors": {
     name: "Multiplayer cursors",
     aka: ["collaboration cursors", "cursor callouts"],
@@ -227,6 +233,12 @@ export const TEXTURE_TERMS: Glossary<typeof TEXTURES> = {
     aka: ["ordered dither", "Bayer dither"],
     definition:
       "Same-size dots on a regular grid that fake in-between shades by mixing two colors, like early computer graphics. Used to fade one area into another with a grainy, pixel-by-pixel edge instead of a smooth gradient. Unlike halftone, the dots don't change size.",
+  },
+  "rough-edge": {
+    name: "Rough edge",
+    aka: ["dry-brush edge", "torn edge", "ragged edge"],
+    definition:
+      "A shape whose edge is ragged and speckled, as if painted with a dry brush or torn from paper, instead of a clean straight line. Adds a hand-made, analog feel to digital layouts.",
   },
   "soft-gradient": {
     name: "Soft gradient",
@@ -365,6 +377,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     definition:
       "A background pattern of dots, lines or characters that responds to your pointer: marks near the cursor grow, darken or change shape, then settle back once it moves away. Makes a quiet background feel alive without distracting.",
   },
+  "cursor-trail": {
+    name: "Cursor trail",
+    aka: ["mouse trail", "pointer trail"],
+    definition:
+      "A mark that follows your mouse, such as a line, a dot or a fading stroke, so moving the pointer draws on the page. Makes browsing feel physical, like sketching with a pen.",
+  },
   "scripted-cursor": {
     name: "Scripted cursor",
     aka: ["demo cursor", "ghost cursor", "fake cursor"],
@@ -380,6 +398,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     name: "Page transition",
     definition:
       "Animation between two pages or views (fade, slide, morph) so navigation feels continuous.",
+  },
+  "filter-transition": {
+    name: "Filter transition",
+    aka: ["animated filtering", "grid shuffle"],
+    definition:
+      "When you pick a filter or topic, the old items animate out and the matching ones animate into place, instead of the page simply reloading. Makes the content feel like it's responding to you.",
   },
   "skeleton-loading": {
     name: "Skeleton loading",
