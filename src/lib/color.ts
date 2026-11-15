@@ -119,9 +119,10 @@ export function checkHarmony(harmony: Harmony, hexes: string[]): string | null {
         ? null
         : fail("3 hues: a base plus two hues about 150° away on either side.");
     case "triadic":
-      return n === 3 && pairs.every((d) => near(d, 120, 25))
+      // Two hues ~120° apart count too: two corners of a triad.
+      return (n === 2 || n === 3) && pairs.every((d) => near(d, 120, 25))
         ? null
-        : fail("3 hues about 120° apart.");
+        : fail("2 or 3 hues about 120° apart.");
     case "tetradic": {
       // Two complementary pairs (a rectangle on the wheel).
       if (n !== 4) return fail("4 hues forming two opposite pairs.");
@@ -209,6 +210,15 @@ export function describeHarmony(
       const [c, d] = rest.filter((p) => p !== partner);
       return `Two complementary pairs: ${apart(a!, partner)}, and ${apart(c!, d!)}.`;
     }
+    case "triadic":
+      if (pts.length === 2) {
+        // Midpoint of the short arc between them, then the opposite side.
+        const [p, q] = [pts[0]!.h, pts[1]!.h];
+        const mid = (p + (((q - p + 540) % 360) - 180) / 2 + 360) % 360;
+        const missing = Math.round((mid + 180) % 360);
+        return `${apart(pts[0]!, pts[1]!)}: two corners of a triad. The third corner, around ${missing}°, is left out.`;
+      }
+    // falls through
     default: {
       const sorted = [...pts].sort((x, y) => x.h - y.h);
       const gaps = sorted.map((p, i) =>
