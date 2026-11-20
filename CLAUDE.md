@@ -33,6 +33,7 @@ Astro + TypeScript static site, deployed to GitHub Pages (`base: /design-inspo`)
 - Media goes in `public/media/<entry-id>/`. Prefer `.webp` for screenshots and `.mp4`/`.webm` for recordings; keep files small. Each entry needs a `cover.webp` (960×600 crop of the first viewport) for cards.
 - Only describe motion you have actually observed on the live page.
 - Scroll-driven pages (scrollytelling, pinned scenes) don't work as one full-page screenshot: use a storyboard of viewport frames taken while scrolling as the first media item (with a caption saying so), and record scenes by scrolling through them. Check whether motion is scroll-linked or time-based before naming it (compare frames while idle vs while scrolling).
+- If the capture reports a page height of one screen (e.g. 900px), the page probably scrolls inside a container (`overflow: auto` on an inner element, the body locked): capture frames by scrolling that element, treat it as a scroll-driven page, and rebuild the cover from a frame taken after the fonts have loaded.
 
 ## Site design
 

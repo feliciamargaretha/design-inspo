@@ -72,6 +72,12 @@ export const IMAGERY_STYLE_TERMS: Glossary<typeof IMAGERY_STYLES> = {
     definition:
       "Letters given depth, as if pushed out of the page into solid 3D objects, with visible sides and shading. Loud, playful and hard to ignore.",
   },
+  "pixel-art": {
+    name: "Pixel art",
+    aka: ["1-bit art", "bitmap illustration"],
+    definition:
+      "Pictures drawn on a visible grid of square pixels, often in just black and white (1-bit), like icons on an early Mac. Feels nostalgic, handmade and a little computer-geeky.",
+  },
   "hand-drawn": {
     name: "Hand-drawn",
     aka: ["doodle"],
@@ -352,6 +358,12 @@ export const MOTION_TERMS: Glossary<typeof MOTION_TYPES> = {
     aka: ["ticker", "logo scroller"],
     definition:
       "A strip of text or logos that scrolls sideways on its own in an endless loop.",
+  },
+  "tabbed-crossfade": {
+    name: "Tabbed crossfade",
+    aka: ["segmented control", "view switcher"],
+    definition:
+      "A row of tabs where choosing one fades the current content out and the new content in, in the same spot, instead of jumping to another page. Lets one small area show several versions of something.",
   },
   carousel: {
     name: "Carousel",
